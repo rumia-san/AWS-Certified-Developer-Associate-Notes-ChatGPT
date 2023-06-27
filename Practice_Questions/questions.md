@@ -992,3 +992,71 @@ A不对是因为这是asynchronously的，所以前端永远202
 
 ---
 
+Question #61
+
+A company is building a web application on AWS. When a customer sends a request, the application will generate reports and then make the reports available to the customer within one hour. Reports should be accessible to the customer for 8 hours. Some reports are larger than 1 MB. Each report is unique to the customer. The application should delete all reports that are older than 2 days.
+Which solution will meet these requirements with the LEAST operational overhead?
+
+A. Generate the reports and then store the reports as Amazon DynamoDB items that have a specified TTL. Generate a URL that retrieves the reports from DynamoDB. Provide the URL to customers through the web application.
+B. Generate the reports and then store the reports in an Amazon S3 bucket that uses server-side encryption. Attach the reports to an Amazon Simple Notification Service (Amazon SNS) message. Subscribe the customer to email notifications from Amazon SNS.
+C. Generate the reports and then store the reports in an Amazon S3 bucket that uses server-side encryption. Generate a presigned URL that contains an expiration date Provide the URL to customers through the web application. Add S3 Lifecycle configuration rules to the S3 bucket to delete old reports.
+D. Generate the reports and then store the reports in an Amazon RDS database with a date stamp. Generate an URL that retrieves the reports from the RDS database. Provide the URL to customers through the web application. Schedule an hourly AWS Lambda function to delete database records that have expired date stamps.
+
+Correct Answer: C
+
+---
+
+Question #62
+
+A company has deployed an application on AWS Elastic Beanstalk. The company has configured the Auto Scaling group that is associated with the Elastic Beanstalk environment to have five Amazon EC2 instances. If the capacity is fewer than four EC2 instances during the deployment, application performance degrades. The company is using the all-at-once deployment policy.
+What is the MOST cost-effective way to solve the deployment issue?
+
+A. Change the Auto Scaling group to six desired instances.
+B. Change the deployment policy to traffic splitting. Specify an evaluation time of 1 hour.
+C. Change the deployment policy to rolling with additional batch. Specify a batch size of 1.
+D. Change the deployment policy to rolling. Specify a batch size of 2.
+
+Correct Answer: C
+
+---
+
+Question #63
+
+A developer is incorporating AWS X-Ray into an application that handles personal identifiable information (PII). The application is hosted on Amazon EC2 instances. The application trace messages include encrypted PII and go to Amazon CloudWatch. The developer needs to ensure that no PII goes outside of the EC2 instances.
+Which solution will meet these requirements?
+
+A. Manually instrument the X-Ray SDK in the application code.
+B. Use the X-Ray auto-instrumentation agent.
+C. Use Amazon Macie to detect and hide PII. Call the X-Ray API from AWS Lambda.
+D. Use AWS Distro for Open Telemetry.
+
+Correct Answer: A
+
+C is wrong, Amazon Macie discover PII but dont hide it
+
+---
+
+Question #64
+
+A developer is migrating some features from a legacy monolithic application to use AWS Lambda functions instead. The application currently stores data in an Amazon Aurora DB cluster that runs in private subnets in a VPC. The AWS account has one VPC deployed. The Lambda functions and the DB cluster are deployed in the same AWS Region in the same AWS account.
+The developer needs to ensure that the Lambda functions can securely access the DB cluster without crossing the public internet.
+Which solution will meet these requirements?
+
+A. Configure the DB cluster's public access setting to Yes.
+B. Configure an Amazon RDS database proxy for he Lambda functions.
+C. Configure a NAT gateway and a security group for the Lambda functions.
+D. Configure the VPC, subnets, and a security group for the Lambda functions.
+
+Correct Answer: D 
+
+Lambda in VPC
+• You must define the VPC ID, the Subnets and the Security Groups
+• Lambda will create an ENI (Elastic Network Interface) in your subnets
+
+• A Lambda function in your VPC does not have internet access 
+• Deploying a Lambda function in a public subnet does not give it internet access or a public IP
+• Deploying a Lambda function in a private subnet gives it internet access if you have a NAT Gateway / Instance
+• You can use VPC endpoints to privately access AWS services without a NAT
+
+---
+
