@@ -161,6 +161,11 @@ Listener 使用请求的协议和端口信息来确定将请求路由到哪个�
 
 ---
 
+# Cross-Zone Load Balancing
+https://docs.aws.amazon.com/zh_cn/elasticloadbalancing/latest/userguide/how-elastic-load-balancing-works.html
+
+---
+
 # SQS visibility timeout是什么
 
 SQS（Simple Queue Service）中的 Visibility Timeout 是一个与消息可见性相关的设置。当消费者从队列中接收消息时，消息将在可见性超时期间保持可见状态。在此期间，其他消费者无法看到该消息并进行处理。
@@ -664,8 +669,12 @@ https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/using-features.rolling-ve
 ---
 
 # CloudFormation Building Blocks
-## Templates components
 
+## Pseudo parameters
+https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/pseudo-parameter-reference.html
+
+
+## Templates components
 https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html
 
 ```yaml
@@ -718,6 +727,8 @@ Outputs:
 
 ---
 
-# Lambda Authorizer
+# API Gateway Lambda Authorizer
 
 ---
+
+# RDS read replicas

@@ -22,3 +22,8 @@ On-premise 部署模式通常用于那些对数据安全性、合规性和可控
 
 选择 On-premise 还是云计算取决于企业的需求、资源和优先级。每种模式都有其优势和劣势，需要根据具体情况进行评估和决策。
 
+# Differences between Dedicated Hosts and Dedicated Instances
+
+Dedicated Host更贵
+
+https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-hosts-overview.html#dedicated-hosts-dedicated-instances
