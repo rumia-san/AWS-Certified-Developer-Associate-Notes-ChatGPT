@@ -646,3 +646,349 @@ Answer A is wrong because you do not need to configure outbound rule for securit
 
 ---
 
+Question #41
+
+A developer is building a web application that uses Amazon API Gateway to expose an AWS Lambda function to process requests from clients. During testing, the developer notices that the API Gateway times out even though the Lambda function finishes under the set time limit.
+Which of the following API Gateway metrics in Amazon CloudWatch can help the developer troubleshoot the issue? (Choose two.)
+
+A. CacheHitCount
+B. IntegrationLatency
+C. CacheMissCount
+D. Latency
+E. Count
+
+Correct Answer: BD 
+
+• IntegrationLatency: The time between when API Gateway relays a 
+request to the backend and when it receives a response from the 
+backend.
+• Latency: The time between when API Gateway receives a request from 
+a client and when it returns a response to the client. The latency 
+includes the integration latency and other API Gateway overhead.
+
+---
+
+Question #42
+
+A development team wants to build a continuous integration/continuous delivery (CI/CD) pipeline. The team is using AWS CodePipeline to automate the code build and deployment. The team wants to store the program code to prepare for the CI/CD pipeline.
+Which AWS service should the team use to store the program code?
+
+A. AWS CodeDeploy
+B. AWS CodeArtifact
+C. AWS CodeCommit
+D. Amazon CodeGuru
+
+Correct Answer: C 
+
+---
+
+Question #43
+
+A developer is designing an AWS Lambda function that creates temporary files that are less than 10 MB during invocation. The temporary files will be accessed and modified multiple times during invocation. The developer has no need to save or retrieve these files in the future.
+Where should the temporary files be stored?
+
+A. the /tmp directory
+B. Amazon Elastic File System (Amazon EFS)
+C. Amazon Elastic Block Store (Amazon EBS)
+D. Amazon S3
+
+Correct Answer: A 
+
+---
+
+Question #44
+
+A developer is designing a serverless application with two AWS Lambda functions to process photos. One Lambda function stores objects in an Amazon S3 bucket and stores the associated metadata in an Amazon DynamoDB table. The other Lambda function fetches the objects from the S3 bucket by using the metadata from the DynamoDB table. Both Lambda functions use the same Python library to perform complex computations and are approaching the quota for the maximum size of zipped deployment packages.
+What should the developer do to reduce the size of the Lambda deployment packages with the LEAST operational overhead?
+
+A. Package each Python library in its own .zip file archive. Deploy each Lambda function with its own copy of the library.
+B. Create a Lambda layer with the required Python library. Use the Lambda layer in both Lambda functions.
+C. Combine the two Lambda functions into one Lambda function. Deploy the Lambda function as a single .zip file archive.
+D. Download the Python library to an S3 bucket. Program the Lambda functions to reference the object URLs.
+
+Correct Answer: B 
+
+Lambda 层是可以包含其他代码或其他内容的 .zip 文件归档。层可以包含库、自定义运行时、数据或配置文件。使用层可以缩小部署包大小，并促进代码共享和责任分离，以便您可以更快地迭代编写业务逻辑。
+
+---
+Question #45
+
+A developer is writing an AWS Lambda function. The developer wants to log key events that occur while the Lambda function runs. The developer wants to include a unique identifier to associate the events with a specific function invocation. The developer adds the following code to the Lambda function:
+
+```
+function handler(evnet, context){
+}
+```
+
+Which solution will meet this requirement?
+
+A. Obtain the request identifier from the AWS request ID field in the context object. Configure the application to write logs to standard output.
+B. Obtain the request identifier from the AWS request ID field in the event object. Configure the application to write logs to a file.
+C. Obtain the request identifier from the AWS request ID field in the event object. Configure the application to write logs to standard output.
+D. Obtain the request identifier from the AWS request ID field in the context object. Configure the application to write logs to a file.
+
+Correct Answer: A
+
+Event Object
+• JSON-formatted document contains data for the function to process
+• Contains information from the invoking service (e.g., EventBridge, custom, …)
+• Lambda runtime converts the event to an object (e.g., dict type in Python)
+• Example: input arguments, invoking service arguments, …
+
+Context Object
+• Provides methods and properties that provide information about the invocation, 
+function, and runtime environment
+• Passed to your function by Lambda at runtime
+• Example: aws_request_id, function_name, memory_limit_in_mb
+
+---
+
+Question #46
+
+A developer is working on a serverless application that needs to process any changes to an Amazon DynamoDB table with an AWS Lambda function.
+How should the developer configure the Lambda function to detect changes to the DynamoDB table?
+
+A. Create an Amazon Kinesis data stream, and attach it to the DynamoDB table. Create a trigger to connect the data stream to the Lambda function.
+B. Create an Amazon EventBridge rule to invoke the Lambda function on a regular schedule. Conned to the DynamoDB table from the Lambda function to detect changes.
+C. Enable DynamoDB Streams on the table. Create a trigger to connect the DynamoDB stream to the Lambda function.
+D. Create an Amazon Kinesis Data Firehose delivery stream, and attach it to the DynamoDB table. Configure the delivery stream destination as the Lambda function.
+
+Correct Answer: C 
+
+---
+
+Question #47
+
+An application uses an Amazon EC2 Auto Scaling group. A developer notices that EC2 instances are taking a long time to become available during scale-out events. The UserData script is taking a long time to run.
+The developer must implement a solution to decrease the time that elapses before an EC2 instance becomes available. The solution must make the most recent version of the application available at all times and must apply all available security updates. The solution also must minimize the number of images that are created. The images must be validated.
+Which combination of steps should the developer take to meet these requirements? (Choose two.)
+
+A. Use EC2 Image Builder to create an Amazon Machine Image (AMI). Install all the patches and agents that are needed to manage and run the application. Update the Auto Scaling group launch configuration to use the AMI.
+B. Use EC2 Image Builder to create an Amazon Machine Image (AMI). Install the latest version of the application and all the patches and agents that are needed to manage and run the application. Update the Auto Scaling group launch configuration to use the AMI.
+C. Set up AWS CodeDeploy to deploy the most recent version of the application at runtime.
+D. Set up AWS CodePipeline to deploy the most recent version of the application at runtime.
+E. Remove any commands that perform operating system patching from the UserData script.
+
+Correct Answer: AE （不确定）
+
+Question #48
+
+A developer is creating an AWS Lambda function that needs credentials to connect to an Amazon RDS for MySQL database. An Amazon S3 bucket currently stores the credentials. The developer needs to improve the existing solution by implementing credential rotation and secure storage. The developer also needs to provide integration with the Lambda function.
+Which solution should the developer use to store and retrieve the credentials with the LEAST management overhead?
+
+A. Store the credentials in AWS Systems Manager Parameter Store. Select the database that the parameter will access. Use the default AWS Key Management Service (AWS KMS) key to encrypt the parameter. Enable automatic rotation for the parameter. Use the parameter from Parameter Store on the Lambda function to connect to the database.
+B. Encrypt the credentials with the default AWS Key Management Service (AWS KMS) key. Store the credentials as environment variables for the Lambda function. Create a second Lambda function to generate new credentials and to rotate the credentials by updating the environment variables of the first Lambda function. Invoke the second Lambda function by using an Amazon EventBridge rule that runs on a schedule. Update the database to use the new credentials. On the first Lambda function, retrieve the credentials from the environment variables. Decrypt the credentials by using AWS KMS, Connect to the database.
+C. Store the credentials in AWS Secrets Manager. Set the secret type to Credentials for Amazon RDS database. Select the database that the secret will access. Use the default AWS Key Management Service (AWS KMS) key to encrypt the secret. Enable automatic rotation for the secret. Use the secret from Secrets Manager on the Lambda function to connect to the database.
+D. Encrypt the credentials by using AWS Key Management Service (AWS KMS). Store the credentials in an Amazon DynamoDB table. Create a second Lambda function to rotate the credentials. Invoke the second Lambda function by using an Amazon EventBridge rule that runs on a schedule. Update the DynamoDB table. Update the database to use the generated credentials. Retrieve the credentials from DynamoDB with the first Lambda function. Connect to the database.
+
+Correct Answer: C 
+
+---
+
+Question #49 
+
+A developer has written the following IAM policy to provide access to an Amazon S3 bucket:
+![image3](./image3.png)
+Which access does the policy allow regarding the s3:GetObject and s3:PutObject actions?
+
+A. Access on all buckets except the “DOC-EXAMPLE-BUCKET” bucket
+B. Access on all buckets that start with “DOC-EXAMPLE-BUCKET” except the “DOC-EXAMPLE-BUCKET/secrets” bucket
+C. Access on all objects in the “DOC-EXAMPLE-BUCKET” bucket along with access to all S3 actions for objects in the “DOC-EXAMPLE-BUCKET” bucket that start with “secrets”
+D. Access on all objects in the “DOC-EXAMPLE-BUCKET” bucket except on objects that start with “secrets”
+
+Correct Answer: D 
+
+---
+
+Question #50
+
+A developer is creating a mobile app that calls a backend service by using an Amazon API Gateway REST API. For integration testing during the development phase, the developer wants to simulate different backend responses without invoking the backend service.
+Which solution will meet these requirements with the LEAST operational overhead?
+
+A. Create an AWS Lambda function. Use API Gateway proxy integration to return constant HTTP responses.
+B. Create an Amazon EC2 instance that serves the backend REST API by using an AWS CloudFormation template.
+C. Customize the API Gateway stage to select a response type based on the request.
+D. Use a request mapping template to select the mock integration response.
+
+Correct Answer: D
+
+---
+
+
+Question #51
+
+A developer has a legacy application that is hosted on-premises. Other applications hosted on AWS depend on the on-premises application for proper functioning. In case of any application errors, the developer wants to be able to use Amazon CloudWatch to monitor and troubleshoot all applications from one place.
+How can the developer accomplish this?
+
+A. Install an AWS SDK on the on-premises server to automatically send logs to CloudWatch.
+B. Download the CloudWatch agent to the on-premises server. Configure the agent to use IAM user credentials with permissions for CloudWatch.
+C. Upload log files from the on-premises server to Amazon S3 and have CloudWatch read the files.
+D. Upload log files from the on-premises server to an Amazon EC2 instance and have the instance forward the logs to CloudWatch.
+
+Correct Answer: B
+
+---
+
+Question #52
+
+An Amazon Kinesis Data Firehose delivery stream is receiving customer data that contains personally identifiable information. A developer needs to remove pattern-based customer identifiers from the data and store the modified data in an Amazon S3 bucket.
+What should the developer do to meet these requirements?
+
+A. Implement Kinesis Data Firehose data transformation as an AWS Lambda function. Configure the function to remove the customer identifiers. Set an Amazon S3 bucket as the destination of the delivery stream.
+B. Launch an Amazon EC2 instance. Set the EC2 instance as the destination of the delivery stream. Run an application on the EC2 instance to remove the customer identifiers. Store the transformed data in an Amazon S3 bucket.
+C. Create an Amazon OpenSearch Service instance. Set the OpenSearch Service instance as the destination of the delivery stream. Use search and replace to remove the customer identifiers. Export the data to an Amazon S3 bucket.
+D. Create an AWS Step Functions workflow to remove the customer identifiers. As the last step in the workflow, store the transformed data in an Amazon S3 bucket. Set the workflow as the destination of the delivery stream.
+
+Correct Answer: A 
+
+---
+
+Question #53
+
+A developer is using an AWS Lambda function to generate avatars for profile pictures that are uploaded to an Amazon S3 bucket. The Lambda function is automatically invoked for profile pictures that are saved under the /original/ S3 prefix. The developer notices that some pictures cause the Lambda function to time out. The developer wants to implement a fallback mechanism by using another Lambda function that resizes the profile picture.
+Which solution will meet these requirements with the LEAST development effort?
+
+A. Set the image resize Lambda function as a destination of the avatar generator Lambda function for the events that fail processing.
+B. Create an Amazon Simple Queue Service (Amazon SQS) queue. Set the SQS queue as a destination with an on failure condition for the avatar generator Lambda function. Configure the image resize Lambda function to poll from the SQS queue.
+C. Create an AWS Step Functions state machine that invokes the avatar generator Lambda function and uses the image resize Lambda function as a fallback. Create an Amazon EventBridge rule that matches events from the S3 bucket to invoke the state machine.
+D. Create an Amazon Simple Notification Service (Amazon SNS) topic. Set the SNS topic as a destination with an on failure condition for the avatar generator Lambda function. Subscribe the image resize Lambda function to the SNS topic.
+
+Correct Answer: A 不确定
+
+Nov 2019: Can configure to send result to a 
+destination
+Asynchronous invocations - can define destinations for 
+successful and failed event:
+• Amazon SQS
+• Amazon SNS
+• AWS Lambda
+• Amazon EventBridge bus
+Note: AWS recommends you use destinations instead of 
+DLQ now (but both can be used at the same time)
+
+---
+
+Question #54
+
+A developer needs to migrate an online retail application to AWS to handle an anticipated increase in traffic. The application currently runs on two servers: one server for the web application and another server for the database. The web server renders webpages and manages session state in memory. The database server hosts a MySQL database that contains order details. When traffic to the application is heavy, the memory usage for the web server approaches 100% and the application slows down considerably.
+The developer has found that most of the memory increase and performance decrease is related to the load of managing additional user sessions. For the web server migration, the developer will use Amazon EC2 instances with an Auto Scaling group behind an Application Load Balancer.
+Which additional set of changes should the developer make to the application to improve the application's performance?
+
+A. Use an EC2 instance to host the MySQL database. Store the session data and the application data in the MySQL database.
+B. Use Amazon ElastiCache for Memcached to store and manage the session data. Use an Amazon RDS for MySQL DB instance to store the application data.
+C. Use Amazon ElastiCache for Memcached to store and manage the session data and the application data.
+D. Use the EC2 instance store to manage the session data. Use an Amazon RDS for MySQL DB instance to store the application data.
+
+Correct Answer: B
+
+---
+
+Question #55
+
+An application uses Lambda functions to extract metadata from files uploaded to an S3 bucket; the metadata is stored in Amazon DynamoDB. The application starts behaving unexpectedly, and the developer wants to examine the logs of the Lambda function code for errors.
+Based on this system configuration, where would the developer find the logs?
+
+A. Amazon S3
+B. AWS CloudTrail
+C. Amazon CloudWatch
+D. Amazon DynamoDB
+
+Correct Answer: C
+
+---
+
+Question #56
+
+A company is using an AWS Lambda function to process records from an Amazon Kinesis data stream. The company recently observed slow processing of the records. A developer notices that the iterator age metric for the function is increasing and that the Lambda run duration is constantly above normal.
+Which actions should the developer take to increase the processing speed? (Choose two.)
+
+A. Increase the number of shards of the Kinesis data stream.
+B. Decrease the timeout of the Lambda function.
+C. Increase the memory that is allocated to the Lambda function.
+D. Decrease the number of shards of the Kinesis data stream.
+E. Increase the timeout of the Lambda function.
+
+Correct Answer: AC 
+
+https://repost.aws/knowledge-center/lambda-iterator-age
+
+A low number of shards in a stream increases a function's iterator age. Increasing the number of shards in a stream increases the number of concurrent Lambda functions consuming from your stream, which decreases a function's iterator age.
+
+---
+
+Question #57
+
+A company needs to harden its container images before the images are in a running state. The company's application uses Amazon Elastic Container Registry (Amazon ECR) as an image registry. Amazon Elastic Kubernetes Service (Amazon EKS) for compute, and an AWS CodePipeline pipeline that orchestrates a continuous integration and continuous delivery (CI/CD) workflow.
+Dynamic application security testing occurs in the final stage of the pipeline after a new image is deployed to a development namespace in the EKS cluster. A developer needs to place an analysis stage before this deployment to analyze the container image earlier in the CI/CD pipeline.
+Which solution will meet these requirements with the MOST operational efficiency?
+
+A. Build the container image and run the docker scan command locally. Mitigate any findings before pushing changes to the source code repository. Write a pre-commit hook that enforces the use of this workflow before commit.
+B. Create a new CodePipeline stage that occurs after the container image is built. Configure ECR basic image scanning to scan on image push. Use an AWS Lambda function as the action provider. Configure the Lambda function to check the scan results and to fail the pipeline if there are findings.
+C. Create a new CodePipeline stage that occurs after source code has been retrieved from its repository. Run a security scanner on the latest revision of the source code. Fail the pipeline if there are findings.
+D. Add an action to the deployment stage of the pipeline so that the action occurs before the deployment to the EKS cluster. Configure ECR basic image scanning to scan on image push. Use an AWS Lambda function as the action provider. Configure the Lambda function to check the scan results and to fail the pipeline if there are findings.
+
+Correct Answer: B 不确定
+
+---
+
+Question #58
+
+A developer is testing a new file storage application that uses an Amazon CloudFront distribution to serve content from an Amazon S3 bucket. The distribution accesses the S3 bucket by using an origin access identity (OAI). The S3 bucket's permissions explicitly deny access to all other users.
+The application prompts users to authenticate on a login page and then uses signed cookies to allow users to access their personal storage directories. The developer has configured the distribution to use its default cache behavior with restricted viewer access and has set the origin to point to the S3 bucket. However, when the developer tries to navigate to the login page, the developer receives a 403 Forbidden error.
+The developer needs to implement a solution to allow unauthenticated access to the login page. The solution also must keep all private content secure.
+Which solution will meet these requirements?
+
+A. Add a second cache behavior to the distribution with the same origin as the default cache behavior. Set the path pattern for the second cache behavior to the path of the login page, and make viewer access unrestricted. Keep the default cache behavior's settings unchanged.
+B. Add a second cache behavior to the distribution with the same origin as the default cache behavior. Set the path pattern for the second cache behavior to *, and make viewer access restricted. Change the default cache behavior's path pattern to the path of the login page, and make viewer access unrestricted.
+C. Add a second origin as a failover origin to the default cache behavior. Point the failover origin to the S3 bucket. Set the path pattern for the primary origin to *, and make viewer access restricted. Set the path pattern for the failover origin to the path of the login page, and make viewer access unrestricted.
+D. Add a bucket policy to the S3 bucket to allow read access. Set the resource on the policy to the Amazon Resource Name (ARN) of the login page object in the S3 bucket. Add a CloudFront function to the default cache behavior to redirect unauthorized requests to the login page's S3 URL.
+
+Correct Answer: A
+
+Cache Behaviors是CloudFront的内容
+
+• Configure different settings for a given URL path 
+pattern
+• Example: one specific cache behavior to images/*.jpg 
+files on your origin web server
+• Route to different kind of origins/origin groups 
+based on the content type or path pattern
+• /images/*
+• /api/*
+• /* (default cache behavior)
+• When adding additional Cache Behaviors, the 
+Default Cache Behavior is always the last to be 
+processed and is always /*
+
+---
+
+Question #59
+
+A developer is using AWS Amplify Hosting to build and deploy an application. The developer is receiving an increased number of bug reports from users. The developer wants to add end-to-end testing to the application to eliminate as many bugs as possible before the bugs reach production.
+Which solution should the developer implement to meet these requirements?
+
+A. Run the amplify add test command in the Amplify CLI.
+B. Create unit tests in the application. Deploy the unit tests by using the amplify push command in the Amplify CLI.
+C. Add a test phase to the amplify.yml build settings for the application.
+D. Add a test phase to the aws-exports.js file for the application.
+
+Correct Answer: C
+
+---
+
+Question #60
+
+An ecommerce company is using an AWS Lambda function behind Amazon API Gateway as its application tier. To process orders during checkout, the application calls a POST API from the frontend. The POST API invokes the Lambda function asynchronously. In rare situations, the application has not processed orders. The Lambda application logs show no errors or failures.
+What should a developer do to solve this problem?
+
+A. Inspect the frontend logs for API failures. Call the POST API manually by using the requests from the log file.
+B. Create and inspect the Lambda dead-letter queue. Troubleshoot the failed functions. Reprocess the events.
+C. Inspect the Lambda logs in Amazon CloudWatch for possible errors. Fix the errors.
+D. Make sure that caching is disabled for the POST API in API Gateway.
+
+Correct Answer: B
+
+A不对是因为这是asynchronously的，所以前端永远202
+
+---
+
