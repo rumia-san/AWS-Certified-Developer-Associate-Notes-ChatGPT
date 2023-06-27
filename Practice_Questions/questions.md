@@ -2,10 +2,10 @@ A company is implementing an application on Amazon EC2 instances. The applicatio
 A developer needs to implement a solution to store the access token. The access token must be encrypted at rest and in transit. The access token must also be accessible from other AWS accounts.
 Which solution will meet these requirements with the LEAST management overhead?
 
-    A. Use an AWS Systems Manager Parameter Store SecureString parameter that uses an AWS Key Management Service (AWS KMS) AWS managed key to store the access token. Add a resource-based policy to the parameter to allow access from other accounts. Update the IAM role of the EC2 instances with permissions to access Parameter Store. Retrieve the token from Parameter Store with the decrypt flag enabled. Use the decrypted access token to send the message to the chat.
-    B. Encrypt the access token by using an AWS Key Management Service (AWS KMS) customer managed key. Store the access token in an Amazon DynamoDB table. Update the IAM role of the EC2 instances with permissions to access DynamoDB and AWS KMS. Retrieve the token from DynamoDDecrypt the token by using AWS KMS on the EC2 instances. Use the decrypted access token to send the message to the chat.
-    C. Use AWS Secrets Manager with an AWS Key Management Service (AWS KMS) customer managed key to store the access token. Add a resource-based policy to the secret to allow access from other accounts. Update the IAM role of the EC2 instances with permissions to access Secrets Manager. Retrieve the token from Secrets Manager. Use the decrypted access token to send the message to the chat.
-    D. Encrypt the access token by using an AWS Key Management Service (AWS KMS) AWS managed key. Store the access token in an Amazon S3 bucket. Add a bucket policy to the S3 bucket to allow access from other accounts. Update the IAM role of the EC2 instances with permissions to access Amazon S3 and AWS KMS. Retrieve the token from the S3 bucket. Decrypt the token by using AWS KMS on the EC2 instances. Use the decrypted access token to send the massage to the chat.
+A. Use an AWS Systems Manager Parameter Store SecureString parameter that uses an AWS Key Management Service (AWS KMS) AWS managed key to store the access token. Add a resource-based policy to the parameter to allow access from other accounts. Update the IAM role of the EC2 instances with permissions to access Parameter Store. Retrieve the token from Parameter Store with the decrypt flag enabled. Use the decrypted access token to send the message to the chat.
+B. Encrypt the access token by using an AWS Key Management Service (AWS KMS) customer managed key. Store the access token in an Amazon DynamoDB table. Update the IAM role of the EC2 instances with permissions to access DynamoDB and AWS KMS. Retrieve the token from DynamoDDecrypt the token by using AWS KMS on the EC2 instances. Use the decrypted access token to send the message to the chat.
+C. Use AWS Secrets Manager with an AWS Key Management Service (AWS KMS) customer managed key to store the access token. Add a resource-based policy to the secret to allow access from other accounts. Update the IAM role of the EC2 instances with permissions to access Secrets Manager. Retrieve the token from Secrets Manager. Use the decrypted access token to send the message to the chat.
+D. Encrypt the access token by using an AWS Key Management Service (AWS KMS) AWS managed key. Store the access token in an Amazon S3 bucket. Add a bucket policy to the S3 bucket to allow access from other accounts. Update the IAM role of the EC2 instances with permissions to access Amazon S3 and AWS KMS. Retrieve the token from the S3 bucket. Decrypt the token by using AWS KMS on the EC2 instances. Use the decrypted access token to send the massage to the chat.
 
 Correct Answer:  C 不确定
 
@@ -16,10 +16,10 @@ Correct Answer:  C 不确定
 A company is running Amazon EC2 instances in multiple AWS accounts. A developer needs to implement an application that collects all the lifecycle events of the EC2 instances. The application needs to store the lifecycle events in a single Amazon Simple Queue Service (Amazon SQS) queue in the company's main AWS account for further processing.
 Which solution will meet these requirements?
 
-    A. Configure Amazon EC2 to deliver the EC2 instance lifecycle events from all accounts to the Amazon EventBridge event bus of the main account. Add an EventBridge rule to the event bus of the main account that matches all EC2 instance lifecycle events. Add the SQS queue as a target of the rule.
-    B. Use the resource policies of the SQS queue in the main account to give each account permissions to write to that SQS queue. Add to the Amazon EventBridge event bus of each account an EventBridge rule that matches all EC2 instance lifecycle events. Add the SQS queue in the main account as a target of the rule.
-    C. Write an AWS Lambda function that scans through all EC2 instances in the company accounts to detect EC2 instance lifecycle changes. Configure the Lambda function to write a notification message to the SQS queue in the main account if the function detects an EC2 instance lifecycle change. Add an Amazon EventBridge scheduled rule that invokes the Lambda function every minute.
-    D. Configure the permissions on the main account event bus to receive events from all accounts. Create an Amazon EventBridge rule in each account to send all the EC2 instance lifecycle events to the main account event bus. Add an EventBridge rule to the main account event bus that matches all EC2 instance lifecycle events. Set the SQS queue as a target for the rule. 
+A. Configure Amazon EC2 to deliver the EC2 instance lifecycle events from all accounts to the Amazon EventBridge event bus of the main account. Add an EventBridge rule to the event bus of the main account that matches all EC2 instance lifecycle events. Add the SQS queue as a target of the rule.
+B. Use the resource policies of the SQS queue in the main account to give each account permissions to write to that SQS queue. Add to the Amazon EventBridge event bus of each account an EventBridge rule that matches all EC2 instance lifecycle events. Add the SQS queue in the main account as a target of the rule.
+C. Write an AWS Lambda function that scans through all EC2 instances in the company accounts to detect EC2 instance lifecycle changes. Configure the Lambda function to write a notification message to the SQS queue in the main account if the function detects an EC2 instance lifecycle change. Add an Amazon EventBridge scheduled rule that invokes the Lambda function every minute.
+D. Configure the permissions on the main account event bus to receive events from all accounts. Create an Amazon EventBridge rule in each account to send all the EC2 instance lifecycle events to the main account event bus. Add an EventBridge rule to the main account event bus that matches all EC2 instance lifecycle events. Set the SQS queue as a target for the rule. 
     
 Correct Answer: D 
 
@@ -30,10 +30,10 @@ Correct Answer: D
 An application is using Amazon Cognito user pools and identity pools for secure access. A developer wants to integrate the user-specific file upload and download features in the application with Amazon S3. The developer must ensure that the files are saved and retrieved in a secure manner and that users can access only their own files. The file sizes range from 3 KB to 300 MB.
 Which option will meet these requirements with the HIGHEST level of security?
 
-    A. Use S3 Event Notifications to validate the file upload and download requests and update the user interface (UI).
-    B. Save the details of the uploaded files in a separate Amazon DynamoDB table. Filter the list of files in the user interface (UI) by comparing the current user ID with the user ID associated with the file in the table.
-    C. Use Amazon API Gateway and an AWS Lambda function to upload and download files. Validate each request in the Lambda function before performing the requested operation.
-    D. Use an IAM policy within the Amazon Cognito identity prefix to restrict users to use their own folders in Amazon S3. 
+A. Use S3 Event Notifications to validate the file upload and download requests and update the user interface (UI).
+B. Save the details of the uploaded files in a separate Amazon DynamoDB table. Filter the list of files in the user interface (UI) by comparing the current user ID with the user ID associated with the file in the table.
+C. Use Amazon API Gateway and an AWS Lambda function to upload and download files. Validate each request in the Lambda function before performing the requested operation.
+D. Use an IAM policy within the Amazon Cognito identity prefix to restrict users to use their own folders in Amazon S3. 
 
 Correct Answer: D
 
@@ -55,10 +55,10 @@ A company is building a scalable data management solution by using AWS services 
 The solution requires business rules to run in sequence and to handle reprocessing of data if errors occur when the business rules run. The company needs the solution to be scalable and to require the least possible maintenance.
 Which AWS service should the company use to manage and automate the orchestration of the data flows to meet these requirements?
 
-    A. AWS Batch
-    B. AWS Step Functions
-    C. AWS Glue
-    D. AWS Lambda
+A. AWS Batch
+B. AWS Step Functions
+C. AWS Glue
+D. AWS Lambda
 
 Correct Answer: B
 
@@ -325,4 +325,324 @@ C. On an Amazon RDS DB instance, create a table that contains columns for title,
 D. On an Amazon RDS DB instance, create a table where the primary key is the title and all other data is encoded into JSON format as one additional column.
 
 Correct Answer: A
+
+---
+
+Question #21
+
+A developer maintains an Amazon API Gateway REST API. Customers use the API through a frontend UI and Amazon Cognito authentication.
+The developer has a new version of the API that contains new endpoints and backward-incompatible interface changes. The developer needs to provide beta access to other developers on the team without affecting customers.
+Which solution will meet these requirements with the LEAST operational overhead?
+
+A. Define a development stage on the API Gateway API. Instruct the other developers to point the endpoints to the development stage.
+B. Define a new API Gateway API that points to the new API application code. Instruct the other developers to point the endpoints to the new API.
+C. Implement a query parameter in the API application code that determines which code version to call.
+D. Specify new API Gateway endpoints for the API endpoints that the developer wants to add.
+
+Correct Answer: A 
+
+---
+
+Question #22
+
+A developer is creating an application that will store personal health information (PHI). The PHI needs to be encrypted at all times. An encrypted Amazon RDS for MySQL DB instance is storing the data. The developer wants to increase the performance of the application by caching frequently accessed data while adding the ability to sort or rank the cached datasets.
+Which solution will meet these requirements?
+
+A. Create an Amazon ElastiCache for Redis instance. Enable encryption of data in transit and at rest. Store frequently accessed data in the cache.
+B. Create an Amazon ElastiCache for Memcached instance. Enable encryption of data in transit and at rest. Store frequently accessed data in the cache.
+C. Create an Amazon RDS for MySQL read replica. Connect to the read replica by using SSL. Configure the read replica to store frequently accessed data.
+D. Create an Amazon DynamoDB table and a DynamoDB Accelerator (DAX) cluster for the table. Store frequently accessed data in the DynamoDB table.
+
+Correct Answer: A
+
+---
+
+Question #23
+
+A company has a multi-node Windows legacy application that runs on premises. The application uses a network shared folder as a centralized configuration repository to store configuration files in .xml format. The company is migrating the application to Amazon EC2 instances. As part of the migration to AWS, a developer must identify a solution that provides high availability for the repository.
+Which solution will meet this requirement MOST cost-effectively?
+
+A. Mount an Amazon Elastic Block Store (Amazon EBS) volume onto one of the EC2 instances. Deploy a file system on the EBS volume. Use the host operating system to share a folder. Update the application code to read and write configuration files from the shared folder.
+B. Deploy a micro EC2 instance with an instance store volume. Use the host operating system to share a folder. Update the application code to read and write configuration files from the shared folder.
+C. Create an Amazon S3 bucket to host the repository. Migrate the existing .xml files to the S3 bucket. Update the application code to use the AWS SDK to read and write configuration files from Amazon S3.
+D. Create an Amazon S3 bucket to host the repository. Migrate the existing .xml files to the S3 bucket. Mount the S3 bucket to the EC2 instances as a local volume. Update the application code to read and write configuration files from the disk.
+ 
+Correct Answer: C
+
+---
+
+Question #24
+
+A company wants to deploy and maintain static websites on AWS. Each website's source code is hosted in one of several version control systems, including AWS CodeCommit, Bitbucket, and GitHub.
+The company wants to implement phased releases by using development, staging, user acceptance testing, and production environments in the AWS Cloud. Deployments to each environment must be started by code merges on the relevant Git branch. The company wants to use HTTPS for all data exchange. The company needs a solution that does not require servers to run continuously.
+Which solution will meet these requirements with the LEAST operational overhead?
+
+A. Host each website by using AWS Amplify with a serverless backend. Conned the repository branches that correspond to each of the desired environments. Start deployments by merging code changes to a desired branch.
+B. Host each website in AWS Elastic Beanstalk with multiple environments. Use the EB CLI to link each repository branch. Integrate AWS CodePipeline to automate deployments from version control code merges.
+C. Host each website in different Amazon S3 buckets for each environment. Configure AWS CodePipeline to pull source code from version control. Add an AWS CodeBuild stage to copy source code to Amazon S3.
+D. Host each website on its own Amazon EC2 instance. Write a custom deployment script to bundle each website's static assets. Copy the assets to Amazon EC2. Set up a workflow to run the script when code is merged.
+
+Correct Answer: A
+
+B和D会引入running server
+C不支持HTTPS，所以有问题
+
+AWS Amplify是一组专门构建的工具和功能，使前端 Web 和移动开发人员能够快速轻松地在上构建全栈应用程序AWS。Amplify 提供两项服务：Amplify Hosting 和 Amplify Studio。Amplify Hosting 提供了基于 git 的工作流，用于托管持续部署的全栈无服务器 Web 应用程序。该用户指南提供了开始使用 Amplify Hostace Hofy Hostace。
+
+Amazon S3 website endpoints do not support HTTPS. If you want to use HTTPS, you can use Amazon CloudFront to serve a static website hosted on Amazon S3.
+
+---
+
+Question #25
+
+A company is migrating an on-premises database to Amazon RDS for MySQL. The company has read-heavy workloads. The company wants to refactor the code to achieve optimum read performance for queries.
+Which solution will meet this requirement with LEAST current and future effort?
+
+A. Use a multi-AZ Amazon RDS deployment. Increase the number of connections that the code makes to the database or increase the connection pool size if a connection pool is in use.
+B. Use a multi-AZ Amazon RDS deployment. Modify the code so that queries access the secondary RDS instance.
+C. Deploy Amazon RDS with one or more read replicas. Modify the application code so that queries use the URL for the read replicas.
+D. Use open source replication software to create a copy of the MySQL database on an Amazon EC2 instance. Modify the application code so that queries use the IP address of the EC2 instance.
+
+Correct Answer: C
+
+---
+
+Question #26
+
+A developer is creating an application that will be deployed on IoT devices. The application will send data to a RESTful API that is deployed as an AWS Lambda function. The application will assign each API request a unique identifier. The volume of API requests from the application can randomly increase at any given time of day.
+During periods of request throttling, the application might need to retry requests. The API must be able to handle duplicate requests without inconsistencies or data loss.
+Which solution will meet these requirements?
+
+A. Create an Amazon RDS for MySQL DB instance. Store the unique identifier for each request in a database table. Modify the Lambda function to check the table for the identifier before processing the request.
+B. Create an Amazon DynamoDB table. Store the unique identifier for each request in the table. Modify the Lambda function to check the table for the identifier before processing the request.
+C. Create an Amazon DynamoDB table. Store the unique identifier for each request in the table. Modify the Lambda function to return a client error response when the function receives a duplicate request.
+D. Create an Amazon ElastiCache for Memcached instance. Store the unique identifier for each request in the cache. Modify the Lambda function to check the cache for the identifier before processing the request.
+
+Correct Answer: B 
+
+---
+
+Question #27
+
+A developer wants to expand an application to run in multiple AWS Regions. The developer wants to copy Amazon Machine Images (AMIs) with the latest changes and create a new application stack in the destination Region. According to company requirements, all AMIs must be encrypted in all Regions. However, not all the AMIs that the company uses are encrypted.
+How can the developer expand the application to run in the destination Region while meeting the encryption requirement?
+
+A. Create new AMIs, and specify encryption parameters. Copy the encrypted AMIs to the destination Region. Delete the unencrypted AMIs.
+B. Use AWS Key Management Service (AWS KMS) to enable encryption on the unencrypted AMIs. Copy the encrypted AMIs to the destination Region.
+C. Use AWS Certificate Manager (ACM) to enable encryption on the unencrypted AMIs. Copy the encrypted AMIs to the destination Region.
+D. Copy the unencrypted AMIs to the destination Region. Enable encryption by default in the destination Region.
+
+Correct Answer: A
+
+如果不使用显式加密参数，在默认情况下，CopyImage 操作会在复制 AMI 的源快照时保持这些快照的现有加密状态。您也可以复制 AMI，同时通过提供加密参数来对其关联的 EBS 快照应用新的加密状态。
+
+您无法直接加密现有未加密卷或快照。但是，您可以从未加密的卷或快照创建加密卷或快照。
+
+Question #28
+
+A company hosts a client-side web application for one of its subsidiaries on Amazon S3. The web application can be accessed through Amazon CloudFront from https://www.example.com. After a successful rollout, the company wants to host three more client-side web applications for its remaining subsidiaries on three separate S3 buckets.
+To achieve this goal, a developer moves all the common JavaScript files and web fonts to a central S3 bucket that serves the web applications. However, during testing, the developer notices that the browser blocks the JavaScript files and web fonts.
+What should the developer do to prevent the browser from blocking the JavaScript files and web fonts?
+
+A. Create four access points that allow access to the central S3 bucket. Assign an access point to each web application bucket.
+B. Create a bucket policy that allows access to the central S3 bucket. Attach the bucket policy to the central S3 bucket
+C. Create a cross-origin resource sharing (CORS) configuration that allows access to the central S3 bucket. Add the CORS configuration to the central S3 bucket.
+D. Create a Content-MD5 header that provides a message integrity check for the central S3 bucket. Insert the Content-MD5 header for each web application request.
+
+Correct Answer: C 
+
+---
+
+Question #29
+
+An application is processing clickstream data using Amazon Kinesis. The clickstream data feed into Kinesis experiences periodic spikes. The PutRecords API call occasionally fails and the logs show that the failed call returns the response shown below:
+
+![Rate exceed for shard shardId-xxxxx in stream xxxxx under account xxxxx](./image1.png)
+
+Which techniques will help mitigate this exception? (Choose two.)
+
+A. Implement retries with exponential backoff.
+B. Use a PutRecord API instead of PutRecords.
+C. Reduce the frequency and/or size of the requests.
+D. Use Amazon SNS instead of Kinesis.
+E. Reduce the number of KCL consumers.
+
+Correct Answer: AC 
+
+---
+
+Question #30
+A company has an application that uses Amazon Cognito user pools as an identity provider. The company must secure access to user records. The company has set up multi-factor authentication (MFA). The company also wants to send a login activity notification by email every time a user logs in.
+What is the MOST operationally efficient solution that meets this requirement?
+
+A. Create an AWS Lambda function that uses Amazon Simple Email Service (Amazon SES) to send the email notification. Add an Amazon API Gateway API to invoke the function. Call the API from the client side when login confirmation is received.
+B. Create an AWS Lambda function that uses Amazon Simple Email Service (Amazon SES) to send the email notification. Add an Amazon Cognito post authentication Lambda trigger for the function.
+C. Create an AWS Lambda function that uses Amazon Simple Email Service (Amazon SES) to send the email notification. Create an Amazon CloudWatch Logs log subscription filter to invoke the function based on the login status.
+D. Configure Amazon Cognito to stream all logs to Amazon Kinesis Data Firehose. Create an AWS Lambda function to process the streamed logs and to send the email notification based on the login status of each user.
+
+Correct Answer: B
+
+---
+
+Question #31
+
+A developer has an application that stores data in an Amazon S3 bucket. The application uses an HTTP API to store and retrieve objects. When the PutObject API operation adds objects to the S3 bucket the developer must encrypt these objects at rest by using server-side encryption with Amazon S3 managed keys (SSE-S3).
+Which solution will meet this requirement?
+
+A. Create an AWS Key Management Service (AWS KMS) key. Assign the KMS key to the S3 bucket.
+B. Set the x-amz-server-side-encryption header when invoking the PutObject API operation.
+C. Provide the encryption key in the HTTP header of every request.
+D. Apply TLS to encrypt the traffic to the S3 bucket.
+
+Correct Answer: B
+
+
+---
+
+Question #32
+
+A developer needs to perform geographic load testing of an API. The developer must deploy resources to multiple AWS Regions to support the load testing of the API.
+How can the developer meet these requirements without additional application code?
+
+A. Create and deploy an AWS Lambda function in each desired Region. Configure the Lambda function to create a stack from an AWS CloudFormation template in that Region when the function is invoked.
+B. Create an AWS CloudFormation template that defines the load test resources. Use the AWS CLI create-stack-set command to create a stack set in the desired Regions.
+C. Create an AWS Systems Manager document that defines the resources. Use the document to create the resources in the desired Regions.
+D. Create an AWS CloudFormation template that defines the load test resources. Use the AWS CLI deploy command to create a stack from the template in each Region.
+
+Correct Answer: B 
+
+AWS CloudFormation StackSets allow developers to deploy CloudFormation stacks across multiple AWS accounts and regions with a single CloudFormation template.
+
+
+---
+
+Question #33
+
+A developer is creating an application that includes an Amazon API Gateway REST API in the us-east-2 Region. The developer wants to use Amazon CloudFront and a custom domain name for the API. The developer has acquired an SSL/TLS certificate for the domain from a third-party provider.
+How should the developer configure the custom domain for the application?
+
+A. Import the SSL/TLS certificate into AWS Certificate Manager (ACM) in the same Region as the API. Create a DNS A record for the custom domain.
+B. Import the SSL/TLS certificate into CloudFront. Create a DNS CNAME record for the custom domain.
+C. Import the SSL/TLS certificate into AWS Certificate Manager (ACM) in the same Region as the API. Create a DNS CNAME record for the custom domain.
+D. Import the SSL/TLS certificate into AWS Certificate Manager (ACM) in the us-east-1 Region. Create a DNS CNAME record for the custom domain.
+
+Correct Answer: D
+
+要在 AWS Certificate Manager (ACM) 中使用证书以要求在查看器和 CloudFront 之间使用 HTTPS，请确保您在美国东部（弗吉尼亚北部）区域 (us-east-1) 中请求（或导入）该证书。
+
+如果您需要在 CloudFront 和您的源之间使用 HTTPS，并且正在 Elastic Load Balancing 中使用负载均衡器作为源，则您可以在任何 AWS 区域中请求或导入证书。
+
+To use a certificate in AWS Certificate Manager (ACM) to require HTTPS between viewers and CloudFront, make sure you request (or import) the certificate in the US East (N. Virginia) Region (us-east-1).
+
+If you want to require HTTPS between CloudFront and your origin, and you’re using a load balancer in Elastic Load Balancing as your origin, you can request or import the certificate in any AWS Region.
+
+---
+
+Question #34
+
+A developer is creating a template that uses AWS CloudFormation to deploy an application. The application is serverless and uses Amazon API Gateway, Amazon DynamoDB, and AWS Lambda.
+Which AWS service or tool should the developer use to define serverless resources in YAML?
+
+A. CloudFormation serverless intrinsic functions
+B. AWS Elastic Beanstalk
+C. AWS Serverless Application Model (AWS SAM)
+D. AWS Cloud Development Kit (AWS CDK)
+
+Correct Answer: C 
+
+---
+
+Question #35
+
+A developer wants to insert a record into an Amazon DynamoDB table as soon as a new file is added to an Amazon S3 bucket.
+Which set of steps would be necessary to achieve this?
+
+A. Create an event with Amazon EventBridge that will monitor the S3 bucket and then insert the records into DynamoDB.
+B. Configure an S3 event to invoke an AWS Lambda function that inserts records into DynamoDB.
+C. Create an AWS Lambda function that will poll the S3 bucket and then insert the records into DynamoDB.
+D. Create a cron job that will run at a scheduled time and insert the records into DynamoDB.
+
+Correct Answer: B
+
+---
+
+Question #36
+
+A development team maintains a web application by using a single AWS CloudFormation template. The template defines web servers and an Amazon RDS database. The team uses the Cloud Formation template to deploy the Cloud Formation stack to different environments.
+During a recent application deployment, a developer caused the primary development database to be dropped and recreated. The result of this incident was a loss of data. The team needs to avoid accidental database deletion in the future.
+Which solutions will meet these requirements? (Choose two.)
+
+A. Add a CloudFormation Deletion Policy attribute with the Retain value to the database resource.
+B. Update the CloudFormation stack policy to prevent updates to the database.
+C. Modify the database to use a Multi-AZ deployment.
+D. Create a CloudFormation stack set for the web application and database deployments.
+E. Add a Cloud Formation DeletionPolicy attribute with the Retain value to the stack.
+
+Correct Answer: AB
+
+https://docs.aws.amazon.com/zh_cn/AWSCloudFormation/latest/UserGuide/aws-attribute-deletionpolicy.html
+
+利用 DeletionPolicy 属性，您可以在某个资源的堆栈被删除时保留并（在某些情况下）备份该资源。您可为要控制的每个资源指定 DeletionPolicy 属性。默认情况下，如果某个资源不具有 DeletionPolicy 属性，AWS CloudFormation 将删除该资源。
+
+https://docs.aws.amazon.com/zh_cn/AWSCloudFormation/latest/UserGuide/protect-stack-resources.html
+
+在创建堆栈时，允许对所有资源执行所有更新操作。默认情况下，具有堆栈更新权限的任何人均可更新堆栈中的所有资源。在更新期间，一些资源可能需要中断或可能已完全替换，这会生成新的物理 ID 或全新的存储。使用堆栈策略可以防止堆栈资源在堆栈更新过程中被意外更新或删除。堆栈策略是一个 JSON 文档，该文档定义可对指定资源执行的更新操作。
+
+---
+
+Question #37
+
+A company has an Amazon S3 bucket that contains sensitive data. The data must be encrypted in transit and at rest. The company encrypts the data in the S3 bucket by using an AWS Key Management Service (AWS KMS) key. A developer needs to grant several other AWS accounts the permission to use the S3 GetObject operation to retrieve the data from the S3 bucket.
+How can the developer enforce that all requests to retrieve the data provide encryption in transit?
+
+A. Define a resource-based policy on the S3 bucket to deny access when a request meets the condition “aws:SecureTransport”: “false”.
+B. Define a resource-based policy on the S3 bucket to allow access when a request meets the condition “aws:SecureTransport”: “false”.
+C. Define a role-based policy on the other accounts' roles to deny access when a request meets the condition of “aws:SecureTransport”: “false”.
+D. Define a resource-based policy on the KMS key to deny access when a request meets the condition of “aws:SecureTransport”: “false”.
+
+Correct Answer: A 
+
+---
+
+Question #38
+
+An application that is hosted on an Amazon EC2 instance needs access to files that are stored in an Amazon S3 bucket. The application lists the objects that are stored in the S3 bucket and displays a table to the user. During testing, a developer discovers that the application does not show any objects in the list.
+What is the MOST secure way to resolve this issue?
+
+A. Update the IAM instance profile that is attached to the EC2 instance to include the S3:* permission for the S3 bucket.
+B. Update the IAM instance profile that is attached to the EC2 instance to include the S3:ListBucket permission for the S3 bucket.
+C. Update the developer's user permissions to include the S3:ListBucket permission for the S3 bucket.
+D. Update the S3 bucket policy by including the S3:ListBucket permission and by setting the Principal element to specify the account number of the EC2 instance.
+
+Correct Answer: B
+
+Question #39
+
+A company is planning to securely manage one-time fixed license keys in AWS. The company's development team needs to access the license keys in automaton scripts that run in Amazon EC2 instances and in AWS CloudFormation stacks.
+Which solution will meet these requirements MOST cost-effectively?
+
+A. Amazon S3 with encrypted files prefixed with “config”
+B. AWS Secrets Manager secrets with a tag that is named SecretString
+C. AWS Systems Manager Parameter Store SecureString parameters
+D. CloudFormation NoEcho parameters
+
+Correct Answer: C 
+
+---
+
+Question #40
+
+A company has deployed infrastructure on AWS. A development team wants to create an AWS Lambda function that will retrieve data from an Amazon Aurora database. The Amazon Aurora database is in a private subnet in company's VPC. The VPC is named VPC1. The data is relational in nature. The Lambda function needs to access the data securely.
+Which solution will meet these requirements?
+
+A. Create the Lambda function. Configure VPC1 access for the function. Attach a security group named SG1 to both the Lambda function and the database. Configure the security group inbound and outbound rules to allow TCP traffic on Port 3306.
+B. Create and launch a Lambda function in a new public subnet that is in a new VPC named VPC2. Create a peering connection between VPC1 and VPC2.
+C. Create the Lambda function. Configure VPC1 access for the function. Assign a security group named SG1 to the Lambda function. Assign a second security group named SG2 to the database. Add an inbound rule to SG1 to allow TCP traffic from Port 3306.
+D. Export the data from the Aurora database to Amazon S3. Create and launch a Lambda function in VPC1. Configure the Lambda function query the data from Amazon S3.
+
+Correct Answer: C 
+
+Answer A is wrong because you do not need to configure outbound rule for security groups. 
+
+---
 
