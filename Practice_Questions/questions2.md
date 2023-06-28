@@ -808,3 +808,163 @@ Correct Answer: A
 
 ---
 
+Question #51
+
+A Developer is working on a serverless project based in Java. Initial testing shows a cold start takes about 8 seconds on average for AWS Lambda functions.
+What should the Developer do to reduce the cold start time? (Choose two.)
+
+A. Add the Spring Framework to the project and enable dependency injection.
+B. Reduce the deployment package by including only needed modules from the AWS SDK for Java.
+C. Increase the memory allocation setting for the Lambda function.
+D. Increase the timeout setting for the Lambda function.
+E. Change the Lambda invocation mode from synchronous to asynchronous.
+
+Correct Answer: BC
+
+---
+
+Question #52
+
+A company runs an e-commerce website that uses Amazon DynamoDB where pricing for items is dynamically updated in real time. At any given time, multiple updates may occur simultaneously for pricing information on a particular product. This is causing the original editor's changes to be overwritten without a proper review process.
+Which DynamoDB write option should be selected to prevent this overwriting?
+
+A. Concurrent writes
+B. Conditional writes
+C. Atomic writes
+D. Batch writes
+
+Correct Answer: B 
+
+Conditional Writes
+• Accept a write/update/delete only if conditions are met, otherwise returns an error
+• Helps with concurrent access to items 
+• No performance impact
+
+---
+
+Question #53
+
+A developer is storing JSON files in an Amazon S3 bucket. The developer wants to securely share an object with a specific group of people.
+How can the developer securely provide temporary access to the objects that are stored in the S3 bucket?
+
+A. Set object retention on the files. Use the AWS software development kit (SDK) to restore the object before subsequent requests. Provide the bucket's S3 URL.
+B. Use the AWS software development kit (SDK) to generate a presigned URL. Provide the presigned URL.
+C. Set a bucket policy that restricts access after a period of time. Provide the bucket's S3 URL.
+D. Configure static web hosting on the S3 bucket. Provide the bucket's web URL.
+
+Correct Answer: B
+
+---
+
+Question #54
+
+A front-end web application is using Amazon Cognito user pools to handle the user authentication flow. A developer is integrating Amazon DynamoDB into the application using the AWS SDK for JavaScript.
+How would the developer securely call the API without exposing the access or secret keys?
+
+A. Configure Amazon Cognito identity pools and exchange the JSON Web Token (JWT) for temporary credentials.
+B. Run the web application in an Amazon EC2 instance with the instance profile configured.
+C. Hardcore the credentials, use Amazon S3 to host the web application, and enable server-side encryption.
+D. Use Amazon Cognito user pool JSON Web Tokens (JWITs) to access the DynamoDB APIs.
+
+Correct Answer: A
+
+---
+
+Question #55
+
+A Developer must build an application that uses Amazon DynamoDB. The requirements state that the items being stored in the DynamoDB table will be 7KB in size and that reads must be strongly consistent. The maximum read rate is 3 items per second, and the maximum write rate is 10 items per second.
+How should the Developer size the DynamoDB table to meet these requirements?
+A. Read: 3 read capacity units Write: 70 write capacity units
+B. Read: 6 read capacity units Write: 70 write capacity units
+C. Read: 6 read capacity units Write: 10 write capacity units
+D. Read: 3 read capacity units Write: 10 write capacity units
+
+Correct Answer: B
+
+• One Write Capacity Unit (WCU) represents one write per second for an item up to 1 KB in size
+• If the items are larger than 1 KB, more WCUs are consumed
+
+• One Read Capacity Unit (RCU) represents one Strongly Consistent Read per second, or two Eventually Consistent Reads per second, for an item up to 4 KB in size
+• If the items are larger than 4 KB, more RCUs are consumed
+
+---
+
+Question #56
+
+A company needs to ingest terabytes of data each hour from thousands of sources that are delivered almost continually throughout the day. The volume of messages generated varies over the course of the day. Messages must be delivered in real time for fraud detection and live operational dashboards.
+Which approach will meet these requirements?
+
+A. Send the messages to an Amazon SQS queue, then process the messages by using a fleet of Amazon EC2 instances
+B. Use the Amazon S3 API to write messages to an S3 bucket, then process the messages by using Amazon Redshift
+C. Use AWS Data Pipeline to automate the movement and transformation of data
+D. Use Amazon Kinesis Data Streams with Kinesis Client Library to ingest and deliver messages
+
+Correct Answer: D 
+
+Kinesis Client Library (KCL)
+• A Java library that helps read record from a Kinesis Data Stream with distributed applications sharing the read workload
+• Each shard is to be read by only one KCL instance
+
+---
+
+Question #57
+
+A developer is debugging an AWS Lambda function behind an Amazon API Gateway. Whenever the API Gateway endpoint is called, HTTP status code 200 is returned even though AWS Lambda is recording a 4xx error.
+What change needs to be made to return a proper error code through the API Gateway?
+
+A. Enable CORS in the API Gateway method settings
+B. Use a Lambda proxy integration to return HTTP codes and headers
+C. Enable API Gateway error pass-through.
+D. Return the value in the header x-Amzn-ErrorType.
+
+Correct Answer: B
+
+• Integration Type AWS_PROXY (Lambda Proxy):
+• incoming request from the client is the input to Lambda
+• The function is responsible for the logic of request / response 
+• No mapping template, headers, query string parameters… are passed as arguments
+
+---
+
+Question #58
+
+For a deployment using AWS CodeDeploy, what is the run order of the hooks for in-place deployments?
+
+A. Before Install -> Application Stop -> Application Start -> After Install
+B. Application Stop -> Before Install -> After Install -> Application Start
+C. Before Install -> Application Stop -> Validate Service -> Application Start
+D. Application Stop -> Before Install -> Validate Service -> Application Start
+
+Correct Answer: B
+
+---
+
+Question #59
+
+A developer is using Amazon S3 as the event source that invokes a Lambda function when new objects are created in the bucket. The event source mapping information is stored in the bucket notification configuration. The developer is working with different versions of the Lambda function, and has a constant need to update notification configuration so that Amazon S3 invokes the correct version.
+What is the MOST efficient and effective way to achieve mapping between the S3 event and Lambda?
+
+A. Use a different Lambda trigger.
+B. Use Lambda environment variables.
+C. Use a Lambda alias.
+D. Use Lambda tags.
+
+Correct Answer: C
+
+---
+
+Question #60
+
+A company has a multi-tier application that uses Amazon API Gateway, AWS Lambda, and Amazon RDS. The company wants to investigate a slow response time to calls that come from the API Gateway API.
+What is the MOST operationally efficient way for the company to determine which internal call is causing the slow response times?
+
+A. Use Amazon CloudWatch.
+B. Use AWS X-Ray.
+C. Use AWS CloudTrail.
+D. Use VPC Flow Logs.
+
+Correct Answer: B 
+
+---
+
+
