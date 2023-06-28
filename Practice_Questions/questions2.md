@@ -162,5 +162,177 @@ It mentions shortest possible refresh interval so best to use the real-time logs
 
 ---
 
+Question #11
+
+A developer creates a customer managed key for multiple AWS users to encrypt data in Amazon S3. The developer configures Amazon Simple Notification
+Service (Amazon SNS) to publish a message if key deletion is scheduled. The developer needs to preserve any SNS messages that cannot be delivered so that those messages can be reprocessed.
+Which AWS service or feature should the developer use to meet this requirement?
+A. Amazon Simple Email Service (Amazon SES)
+B. AWS Lambda
+C. Amazon Simple Queue Service (Amazon SQS)
+D. Amazon CloudWatch alarm
+
+Correct Answer: C
+
+---
+
+Question #12
+
+A developer needs to deploy an application to AWS Elastic Beanstalk for a company. The application consists of a single Docker image. The company's automated continuous integration and continuous delivery (CI/CD) process builds the Docker image and pushes the image to a public Docker registry.
+How should the developer deploy the application to Elastic Beanstalk?
+
+A. Create a Dockerfile. Configure Elastic Beanstalk to build the application as a Docker image.
+B. Create a docker-compose.yml file. Use the Elastic Beanstalk CLI to deploy the application.
+C. Create a .zip file that contains the Docker image. Upload the .zip file to Elastic Beanstalk.
+D. Create a Dockerfile. Run the Elastic Beanstalk CLI eb local run command in the same directory.
+
+Correct Answer: B
+
+不确定
+
+---
+
+Question #13
+
+A company is using AWS CodeDeploy for all production deployments. A developer has an Amazon Elastic Container Service (Amazon ECS) application that uses the CodeDeployDefault.ECSAIIAtOnce configuration. The developer needs to update the production environment in increments of 10% until the entire production environment is updated.
+Which CodeDeploy configuration should the developer use to meet these requirements?
+A. CodeDeployDefault.ECSCanary10Percent5Minutes
+B. CodeDeployDefault.ECSLinear10PercentEvery3Minutes
+C. CodeDeployDefault.OneAtATime
+D. CodeDeployDefault.LambdaCanary10Percent5Minutes
+
+Correct Answer: B 
+
+---
+
+Question #14
+
+A company is using AWS Elastic Beanstalk to deploy a three-tier application. The application uses an Amazon RDS DB instance as the database tier. The company wants to decouple the DB instance from the Elastic Beanstalk environment.
+Which combination of steps should a developer lake to meet this requirement? (Choose two.)
+
+A. Create a new Elastic Beanstalk environment that connects to the DB instance.
+B. Create a new DB instance from a snapshot of the previous DB instance.
+C. Use the Elastic Beanstalk CLI to decouple the DB instance.
+D. Use the AWS CLI to decouple the DB instance.
+E. Modify the current Elastic Beanstalk environment to connect to the DB instance.
+
+Correct Answer: AB  不确定
+https://aws.amazon.com/premiumsupport/knowledge-center/decouple-rds-from-beanstalk/
+
+在不影响环境运行状况的前提下，按照以下步骤从 Elastic Beanstalk 环境解耦您的数据库：
+
+    创建 Amazon RDS 数据库快照。
+    防止您的 RDS 数据数据库实例被删除。
+    创建新 Elastic Beanstalk 环境。
+    执行蓝绿部署。
+    更新 beanstalk 环境 A 的数据库删除策略。
+    从 beanstalk 环境 A 解耦 RDS 实例。
+    终止旧 Elastic Beanstalk 环境。
+
+
+---
+
+Question #15
+
+A company has point-of-sale devices across thousands of retail shops that synchronize sales transactions with a centralized system. The system includes an
+Amazon API Gateway API that exposes an AWS Lambda function. The Lambda function processes the transactions and stores the transactions in Amazon RDS for MySQL. The number of transactions increases rapidly during the day and is near zero at night.
+How can a developer increase the elasticity of the system MOST cost-effectively?
+
+A. Migrate from Amazon RDS to Amazon Aurora MySQL. Use an Aurora Auto Scaling policy to scale road replicas based on CPU consumption.
+B. Migrate from Amazon RDS to Amazon Aurora MySQL. Use an Aurora Auto Scaling policy to scale read replicas based on the number of database connections.
+C. Create an Amazon Simple Queue Service (Amazon SQS) queue. Publish transactions to the queue. Set the queue to invoke the Lambda function. Turn on enhanced fanout for the Lambda function.
+D. Create an Amazon Simple Queue Service (Amazon SQS) queue. Publish transactions to the queue. Set the queue to invoke the Lambda function. Set the reserved concurrency of the Lambda function to be less than the number of database connections.
+
+Correct Answer: D
+
+A and B are for read problem, nor for write.
+C its not possible because enhanced fanout its for kinesis
+D is the most probably
+
+
+---
+
+
+Question #16
+
+A developer is writing an AWS Lambda function. The Lambda function needs to access items that are stored in an Amazon DynamoDB table.
+What is the MOST secure way to configure this access for the Lambda function?
+
+A. Create an IAM user that has permissions to access the DynamoDB table. Create an access key for this user. Store the access key ID and secret access key in the Lambda function environment variables.
+B. Add a resource-based policy to the DynamoDB table to allow access from the Lambda function's IAM role.
+C. Create an IAM policy that allows access to the DynamoDB table. Attach this policy to the Lambda function's IAM role.
+D. Create a DynamoDB Accelerator (DAX) cluster. Configure the Lambda function to use the DAX duster to access the DynamoDB table.
+
+Correct Answer: C 
+
+Amazon DynamoDB **不支持resource-based policy**
+
+---
+
+Question #17
+
+A developer is implementing user authentication and authorization for a web application that is hosted on an Amazon EC2 instance. The developer needs to ensure that the user credentials are encrypted and secure when they are stored and transmitted.
+Which solution will meet these requirements?
+
+A. Activate web server modules for authentication and authorization on the instance. Use HTTP basic authentication for the user login.
+B. Deploy a custom authentication and authorization API over HTTP. Store the user credentials on Amazon ElastiCache for Redis.
+C. Use Amazon Cognito to configure a user pool. Use the Amazon Cognito API to authenticate and authorize the users.
+D. Create IAM users. Assign the users to different IAM groups. Use AWS Single Sign-On to authenticate and authorize each user.
+
+Correct Answer: C
+
+---
+
+Question #18
+
+A company that has multiple offices uses an Amazon DynamoDB table to store employee payroll information. Item attributes consist of employee names, office identifiers, and cumulative daily hours worked The most frequently used query extracts a report of an alphabetical subset of employees for a specific office.
+Which design of the DynamoDB table primary key will have the MINIMUM performance impact?
+
+A. Partition key on the office identifier and sort key on the employee name
+B. Partition key on the employee name and sort key on the office identifier
+C. Partition key on the employee name
+D. Partition key on the office identifier
+
+Correct Answer: A
+
+不确定
+
+---
+
+Question #19
+
+A company hosts a microservices application that uses Amazon API Gateway. AWS Lambda, Amazon Simple Queue Service (Amazon SQS), and Amazon
+DynamoDB. One of the Lambda functions adds messages to an SQS FIFO queue.
+When a developer checks the application logs, the developer finds a few duplicated items in a DynamoDB table. The items were inserted by another polling function that processes messages from the queue.
+What is the MOST likely cause of this issue?
+
+A. Write operations on the DynamoDB table are being throttled.
+B. The SQS queue delivered the message to the function more than once.
+C. API Gateway duplicated the message in the SQS queue.
+D. The polling function timeout is greater than the queue visibility timeout.
+
+Correct Answer: D
+
+---
+
+Question #20
+
+A development team has been using a builder server that is hosted on an Amazon EC2 instance to perform builds and deployments for the last 3 months. The
+EC2 instance's instance profile uses an IAM role that contains the Administrator Access managed policy. The development team must replace that policy with a policy that provides only the required permissions.
+What is the FASTEST way to create a custom 1AM policy for the EC2 instance to meet this requirement?
+
+A. Create a new IAM policy based on services that the build server deployed or updated in the last 3 months.
+B. Create a new IAM policy that includes all actions that AWS CloudTrail recorded for the IAM role in the last 3 months.
+C. Create a new permissions boundary policy that denies all access. Associate the permissions boundaries with the IAM role.
+D. Create a new IAM policy by using Amazon Athena to query an Amazon S3 bucket that contains AWS CloudTrail events that the IAM role performed in the last 3 months.
+
+Correct Answer: B
+
+"As an administrator or developer, you might grant permissions to IAM entities (users or roles) beyond what they require. IAM provides several options to help you refine the permissions that you grant. One option is to generate an IAM policy that is based on access activity for an entity. IAM Access Analyzer reviews your AWS CloudTrail logs and generates a policy template that contains the permissions that the entity used in your specified date range. You can use the template to create a policy with fine-grained permissions that grant only the permissions that are required to support your specific use case."
+
+https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_generate-policy.html
+
+---
+
 
 
