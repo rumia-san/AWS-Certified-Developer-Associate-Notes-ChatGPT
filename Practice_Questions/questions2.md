@@ -654,4 +654,157 @@ Correct Answer: D
 
 ---
 
+Question #41
+
+An application uses Amazon Kinesis Data Streams to ingest and process large streams of data records in real time. Amazon EC2 instances consume and process the data from the shards of the Kinesis data stream by using Amazon Kinesis Client Library (KCL). The application handles the failure scenarios and does not require standby workers. The application reports that a specific shard is receiving more data than expected. To adapt to the changes in the rate of data flow, the
+`hot` shard is resharded.
+Assuming that the initial number of shards in the Kinesis data stream is 4, and after resharding the number of shards increased to 6, what is the maximum number of EC2 instances that can be deployed to process data from all the shards?
+A. 12
+B. 6
+C. 4
+D. 1
+
+Correct Answer: B
+
+Typically, when you use the KCL, you should ensure that the number of instances does not exceed the number of shards (except for failure standby purposes). Each shard is processed by exactly one KCL worker and has exactly one corresponding record processor, so you never need multiple instances to process one shard. However, one worker can process any number of shards, so it's fine if the number of shards exceeds the number of instances.
+https://docs.aws.amazon.com/streams/latest/dev/kinesis-record-processor-scaling.html
+
+---
+
+Question #42
+
+A Company runs continuous integration/continuous delivery (CI/CD) pipelines for its application on AWS CodePipeline. A Developer must write unit tests and run them as part of the pipelines before staging the artifacts for testing.
+How should the Developer incorporate unit tests as part of CI/CD pipelines?
+
+A. Create a separate CodePipeline pipeline to run unit tests
+B. Update the AWS CodeBuild specification to include a phase for running unit tests
+C. Install the AWS CodeDeploy agent on an Amazon EC2 instance to run unit tests
+D. Create a testing branch in AWS CodeCommit to run unit tests
+
+Correct Answer: B
+
+---
+
+Question #43
+
+A Developer has written an application that runs on Amazon EC2 instances and generates a value every minute. The Developer wants to monitor and graph the values generated over time without logging in to the instance each time.
+Which approach should the Developer use to achieve this goal?
+
+A. Use the Amazon CloudWatch metrics reported by default for all EC2 instances. View each value from the CloudWatch console.
+B. Develop the application to store each value in a file on Amazon S3 every minute with the timestamp as the name.
+C. Publish each generated value as a custom metric to Amazon CloudWatch using available AWS SDKs.
+D. Store each value as a variable and add the variable to the list of EC2 metrics that should be reported to the Amazon CloudWatch console.
+
+Correct Answer: C
+
+---
+
+Question #44
+
+A developer is trying to get data from an Amazon DynamoDB table called demoman-table. The developer configured the AWS CLI to use a specific IAM user's credentials and executed the following command:
+`aws dynamodb get-item --table-name damoman-table --key '{"id": { "N": "1993"}}'
+`
+
+The command returned errors and no rows were returned.
+What is the MOST likely cause of these issues?
+
+A. The command is incorrect; it should be rewritten to use put-item with a string argument.
+B. The developer needs to log a ticket with AWS Support to enable access to the demoman-table.
+C. Amazon DynamoDB cannot be accessed from the AWS CLI and needs to be called via the REST API.
+D. The IAM user needs an associated policy with read access to demoman-table.
+
+Correct Answer: D
+
+---
+
+Question #45
+
+A Development team is working on a case management solution that allows medical claims to be processed and reviewed. Users log in to provide information related to their medical and financial situations.
+As part of the application, sensitive documents such as medical records, medical imaging, bank statements, and receipts are uploaded to Amazon S3. All documents must be securely transmitted and stored. All access to the documents must be recorded for auditing.
+What is the MOST secure approach?
+
+A. Use S3 default encryption using Advanced Encryption Standard-256 (AES-256) on the destination bucket.
+B. Use Amazon Cognito for authorization and authentication to ensure the security of the application and documents.
+C. Use AWS Lambda to encrypt and decrypt objects as they are placed into the S3 bucket.
+D. Use client-side encryption/decryption with Amazon S3 and AWS KMS.
+
+Correct Answer: D
+
+D. is Correct.
+Use client-side encryption/decryption with Amazon S3 and AWS KMS.
+Keywords: Auditing is required, AWS KMS has auditing capability.
+and has to be Client Side Encryption for securely transmitting.
+
+---
+
+Question #46
+
+A developer is planning to use an Amazon API Gateway and AWS Lambda to provide a REST API. The developer will have three distinct environments to manage: development, test, and production.
+How should the application be deployed while minimizing the number of resources to manage?
+
+A. Create a separate API Gateway and separate Lambda function for each environment in the same Region.
+B. Assign a Region for each environment and deploy API Gateway and Lambda to each Region.
+C. Create one API Gateway with multiple stages with one Lambda function with multiple aliases.
+D. Create one API Gateway and one Lambda function, and use a REST parameter to identify the environment.
+
+Correct Answer: C 
+
+---
+
+Question #47
+
+An application needs to use the IP address of the client in its processing. The application has been moved into AWS and has been placed behind an Application
+Load Balancer (ALB). However, all the client IP addresses now appear to be the same. The application must maintain the ability to scale horizontally.
+Based on this scenario, what is the MOST cost-effective solution to this problem?
+
+A. Remove the application from the ALB. Delete the ALB and change Amazon Route 53 to direct traffic to the instance running the application.
+B. Remove the application from the ALB. Create a Classic Load Balancer in its place. Direct traffic to the application using the HTTP protocol.
+C. Alter the application code to inspect the X-Forwarded-For header. Ensure that the code can work properly if a list of IP addresses is passed in the header.
+D. Alter the application code to inspect a custom header. Alter the client code to pass the IP address in the custom header.
+
+Correct Answer: C 
+
+---
+
+Question #48
+
+A developer tested an application locally and then deployed it to AWS Lambda. While testing the application remotely, the Lambda function fails with an access denied message.
+How can this issue be addressed?
+
+A. Update the Lambda function's execution role to include the missing permissions.
+B. Update the Lambda function's resource policy to include the missing permissions.
+C. Include an IAM policy document at the root of the deployment package and redeploy the Lambda function.
+D. Redeploy the Lambda function using an account with access to the AdministratorAccess policy.
+
+Correct Answer: A
+
+---
+
+Question #49
+
+A Developer must analyze performance issues with production-distributed applications written as AWS Lambda functions. These distributed Lambda applications invoke other components that make up the applications.
+How should the Developer identify and troubleshoot the root cause of the performance issues in production?
+
+A. Add logging statements to the Lambda functions, then use Amazon CloudWatch to view the logs.
+B. Use AWS CloudTrail and then examine the logs.
+C. Use AWS X-Ray, then examine the segments and errors.
+D. Run Amazon Inspector agents and then analyze performance.
+
+Correct Answer: C
+
+---
+
+Question #50
+
+A company is building a compute-intensive application that will run on a fleet of Amazon EC2 instances. The application uses attached Amazon EBS disks for storing data. The application will process sensitive information and all the data must be encrypted.
+What should a Developer do to ensure the data is encrypted on disk without impacting performance?
+
+A. Configure the Amazon EC2 instance fleet to use encrypted EBS volumes for storing data.
+B. Add logic to write all data to an encrypted Amazon S3 bucket.
+C. Add a custom encryption algorithm to the application that will encrypt and decrypt all data.
+D. Create a new Amazon Machine Image (AMI) with an encrypted root volume and store the data to ephemeral disks.
+
+Correct Answer: A
+
+---
 
