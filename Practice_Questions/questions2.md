@@ -489,3 +489,169 @@ https://docs.aws.amazon.com/codepipeline/latest/userguide/approvals-action-add.h
 
 ---
 
+Question #31
+
+A Developer is migrating an on-premises application to AWS. The application currently takes user uploads and saves them to a local directory on the server. All uploads must be saved and made immediately available to all instances in an Auto Scaling group.
+Which approach will meet these requirements?
+
+A. Use Amazon EBS and configure the application AMI to use a snapshot of the same EBS instance on boot.
+B. Use Amazon S3 and rearchitect the application so all uploads are placed in S3.
+C. Use instance storage and share it between instances launched from the same Amazon Machine Image (AMI).
+D. Use Amazon EBS and file synchronization software to achieve eventual consistency among the Auto Scaling group.
+
+Correct Answer: B
+
+Of course B is obvious. But why are others wrong?
+A - need to reboot instance? -> out
+C - instance storage cannot shared between instances
+D - only achieve eventual consistency while the requirement is "immediately available"
+
+---
+
+Question #32
+
+
+A developer is creating a script to automate the deployment process for a serverless application. The developer wants to use an existing AWS Serverless
+Application Model (AWS SAM) template for the application.
+What should the developer use for the project? (Choose two.)
+A. Call aws cloudformation package to create the deployment package. Call aws cloudformation deploy to deploy the package afterward.
+B. Call sam package to create the deployment package. Call sam deploy to deploy the package afterward.
+C. Call aws s3 cp to upload the AWS SAM template to Amazon S3. Call aws lambda update-function-code to create the application.
+D. Create a ZIP package locally and call aws serverlessrepo create-application to create the application.
+E. Create a ZIP package and upload it to Amazon S3. Call aws cloudformation create-stack to create the application.
+
+Correct Answer: AB
+
+AWS SAM
+• Transform Header indicates it’s SAM template: 
+• Transform: 'AWS::Serverless-2016-10-31'
+• Write Code 
+• AWS::Serverless::Function 
+• AWS::Serverless::Api 
+• AWS::Serverless::SimpleTable 
+• Package & Deploy: 
+• aws cloudformation package / sam package 
+• aws cloudformation deploy / sam deplo
+
+---
+
+Question #33
+
+A developer has built a market application that stores pricing data in Amazon DynamoDB with Amazon ElastiCache in front. The prices of items in the market change frequently. Sellers have begun complaining that, after they update the price of an item, the price does not actually change in the product listing.
+What could be causing this issue?
+A. The cache is not being invalidated when the price of the item is changed
+B. The price of the item is being retrieved using a write-through ElastiCache cluster
+C. The DynamoDB table was provisioned with insufficient read capacity
+D. The DynamoDB table was provisioned with insufficient write capacity
+
+Correct Answer: A 
+
+---
+
+Question #34
+
+The developer is creating a web application that collects highly regulated and confidential user data through a POST request. The web application is served through Amazon CloudFront. User names and phone numbers must be encrypted at the edge and must remain encrypted throughout the entire application stack.
+What is the MOST secure way to meet these requirements?
+
+A. Enforce Match Viewer with HTTPS Only on CloudFront.
+B. Use only the newest TLS security policy on CloudFront.
+C. Enforce a signed URL on CloudFront on the front end.
+D. Use field-level encryption on CloudFront.
+
+Correct Answer: D 
+
+Field-level encryption adds an additional layer of security along with HTTPS that lets you protect specific data throughout system processing so that only certain applications can see it. By configuring field-level encryption in CloudFront, you can securely upload user-submitted sensitive information to your web servers. The sensitive information provided by your clients is encrypted at the edge closer to the user. It remains encrypted throughout your entire application stack, ensuring that only applications that need the data—and have the credentials to decrypt it—are able to do so.
+
+字段级加密增加了一个额外的安全保护层以及 HTTPS，使您可以在整个系统处理过程中保护特定的数据，以便只有某些应用程序才能查看它。通过在 CloudFront 中配置字段级加密，您可以将用户提交的敏感信息安全上传到您的 Web 服务器。客户端提供的敏感信息在更接近用户的边缘站点中进行加密。这些敏感信息在整个应用程序堆栈中保持加密状态，从而确保仅需要该数据（以及具有用于解密的凭证）的应用程序才能使用该数据。
+
+---
+
+Question #35
+
+A Developer has been asked to create an AWS Lambda function that is triggered any time updates are made to items in an Amazon DynamoDB table. The function has been created, and appropriate permissions have been added to the Lambda execution role. Amazon DynamoDB streams have been enabled for the table, but the function is still not being triggered.
+Which option would enable DynamoDB table updates to trigger the Lambda function?
+
+A. Change the StreamViewType parameter value to NEW_AND_OLD_IMAGES for the DynamoDB table
+B. Configure event source mapping for the Lambda function
+C. Map an Amazon SNS topic to the DynamoDB streams
+D. Increase the maximum execution time (timeout) setting of the Lambda function
+ 
+Correct Answer: B
+
+Event Source Mapping（事件源映射）是AWS Lambda 中的一个概念，它用于将事件源与 Lambda 函数进行关联。事件源可以是 AWS 的各种服务，如 Amazon S3、Amazon DynamoDB、Amazon Kinesis 等，以及自定义的事件源。
+
+通过创建事件源映射，您可以配置 Lambda 函数在事件发生时自动触发执行。事件源将生成事件通知，这些通知将被传递给 Lambda 函数进行处理。Lambda 函数可以根据事件的内容和上下文执行相应的操作。
+
+---
+
+Question #36
+
+A company maintains a REST service using Amazon API Gateway and the API Gateway native API key validation. The company recently launched a new registration page, which allows users to sign up for the service. The registration page creates a new API key using CreateApiKey and sends the new key to the user. When the user attempts to call the API using this key, the user receives a 403 Forbidden error. Existing users are unaffected and can still call the API.
+What code updates will grant these new users access to the API?
+
+A. The createDeployment method must be called so the API can be redeployed to include the newly created API key.
+B. The updateAuthorizer method must be called to update the API's authorizer to include the newly created API key.
+C. The importApiKeys method must be called to import all newly created API keys into the current stage of the API.
+D. The createUsagePlanKey method must be called to associate the newly created API key with the correct usage plan.
+
+Correct Answer: D
+
+---
+
+Question #37
+
+An application uploads photos to an Amazon S3 bucket. Each photo that is uploaded to the S3 bucket must be resized to a thumbnail image by the application.
+Each thumbnail image is uploaded with a new name in the same S3 bucket.
+Which AWS service can a developer configure to directly process each single S3 event for each S3 object upload?
+
+A. Amazon EC2
+B. Amazon Elastic Container Service (Amazon ECS)
+C. AWS Elastic Beanstalk
+D. AWS Lambda
+
+Correct Answer: D
+
+---
+
+Question #38
+
+A company is running a Docker application on Amazon ECS. The application must scale based on user load in the last 15 seconds.
+How should a Developer instrument the code so that the requirement can be met?
+A. Create a high-resolution custom Amazon CloudWatch metric for user activity data, then publish data every 30 seconds
+B. Create a high-resolution custom Amazon CloudWatch metric for user activity data, then publish data every 5 seconds
+C. Create a standard-resolution custom Amazon CloudWatch metric for user activity data, then publish data every 30 seconds
+D. Create a standard-resolution custom Amazon CloudWatch metric for user activity data, then publish data every 5 seconds
+
+Correct Answer: B
+
+---
+
+Question #39
+
+Where should the appspec.yml file be placed in order for AWS CodeDeploy to work?
+A. In the root of the application source code directory structure
+B. In the bin folder along with all the complied code
+C. In an S3 bucket
+D. In the same folder as the application configuration files
+
+Correct Answer: A 
+
+---
+
+Question #40
+
+A Developer is working on an application that handles 10MB documents that contain highly-sensitive data. The application will use AWS KMS to perform client-side encryption.
+What steps must be followed?
+
+A. Invoke the Encrypt API passing the plaintext data that must be encrypted, then reference the customer managed key ARN in the KeyId parameter
+B. Invoke the GenerateRandom API to get a data encryption key, then use the data encryption key to encrypt the data
+C. Invoke the GenerateDataKey API to retrieve the encrypted version of the data encryption key to encrypt the data
+D. Invoke the GenerateDataKey API to retrieve the plaintext version of the data encryption key to encrypt the data
+
+Correct Answer: D
+
+**For the exam: anything over 4 KB of data that needs to be encrypted must use the Envelope Encryption == GenerateDataKey API**
+
+---
+
+
