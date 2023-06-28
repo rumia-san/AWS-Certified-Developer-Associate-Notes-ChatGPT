@@ -967,4 +967,155 @@ Correct Answer: B
 
 ---
 
+Question #61
+
+A developer is deploying an application that will store files in an Amazon S3 bucket. The files must be encrypted at rest. The developer wants to automatically replicate the files to an S3 bucket in a different AWS Region for disaster recovery.
+How can the developer accomplish this task with the LEAST amount of configuration?
+
+A. Encrypt the files by using server-side encryption with S3 managed encryption keys (SSE-S3). Enable S3 bucket replication.
+B. Encrypt the files by using server-side encryption (SSE) with an AWS Key Management Service (AWS KMS) customer master key (CMK). Enable S3 bucket replication.
+C. Use the s3 sync command to sync the files to the S3 bucket in the other Region.
+D. Configure an S3 Lifecycle configuration to automatically transfer files to the S3 bucket in the other Region.
+
+Correct Answer: A
+
+LEAST amount of configuration，B麻烦
+
+---
+
+Question #62
+
+A serverless application is using AWS Step Functions to process data and save it to a database. The application needs to validate some data with an external service before saving the data. The application will call the external service from an AWS Lambda function, and the external service will take a few hours to validate the data. The external service will respond to a webhook when the validation is complete.
+A developer needs to pause the Step Functions workflow and wait for the response from the external service.
+What should the developer do to meet this requirement?
+
+A. Use the .wait ForTaskToken option in the Lambda function task state. Pass the token in the body.
+B. Use the .waitForTaskToken option in the Lambda function task state. Pass the invocation request.
+C. Call the Lambda function in synchronous mode. Wait for the external service to complete the processing.
+D. Call the Lambda function in asynchronous mode. Use the Wait state until the external service completes the processing.
+
+
+Correct Answer: A
+
+Step Functions – Wait for Task Token
+• Allows you to pause Step Functions during a Task until a Task Token is returned
+• Task might wait for other AWS services, human approval, 3rd party integration, call legacy systems…
+• Append .waitForTaskToken to the Resource field to tell Step Functions to wait for the Task Token to be returned
+• Task will pause until it receives that Task Token back with a SendTaskSuccess or SendTaskFailure API call
+
+---
+
+Question #63
+
+A developer must use AWS X-Ray to monitor an application that is running on an Amazon EC2 instance. The developer has prepared the application by using the
+X-Ray SDK.
+What should the developer do to perform the monitoring?
+
+A. Configure the X-Ray SDK sampling rule and target. Activate the X-Ray daemon from the EC2 console or the AWS CLI with the modify-instance-attribute command to set the XRayEnabled flag.
+B. Install the X-Ray daemon. Assign an IAM role to the EC2 instance with a policy that allows writes to X-Ray.
+C. Install the X-Ray daemon. Configure it to forward data to Amazon EventBridge (Amazon CloudWatch Events). Grant the EC2 instance permission to write to Event Bridge (CloudWatch Events).
+D. Deploy the X-Ray SDK with the application, and instrument the application code. Use the SDK logger to capture and send the events.
+
+Correct Answer: B
+
+---
+
+Question #64
+
+A developer is designing a full-stack serverless application. Files for the website are stored in an Amazon S3 bucket. AWS Lambda functions that use Amazon
+API Gateway endpoints return results from an Amazon DynamoDB table.
+The developer must create a solution that securely provides registration and authentication for the application while minimizing the amount of configuration.
+Which solution meets these requirements?
+
+A. Create an Amazon Cognito user pool and an app client. Configure the app client to use the user pool and provide the hosted web UI provided for sign-up and sign-in.
+B. Configure an Amazon Cognito identity pool. Map the users with IAM roles that are configured to access the S3 bucket that stores the website.
+C. Configure and launch an Amazon EC2 instance to set up an identity provider with an Amazon Cognito user pool. Configure the user pool to provide the hosted web UI for sign-up and sign-in.
+D. Create an IAM policy that allows access to the website that is stored in the S3 bucket. Attach the policy to an IAM group. Add IAM users to the group.
+
+Correct Answer: A
+
+---
+
+Question #65
+
+A company has an application that writes files to an Amazon S3 bucket. Whenever there is a new file, an S3 notification event invokes an AWS Lambda function to process the file. The Lambda function code works as expected. However, when a developer checks the Lambda function logs, the developer finds that multiple invocations occur for every file.
+What is causing the duplicate entries?
+
+A. The S3 bucket name is incorrectly specified in the application and is targeting another S3 bucket.
+B. The Lambda function did not run correctly, and Lambda retried the invocation with a delay.
+C. Amazon S3 is delivering the same event multiple times.
+D. The application stopped intermittently and then resumed, splitting the logs into multiple smaller files.
+
+Correct Answer: B 或 C  不确定
+
+---
+
+Question #66
+
+A developer needs to use the AWS CLI on an on-premises development server temporarily to access AWS services while performing maintenance. The developer needs to authenticate to AWS with their identity for several hours.
+What is the MOST secure way to call AWS CLI commands with the developer's IAM identity?
+
+A. Specify the developer's IAM access key ID and secret access key as parameters for each CLI command
+B. Run the aws configure CLI command. Provide the developer's IAM access key ID and secret access key.
+C. Specify the developer's IAM profile as a parameter for each CLI command.
+D. Run the get-session-token CLI command with the developer's IAM user. Use the returned credentials to call the CLI
+
+Correct Answer: D
+
+因为是要temporarily to access
+
+---
+
+Question #67
+
+An AWS Lambda function accesses two Amazon DynamoDB tables. A developer wants to improve the performance of the Lambda function by identifying bottlenecks in the function.
+How can the developer inspect the timing of the DynamoDB API calls?
+
+A. Add DynamoDB as an event source to the Lambda function. View the performance with Amazon CloudWatch metrics
+B. Place an Application Load Balancer (ALB) in front of the two DynamoDB tables. Inspect the ALB logs
+C. Limit Lambda to no more than five concurrent invocations. Monitor from the Lambda console.
+D. Enable AWS X-Ray tracing for the function. View the traces from the X-Ray service.
+
+Correct Answer: D 
+
+---
+
+Question #68
+
+A developer deployed an application to an Amazon EC2 instance. The application needs to know the public IPv4 address of the instance.
+How can the application find this information?
+A. Query the instance metadata from http://169.254.169.254/latest/meta-data/.
+B. Query the instance user data from http://169.254.169.254/latest/user-data/.
+C. Query the Amazon Machine Image (AMI) information from http://169.254 169.254/latest/meta-data/ami/.
+D. Check the hosts file of the operating system.
+
+Correct Answer: A
+
+---
+
+Question #69
+
+A developer is designing an AWS Lambda function to perform a maintenance activity. The developer will use Amazon EventBridge (Amazon CloudWatch Events) to invoke the function on an hourly schedule. The developer wants the function to log information at different levels of detail according to the value of a log level variable. The developer must design the function so that the log level can be set without requiring a change to the function code.
+Which solution will meet these requirements?
+
+A. Add a custom log level parameter for the Lambda function. Set the parameter by using the Lambda console
+B. Set the log level in a Lambda environment variable
+C. Set the log level in the Amazon CloudWatch Logs console.
+D. Add a custom log level parameter for the Lambda function. Set the parameter by using the AWS CLI.
+
+Correct Answer: B
+
+---
+
+Question #70
+
+A developer is creating a serverless application that uses an AWS Lambda function The developer will use AWS CloudFormation to deploy the application The application will write logs to Amazon CloudWatch Logs. The developer has created a log group in a CloudFormation template for the application to use. The developer needs to modify the CloudFormation template to make the name of the log group available to the application at runtime.
+Which solution will meet this requirement?
+
+A. Use the AWS::Include transform in CloudFormation to provide the log group's name to the application.
+B. Pass the log group's name to the application in the user data section of the CloudFormation template
+C. Use the CloudFormation template's Mappings section to specify the log group's name for the application.
+D. Pass the log group's Amazon Resource Name (ARN) as an environment variable to the Lambda function.
+
+Correct Answer: C 或者 D 不确定
 
