@@ -334,5 +334,158 @@ https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_generate-policy
 
 ---
 
+Question #21
 
+A developer needs to write an AWS CloudFormation template on a local machine and deploy a CloudFormation stack to AWS.
+What must the developer do to complete these tasks?
+
+A. Install the AWS CLI. Configure the AWS CLI by using an IAM user name and password.
+B. Install the AWS CLI. Configure the AWS CLI by using an SSH key.
+C. Install the AWS CLI. Configure the AWS CLI by using an IAM user access key and secret key.
+D. Install an AWS software development kit (SDK). Configure the SDK by using an X.509 certificate.
+
+Correct Answer: C
+
+---
+
+Question #22
+
+A developer is working on a web application that runs on Amazon Elastic Container Service (Amazon ECS) and uses an Amazon DynamoDB table to store data.
+The application performs a large number of read requests against a small set of the table data.
+How can the developer improve the performance of these requests? (Choose two.)
+
+A. Create an Amazon ElastiCache cluster. Configure the application to cache data in the cluster.
+B. Create a DynamoDB Accelerator (DAX) cluster. Configure the application to use the DAX cluster for DynamoDB requests.
+C. Configure the application to make strongly consistent read requests against the DynamoDB table.
+D. Increase the read capacity of the DynamoDB table.
+E. Enable DynamoDB adaptive capacity.
+
+Correct Answer: AB 或者 BD 不确定
+
+
+DynamoDB本身不直接支持使用ElastiCache来缓存数据。
+然而，您可以在应用程序层面使用ElastiCache来缓存从DynamoDB中检索的数据。这需要您在应用程序中编写逻辑，将从DynamoDB获取的数据存储到ElastiCache中，并在需要时首先检查缓存以获取数据，而不是直接从DynamoDB读取。这样可以减少对DynamoDB的请求次数，提高读取性能和降低成本。
+
+---
+
+Question #23
+
+A developer needs to use Amazon DynamoDB to store customer orders. The developer's company requires all customer data to be encrypted at rest with a key that the company generates.
+What should the developer do to meet these requirements?
+A. Create the DynamoDB table with encryption set to None. Code the application to use the key to decrypt the data when the application reads from the table. Code the application to use the key to encrypt the data when the application writes to the table.
+B. Store the key by using AWS Key Management Service (AWS KMS). Choose an AWS KMS customer managed key during creation of the DynamoDB table. Provide the Amazon Resource Name (ARN) of the AWS KMS key.
+C. Store the key by using AWS Key Management Service (AWS KMS). Create the DynamoDB table with default encryption. Include the kms:Encrypt parameter with the Amazon Resource Name (ARN) of the AWS KMS key when using the DynamoDB software development kit (SDK).
+D. Store the key by using AWS Key Management Service (AWS KMS). Choose an AWS KMS AWS managed key during creation of the DynamoDB table. Provide the Amazon Resource Name (ARN) of the AWS KMS key.
+
+Correct Answer: B
+
+https://aws.amazon.com/blogs/database/bring-your-own-encryption-keys-to-amazon-dynamodb/
+
+---
+
+Question #24
+
+A developer is creating a solution to track an account's Amazon S3 buckets over time. The developer has created an AWS Lambda function that will run on a schedule. The function will list the account's S3 buckets and will store the list in an Amazon DynamoDB table. The developer receives a permissions error when the developer runs the function with the AWSLambdaBasicExecutionRole AWS managed policy.
+Which combination of permissions should the developer use to resolve this error? (Choose two.)
+
+A. Cross-account IAM role
+B. Permission for the Lambda function to list buckets in Amazon S3
+C. Permission for the Lambda function to write in DynamoDB
+D. Permission for Amazon S3 to invoke the Lambda function
+E. Permission for DynamoDB to invoke the Lambda function
+
+Correct Answer: BC
+
+---
+
+Question #25
+
+A company is adding items to an Amazon DynamoDB table from an AWS Lambda function that is written in Python. A developer needs to implement a solution that inserts records in the DynamoDB table and performs automatic retry when the insert fails.
+Which solution meets these requirements with MINIMUM code changes?
+
+A. Configure the Python code to run the AWS CLI through shell to call the PutItem operation
+B. Call the PutItem operation from Python by using the DynamoDB HTTP API
+C. Queue the items in AWS Glue, which will put them into the DynamoDB table
+D. Use the AWS software development kit (SDK) for Python (boto3) to call the PutItem operation
+
+Correct Answer: D 
+
+---
+
+Question #26
+
+A developer is writing an AWS Lambda function. The developer wants to log key events that occur during the Lambda function and include a unique identifier to associate the events with a specific function invocation.
+Which of the following will help the developer accomplish this objective?
+A. Obtain the request identifier from the Lambda context object. Architect the application to write logs to the console.
+B. Obtain the request identifier from the Lambda event object. Architect the application to write logs to a file.
+C. Obtain the request identifier from the Lambda event object. Architect the application to write logs to the console.
+D. Obtain the request identifier from the Lambda context object. Architect the application to write logs to a file.
+
+Correct Answer: A 
+
+---
+
+Question #27
+
+A company experienced partial downtime during the last deployment of a new application. AWS Elastic Beanstalk split the environment's Amazon EC2 instances into batches and deployed a new version one batch at a time after taking them out of service. Therefore, full capacity was not maintained during deployment.
+The developer plans to release a new version of the application, and is looking for a policy that will maintain full capacity and minimize the impact of the failed deployment.
+
+Which deployment policy should the developer use?
+A. Immutable
+B. All at Once
+C. Rolling
+D. Rolling with an Additional Batch
+
+Correct Answer: A 
+
+这题没有提到成本，所以最厉害的是A
+
+The answer is the A given that we must have full capacity and we have to minimize the impact of failed deployment. With immutable we can prepare the new environment and switch when it is ready. If there is some issue it is always possible to switch back to the previuos version.
+
+---
+
+Question #28
+
+A company is providing services to many downstream consumers. Each consumer may connect to one or more services. This has resulted in a complex architecture that is difficult to manage and does not scale well. The company needs a single interface to manage these services to consumers.
+Which AWS service should be used to refactor this architecture?
+
+A. AWS Lambda
+B. AWS X-Ray
+C. Amazon SQS
+D. Amazon API Gateway
+
+Correct Answer: D
+
+---
+
+
+Question #29
+
+When a Developer tries to run an AWS CodeBuild project, it raises an error because the length of all environment variables exceeds the limit for the combined maximum of characters.
+What is the recommended solution?
+
+A. Add the export LC_ALL=ג€en_US.utf8ג€ command to the pre_build section to ensure POSIX localization.
+B. Use Amazon Cognito to store key-value pairs for large numbers of environment variables.
+C. Update the settings for the build project to use an Amazon S3 bucket for large numbers of environment variables.
+D. Use AWS Systems Manager Parameter Store to store large numbers of environment variables.
+
+Correct Answer: D
+
+---
+
+Question #30
+
+A Development team decides to adopt a continuous integration/continuous delivery (CI/CD) process using AWS CodePipeline and AWS CodeCommit for a new application. However, management wants a person to review and approve the code before it is deployed to production.
+How can the Development team add a manual approver to the CI/CD pipeline?
+
+A. Use AWS SES to send an email to approvers when their action is required. Develop a simple application that allows approvers to accept or reject a build. Invoke an AWS Lambda function to advance the pipeline when a build is accepted.
+B. If approved, add an approved tag when pushing changes to the CodeCommit repository. CodePipeline will proceed to build and deploy approved commits without interruption.
+C. Add an approval step to CodeCommit. Commits will not be saved until approved.
+D. Add an approval action to the pipeline. Configure the approval action to publish to an Amazon SNS topic when approval is required. The pipeline execution will stop and wait for an approval.
+
+Correct Answer: D 
+
+https://docs.aws.amazon.com/codepipeline/latest/userguide/approvals-action-add.html
+
+---
 
