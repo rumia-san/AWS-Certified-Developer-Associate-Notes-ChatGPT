@@ -3736,3 +3736,175 @@ Elastic Beanstalk Migration: Load Balancer
 2. deploy your application onto the new environment
 3. perform a CNAME swap or Route 53 update 
 
+---
+
+Question #211
+
+What does an Amazon SQS delay queue accomplish?
+
+A. Messages are hidden for a configurable amount of time when they are first added to the queue.
+B. Messages are hidden for a configurable amount of time after they are consumed from the queue.
+C. The consumer can poll the queue for a configurable amount of time before retrieving a message.
+D. Messages cannot be deleted for a configurable amount of time after they are consumed from the queue.
+
+Correct Answer: A 
+
+---
+
+Question #212
+
+A company stores the photographs in an Amazon S3 bucket. The company wants to resize the photographs automatically after writing the photographs to the S3 bucket. The company creates an AWS Lambda function to resize the photographs.
+
+Which solution will meet these requirements?
+
+A. Configure S3 Event Notifications to invoke the Lambda function
+B. Configure an S3 Lifecycle rule to invoke the Lambda function.
+C. Configure S3 Select on a schedule to invoke the Lambda function.
+D. Configure S3 Storage Lens to invoke the Lambda function.
+
+ 
+Correct Answer: A
+
+---
+
+Question #213
+
+A developer is automating a new application deployment with AWS Serverless Application Model (AWS SAM). The new application has one AWS Lambda function and one Amazon S3 bucket. The Lambda function must access the S3 bucket to only read objects.
+
+How should the developer configure AWS SAM to grant the necessary read privilege to the S3 bucket?
+
+A. Reference a second Lambda authorizer function.
+B. Add a custom S3 bucket policy to the Lambda function.
+C. Create an Amazon Simple Queue Service (SQS) topic for only S3 object reads Reference the topic in the template.
+D. Add the S3ReadPolicy template to the Lambda function's execution role.
+
+Correct Answer: D
+
+
+SAM Policy Templates 
+
+• List of templates to apply permissions to your Lambda Functions
+• Full list available here: https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-policy-templates.html#serverless-policy-template-table
+
+• Important examples: 
+• S3ReadPolicy: Gives read only permissions to objects in S3
+• SQSPollerPolicy: Allows to poll an SQS queue
+• DynamoDBCrudPolicy: CRUD = create read update delete
+
+---
+
+Question #214
+
+A company hosts a web application that writes to an Amazon DynamoDB table. Application users frequently observe and report errors. The development team examines Amazon CloudWatch logs and frequently sees the following error:
+
+400 Bad Request ProvisionedThroughputExceededException
+
+What is the cause of this error?
+
+A. The application does not have the required permissions for the DynamoDB table.
+B. The item that the application is placing on the table exceeds the item size limit.
+C. The development team has not allocated enough space for the table and its indexes.
+D. The development team has not allocated enough write capacity units (WCU) for the table and Its indexes.
+
+Correct Answer: D 
+
+---
+
+Question #215
+
+A company's developer is building a static website to be deployed in Amazon S3 for a production environment. The website integrates with an Amazon Aurora PostgreSQL database by using an AWS Lambda function. The website that is deployed to production will use a Lambda alias that points to a specific version of the Lambda function.
+
+The company must rotate the database credentials every 2 weeks. Lambda functions that the company deployed previously must be able to use the most recent credentials.
+
+Which solution will meet these requirements?
+
+A. Store the database credentials in AWS Secrets Manager. Turn on rotation. Write code in the Lambda function to retrieve the credentials from Secrets Manager.
+B. Include the database credentials as part of the Lambda function code. Update the credentials periodically and deploy the new Lambda function.
+C. Use Lambda environment variables. Update the environment variables when new credentials are available.
+D. Store the database credentials in AWS Systems Manager Parameter Store Turn on rotation. Write code in the Lambda function to retrieve the credentials from Systems Manager Parameter Store.
+
+Correct Answer: A
+
+---
+
+Question #216
+
+An application reads data from an Amazon DynamoDB table. Several times a day, for a period of 15 seconds, me application receives multiple ProvisionedThroughputExceeded errors.
+
+How should this exception be handled?
+
+A. Create a new global secondary index for the table to help with the additional requests.
+B. Retry the failed read requests with exponential backoff.
+C. Immediately retry the failed read requests.
+D. Use the DynamoDB "UpdateItem" API to increase the provisioned throughput capacity of the table.
+
+Correct Answer: B 
+
+---
+
+Question #217
+
+A company wants to migrate its web application to AWS and leverage auto scaling to handle peak workloads. The solutions architect determined that the best metric for an auto scaling event is the number of concurrent users.
+
+Based on this information, what should the developer use to auto scale based on concurrent users?
+
+A. An Amazon SNS topic to be invoked when a concurrent user threshold is met
+B. An Amazon Cloudwatch NetworkIn metric
+C. Amazon CloudFront to leverage AWS edge locations
+D. A custom Amazon CloudWatch metric for concurrent users
+
+Correct Answer: D
+
+---
+
+Question #218
+
+A company is managing a NoSQL database on-premises to host a critical component of an application, which is starting to have scaling issues. The company wants to migrate the application to Amazon DynamoDB with the following considerations:
+
+• Optimize frequent queries
+• Reduce read latencies
+• Plan for frequent queries on certain key attributes of the table
+
+Which solution would help achieve these objectives?
+
+A. Create global secondary indexes on keys that are frequently queried. Add the necessary attributes into the indexes.
+B. Create local secondary indexes on keys that are frequently queried. DynamoDB will fetch needed attributes from the table.
+C. Create DynamoDB global tables to speed up query responses. Use a scan to fetch data from the table
+D. Create an AWS Auto Scaling policy for the DynamoDB table.
+
+Correct Answer: A
+
+---
+
+Question #219
+
+A developer is storing sensitive data generated by an application in Amazon S3. The developer wants to encrypt the data at rest A company policy requires an audit trail of when the AWS Key Management Service (AWS KMS) key was used and by whom.
+
+Which encryption option will meet these requirements?
+
+A. Server-side encryption with Amazon S3 managed keys (SSE-S3)
+B. Server-side encryption with AWS KMS managed keys (SSE-KMS)
+C. Server-side encryption with customer-provided keys (SSE-C)
+D. Server-side encryption with self-managed keys
+
+Correct Answer: B 
+
+---
+
+Question #220
+
+An AWS Lambda function that Is running in a test environment is not working property. However, there is no error associated with the Lambda function in the Amazon CloudWatch logs for the account. The Lambda function's permissions do not include a resource-based policy. The Lambda function's execution role has properly configured trust relationships and has no permissions policies attached.
+
+Which action should a developer take to allow logs for the Lambda function to appear in CloudWatch?
+
+A. Attach the AWSLambda8asicExecutionRole managed policy to the Lambda function's execution role.
+B. Set the AWSLambdaBasicExecutionRole managed policy as the Lambda function's resource-based policy.
+C. Attach the CloudWatchLambdaInsightsExecutionRolePolicy managed policy to the Lambda function's execution role.
+D. Set the CloudWatchLambdaInsightsExecutionRolePolicy managed policy as the Lambda function's resource-based policy.
+
+Correct Answer: A
+
+
+AWSLambdaBasicExecutionRole is an AWS managed policy that: Provides write permissions to CloudWatch Logs.
+
+CloudWatchLambdaInsightsExecutionRolePolicy is an AWS managed policy that: Policy required for the Lambda Insights Extension
