@@ -1438,3 +1438,101 @@ D. CodeDeployDefault.ECSLinear10PercentEvery1Minutes
 
 Suggested Answer: A
 
+---
+
+Question #: 81
+Topic #: 1
+[All AWS Certified Developer - Associate DVA-C02 Questions]
+A company hosts a batch processing application on AWS Elastic Beanstalk with instances that run the most recent version of Amazon Linux. The application sorts and processes large datasets.
+
+In recent weeks, the application's performance has decreased significantly during a peak period for traffic. A developer suspects that the application issues are related to the memory usage. The developer checks the Elastic Beanstalk console and notices that memory usage is not being tracked.
+
+How should the developer gather more information about the application performance issues?
+
+A. Configure the Amazon CloudWatch agent to push logs to Amazon CloudWatch Logs by using port 443.
+B. Configure the Elastic Beanstalk .ebextensions directory to track the memory usage of the instances.
+C. Configure the Amazon CloudWatch agent to track the memory usage of the instances.
+D. Configure an Amazon CloudWatch dashboard to track the memory usage of the instances.
+
+Suggested Answer: C
+
+---
+
+Question #: 82
+Topic #: 1
+[All AWS Certified Developer - Associate DVA-C02 Questions]
+A developer is building a highly secure healthcare application using serverless components. This application requires writing temporary data to /tmp storage on an AWS Lambda function.
+
+How should the developer encrypt this data?
+
+A. Enable Amazon EBS volume encryption with an AWS KMS key in the Lambda function configuration so that all storage attached to the Lambda function is encrypted.
+B. Set up the Lambda function with a role and key policy to access an AWS KMS key. Use the key to generate a data key used to encrypt all data prior to writing to /tmp storage.
+C. Use OpenSSL to generate a symmetric encryption key on Lambda startup. Use this key to encrypt the data prior to writing to /tmp.
+D. Use an on-premises hardware security module (HSM) to generate keys, where the Lambda function requests a data key from the HSM and uses that to encrypt data on all requests to the function.
+
+Suggested Answer: B 
+
+---
+
+Question #: 83
+Topic #: 1
+[All AWS Certified Developer - Associate DVA-C02 Questions]
+
+A developer has created an AWS Lambda function to provide notification through Amazon Simple Notification Service (Amazon SNS) whenever a file is uploaded to Amazon S3 that is larger than 50 MB. The developer has deployed and tested the Lambda function by using the CLI. However, when the event notification is added to the S3 bucket and a 3,000 MB file is uploaded, the Lambda function does not launch.
+
+Which of the following is a possible reason for the Lambda function's inability to launch?
+
+A. The S3 event notification does not activate for files that are larger than 1,000 MB.
+B. The resource-based policy for the Lambda function does not have the required permissions to be invoked by Amazon S3.
+C. Lambda functions cannot be invoked directly from an S3 event.
+D. The S3 bucket needs to be made public.
+
+Suggested Answer: B 
+
+---
+
+Question #: 84
+Topic #: 1
+[All AWS Certified Developer - Associate DVA-C02 Questions]
+A developer is creating a Ruby application and needs to automate the deployment, scaling, and management of an environment without requiring knowledge of the underlying infrastructure.
+
+Which service would best accomplish this task?
+
+A. AWS CodeDeploy
+B. AWS CloudFormation
+C. AWS OpsWorks
+D. AWS Elastic Beanstalk
+
+Suggested Answer: D
+
+---
+
+Question #: 85
+Topic #: 1
+[All AWS Certified Developer - Associate DVA-C02 Questions]
+A company has a web application that is deployed on AWS. The application uses an Amazon API Gateway API and an AWS Lambda function as its backend.
+
+The application recently demonstrated unexpected behavior. A developer examines the Lambda function code, finds an error, and modifies the code to resolve the problem. Before deploying the change to production, the developer needs to run tests to validate that the application operates properly.
+
+The application has only a production environment available. The developer must create a new development environment to test the code changes. The developer must also prevent other developers from overwriting these changes during the test cycle.
+
+Which combination of steps will meet these requirements with the LEAST development effort? (Choose two.)
+
+A. Create a new resource in the current stage. Create a new method with Lambda proxy integration. Select the Lambda function. Add the hotfix alias. Redeploy the current stage. Test the backend.
+B. Update the Lambda function in the API Gateway API integration request to use the hotfix alias. Deploy the API Gateway API to a new stage named hotfix. Test the backend.
+C. Modify the Lambda function by fixing the code. Test the Lambda function. Create the alias hotfix. Point the alias to the $LATEST version.
+D. Modify the Lambda function by fixing the code. Test the Lambda function. When the Lambda function is working as expected, publish the Lambda function as a new version. Create the alias hotfix. Point the alias to the new version.
+E. Create a new API Gateway API for the development environment. Add a resource and method with Lambda integration. Choose the Lambda function and the hotfix alias. Deploy to a new stage. Test the backend.
+
+Suggested Answer: BD 
+
+It is B & D.
+
+Clearly E isn't operationally efficient. So we got to choose from A & B one, and C & D the second.
+
+Between A & B, we gotta pick B since in the question it clearly states that we don't want to touch the existing solution.
+
+Regarding C & D, seems like D is more thorough and also pointing to $LATEST is not sufficiently explicit when you troubleshoot.
+
+---
+
