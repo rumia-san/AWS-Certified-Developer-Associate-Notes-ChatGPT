@@ -1060,3 +1060,381 @@ Lambda in VPC
 
 ---
 
+Question #: 65
+Topic #: 1
+[All AWS Certified Developer - Associate DVA-C02 Questions]
+A developer is building a new application on AWS. The application uses an AWS Lambda function that retrieves information from an Amazon DynamoDB table. The developer hard coded the DynamoDB table name into the Lambda function code. The table name might change over time. The developer does not want to modify the Lambda code if the table name changes.
+Which solution will meet these requirements MOST efficiently?
+
+A. Create a Lambda environment variable to store the table name. Use the standard method for the programming language to retrieve the variable.
+B. Store the table name in a file. Store the file in the /tmp folder. Use the SDK for the programming language to retrieve the table name.
+C. Create a file to store the table name. Zip the file and upload the file to the Lambda layer. Use the SDK for the programming language to retrieve the table name.
+D. Create a global variable that is outside the handler in the Lambda function to store the table name.
+
+Suggested Answer: A
+
+---
+
+Question #: 66
+Topic #: 1
+[All AWS Certified Developer - Associate DVA-C02 Questions]
+A company has a critical application on AWS. The application exposes an HTTP API by using Amazon API Gateway. The API is integrated with an AWS Lambda function. The application stores data in an Amazon RDS for MySQL DB instance with 2 virtual CPUs (vCPUs) and 64 GB of RAM.
+
+Customers have reported that some of the API calls return HTTP 500 Internal Server Error responses. Amazon CloudWatch Logs shows errors for “too many connections.” The errors occur during peak usage times that are unpredictable.
+
+The company needs to make the application resilient. The database cannot be down outside of scheduled maintenance hours.
+
+Which solution will meet these requirements?
+
+A. Decrease the number of vCPUs for the DB instance. Increase the max_connections setting.
+B. Use Amazon RDS Proxy to create a proxy that connects to the DB instance. Update the Lambda function to connect to the proxy.
+C. Add a CloudWatch alarm that changes the DB instance class when the number of connections increases to more than 1,000.
+D. Add an Amazon EventBridge rule that increases the max_connections setting of the DB instance when CPU utilization is above 75%.
+
+Suggested Answer: B
+
+Amazon RDS Proxy
+• Fully managed database proxy for RDS
+• Allows apps to pool and share DB connections established with the database
+• Improving database efficiency by reducing the stress on database resources (e.g., CPU, RAM) and minimize open connections (and timeouts)
+• Serverless, autoscaling, highly available (multi-AZ)
+• Reduced RDS & Aurora failover time by up 66%
+• Supports RDS (MySQL, PostgreSQL, MariaDB) and Aurora (MySQL, PostgreSQL)
+• No code changes required for most apps
+• Enforce IAM Authentication for DB, and securely store credentials in AWS Secrets Manager
+• RDS Proxy is never publicly accessible (must be 
+accessed from VPC)
+
+---
+
+Question #: 67
+Topic #: 1
+[All AWS Certified Developer - Associate DVA-C02 Questions]
+A company has installed smart meters in all its customer locations. The smart meters measure power usage at 1-minute intervals and send the usage readings to a remote endpoint for collection. The company needs to create an endpoint that will receive the smart meter readings and store the readings in a database. The company wants to store the location ID and timestamp information.
+
+The company wants to give its customers low-latency access to their current usage and historical usage on demand. The company expects demand to increase significantly. The solution must not impact performance or include downtime while scaling.
+
+Which solution will meet these requirements MOST cost-effectively?
+
+A. Store the smart meter readings in an Amazon RDS database. Create an index on the location ID and timestamp columns. Use the columns to filter on the customers' data.
+B. Store the smart meter readings in an Amazon DynamoDB table. Create a composite key by using the location ID and timestamp columns. Use the columns to filter on the customers' data.
+C. Store the smart meter readings in Amazon ElastiCache for Redis. Create a SortedSet key by using the location ID and timestamp columns. Use the columns to filter on the customers' data.
+D. Store the smart meter readings in Amazon S3. Partition the data by using the location ID and timestamp columns. Use Amazon Athena to filter on the customers' data.
+
+Suggested Answer: B 
+
+---
+
+Question #: 68
+Topic #: 1
+[All AWS Certified Developer - Associate DVA-C02 Questions]
+A company is building a serverless application that uses AWS Lambda functions. The company needs to create a set of test events to test Lambda functions in a development environment. The test events will be created once and then will be used by all the developers in an IAM developer group. The test events must be editable by any of the IAM users in the IAM developer group.
+
+Which solution will meet these requirements?
+
+A. Create and store the test events in Amazon S3 as JSON objects. Allow S3 bucket access to all IAM users.
+B. Create the test events. Configure the event sharing settings to make the test events shareable.
+C. Create and store the test events in Amazon DynamoDB. Allow access to DynamoDB by using IAM roles.
+D. Create the test events. Configure the event sharing settings to make the test events private.
+
+Suggested Answer: B
+
+https://docs.aws.amazon.com/lambda/latest/dg/testing-functions.html#creating-shareable-events
+
+可共享测试事件
+
+可共享测试事件是您可与同一 AWS 账户中的其他用户共享的测试事件。您可以编辑其他用户的可共享测试事件并使用这些测试事件调用您的函数。
+
+Lambda 将可共享测试事件作为 Schema 保存在一个名为 lambda-testevent-schemas 的 Amazon EventBridge（CloudWatch Events）Schema 注册表中。由于 Lambda 利用此注册表来存储和调用您创建的可共享测试事件，因此我们建议您不要编辑此注册表或使用 lambda-testevent-schemas 名称创建注册表。
+
+要查看、共享和编辑可共享测试事件，您必须拥有以下所有 EventBridge（CloudWatch Events）Schema 注册表 API 操作的权限
+
+创建可共享测试事件
+
+    打开 Lamba 控制台的 Functions
+
+（函数）页面。
+
+选择要测试的函数的名称。
+
+选择 Test（测试）选项卡。
+
+在 Test event（测试事件）下执行以下操作：
+
+    选择一个 Template（模板）。
+
+    输入测试的 Name（名称）。
+
+    在文本输入框中，输入 JSON 测试事件。
+
+    在 Event sharing settings（事件共享设置）下，选择 Shareable（可共享）。
+
+选择 Save changes（保存更改）。
+
+---
+
+Question #: 69
+Topic #: 1
+[All AWS Certified Developer - Associate DVA-C02 Questions]
+A developer is configuring an application's deployment environment in AWS CodePipeline. The application code is stored in a GitHub repository. The developer wants to ensure that the repository package's unit tests run in the new deployment environment. The developer has already set the pipeline's source provider to GitHub and has specified the repository and branch to use in the deployment.
+
+Which combination of steps should the developer take next to meet these requirements with the LEAST overhead? (Choose two.)
+
+A. Create an AWS CodeCommit project. Add the repository package's build and test commands to the project's buildspec.
+B. Create an AWS CodeBuild project. Add the repository package's build and test commands to the project's buildspec.
+C. Create an AWS CodeDeploy project. Add the repository package's build and test commands to the project's buildspec.
+D. Add an action to the source stage. Specify the newly created project as the action provider. Specify the build artifact as the action's input artifact.
+E. Add a new stage to the pipeline after the source stage. Add an action to the new stage. Specify the newly created project as the action provider. Specify the source artifact as the action's input artifact.
+
+Suggested Answer: BE
+
+E选项的  “newly created project”指的是B选项中建的CodeBuild project，所以input是source artifact
+
+
+---
+
+Question #: 70
+Topic #: 1
+[All AWS Certified Developer - Associate DVA-C02 Questions]
+An engineer created an A/B test of a new feature on an Amazon CloudWatch Evidently project. The engineer configured two variations of the feature (Variation A and Variation B) for the test. The engineer wants to work exclusively with Variation A. The engineer needs to make updates so that Variation A is the only variation that appears when the engineer hits the application's endpoint.
+
+Which solution will meet this requirement?
+
+A. Add an override to the feature. Set the identifier of the override to the engineer's user ID. Set the variation to Variation A.
+B. Add an override to the feature. Set the identifier of the override to Variation A. Set the variation to 100%.
+C. Add an experiment to the project. Set the identifier of the experiment to Variation B. Set the variation to 0%.
+D. Add an experiment to the project. Set the identifier of the experiment to the AWS account's account ISet the variation to Variation A.
+
+Suggested Answer: A
+
+向项目添加功能
+
+    通过以下网址打开 CloudWatch 控制台：https://console.aws.amazon.com/cloudwatch/
+
+。
+
+在导航窗格中，依次选择 Application monitoring（监控应用程序）、Evidently。
+
+请选择项目名称。
+
+请选择 Add feature（添加功能）。
+
+对于 Feature name（功能名称），输入用于标识此项目中此功能的名称。
+
+您也可以添加功能描述。
+
+对于 Feature variations（功能变体）和 Variation type（变体类型），请选择 Boolean、Long（长整数）、Double（双精度）或者 String（字符串）。有关更多信息，请参阅变体类型。
+
+最多可向功能添加五个变体。每个变体的 Value（值）必须对您选择的 Variation type（变体类型）有效。
+
+指定其中一个变体作为默认变体。这是将与其他变体进行比较的基准，并且应作为现在向用户提供的变体。这也是向未添加到此功能的启动或实验中的用户提供的变体。
+
+请选择 Sample code（示例代码）。此代码示例显示了为设置变体并为其分配用户会话，您需要添加到应用程序中的内容。您可以在 JavaScript、Java 和 Python 之间选择代码。
+
+您现在无需将代码添加到应用程序中，但必须在开始启动或实验之前添加。
+
+有关更多信息，请参阅将代码添加到应用程序。
+
+（可选）要指定某些用户可以始终看到某个变体，请选择 Overrides（覆盖）、Add override（添加覆盖）。然后，通过在 Identifier（标识符）中输入用户 ID、账户 ID 或其他一些标识符，指定用户并指定其可以看到的变体。
+
+如果您想确保自己的测试团队成员或其他内部用户可以看到特定变体，这非常有用。已分配覆盖的用户的会话无益于启动或试验指标。
+
+您可以通过再次选择 Add override（添加覆盖），为多达 10 个用户重复此操作。
+
+（可选）要向此功能添加标签，请选择 Tags（标签）、Add new tag（添加新标签）。
+
+然后，对于 Key（键），输入标签的名称。您可以在 Value (值) 中添加可选的标签值。
+
+要添加其他标签，请再次选择 Add new tag（添加新标签）。
+
+有关更多信息，请参阅标记 AWS 资源。
+
+请选择 Add feature（添加功能）。
+
+---
+
+Question #: 71
+Topic #: 1
+[All AWS Certified Developer - Associate DVA-C02 Questions]
+A developer is working on an existing application that uses Amazon DynamoDB as its data store. The DynamoDB table has the following attributes: partNumber (partition key), vendor (sort key), description, productFamily, and productType. When the developer analyzes the usage patterns, the developer notices that there are application modules that frequently look for a list of products based on the productFamily and productType attributes.
+
+The developer wants to make changes to the application to improve performance of the query operations.
+
+Which solution will meet these requirements?
+
+A. Create a global secondary index (GSI) with productFamily as the partition key and productType as the sort key.
+B. Create a local secondary index (LSI) with productFamily as the partition key and productType as the sort key.
+C. Recreate the table. Add partNumber as the partition key and vendor as the sort key. During table creation, add a local secondary index (LSI) with productFamily as the partition key and productType as the sort key.
+D. Update the queries to use Scan operations with productFamily as the partition key and productType as the sort key.
+
+Suggested Answer: A
+
+---
+
+Question #: 72
+Topic #: 1
+[All AWS Certified Developer - Associate DVA-C02 Questions]
+A developer creates a VPC named VPC-A that has public and private subnets. The developer also creates an Amazon RDS database inside the private subnet of VPC-A. To perform some queries, the developer creates an AWS Lambda function in the default VPC. The Lambda function has code to access the RDS database. When the Lambda function runs, an error message indicates that the function cannot connect to the RDS database.
+
+How can the developer solve this problem?
+
+A. Modify the RDS security group. Add a rule to allow traffic from all the ports from the VPC CIDR block.
+B. Redeploy the Lambda function in the same subnet as the RDS instance. Ensure that the RDS security group allows traffic from the Lambda function.
+C. Create a security group for the Lambda function. Add a new rule in the RDS security group to allow traffic from the new Lambda security group.
+D. Create an IAM role. Attach a policy that allows access to the RDS database. Attach the role to the Lambda function.
+
+Suggested Answer: B
+
+---
+
+Question #: 73
+Topic #: 1
+[All AWS Certified Developer - Associate DVA-C02 Questions]
+A company runs an application on AWS. The company deployed the application on Amazon EC2 instances. The application stores data on Amazon Aurora.
+
+The application recently logged multiple application-specific custom DECRYP_ERROR errors to Amazon CloudWatch logs. The company did not detect the issue until the automated tests that run every 30 minutes failed. A developer must implement a solution that will monitor for the custom errors and alert a development team in real time when these errors occur in the production environment.
+
+Which solution will meet these requirements with the LEAST operational overhead?
+
+A. Configure the application to create a custom metric and to push the metric to CloudWatch. Create an AWS CloudTrail alarm. Configure the CloudTrail alarm to use an Amazon Simple Notification Service (Amazon SNS) topic to send notifications.
+B. Create an AWS Lambda function to run every 5 minutes to scan the CloudWatch logs for the keyword DECRYP_ERROR. Configure the Lambda function to use Amazon Simple Notification Service (Amazon SNS) to send a notification.
+C. Use Amazon CloudWatch Logs to create a metric filter that has a filter pattern for DECRYP_ERROR. Create a CloudWatch alarm on this metric for a threshold >=1. Configure the alarm to send Amazon Simple Notification Service (Amazon SNS) notifications.
+D. Install the CloudWatch unified agent on the EC2 instance. Configure the application to generate a metric for the keyword DECRYP_ERROR errors. Configure the agent to send Amazon Simple Notification Service (Amazon SNS) notifications.
+
+Suggested Answer: C
+
+• CloudWatch Logs can use filter expressions
+  • For example, find a specific IP inside of a log
+  • Or count occurrences of “ERROR” in your logs 
+• Metric filters can be used to trigger CloudWatch alarms
+
+CloudWatch Logs Insights can be used to query logs and add queries to CloudWatch Dashboard
+
+---
+
+Question #: 74
+Topic #: 1
+[All AWS Certified Developer - Associate DVA-C02 Questions]
+A developer created an AWS Lambda function that accesses resources in a VPC. The Lambda function polls an Amazon Simple Queue Service (Amazon SQS) queue for new messages through a VPC endpoint. Then the function calculates a rolling average of the numeric values that are contained in the messages. After initial tests of the Lambda function, the developer found that the value of the rolling average that the function returned was not accurate.
+
+How can the developer ensure that the function calculates an accurate rolling average?
+
+A. Set the function's reserved concurrency to 1. Calculate the rolling average in the function. Store the calculated rolling average in Amazon ElastiCache.
+B. Modify the function to store the values in Amazon ElastiCache. When the function initializes, use the previous values from the cache to calculate the rolling average.
+C. Set the function's provisioned concurrency to 1. Calculate the rolling average in the function. Store the calculated rolling average in Amazon ElastiCache.
+D. Modify the function to store the values in the function's layers. When the function initializes, use the previously stored values to calculate the rolling average.
+
+Suggested Answer: A
+
+不确定
+
+---
+
+Question #: 75
+Topic #: 1
+[All AWS Certified Developer - Associate DVA-C02 Questions]
+A developer is writing unit tests for a new application that will be deployed on AWS. The developer wants to validate all pull requests with unit tests and merge the code with the main branch only when all tests pass.
+
+The developer stores the code in AWS CodeCommit and sets up AWS CodeBuild to run the unit tests. The developer creates an AWS Lambda function to start the CodeBuild task. The developer needs to identify the CodeCommit events in an Amazon EventBridge event that can invoke the Lambda function when a pull request is created or updated.
+
+Which CodeCommit event will meet these requirements?
+
+![](75.png)
+
+Suggested Answer: C
+
+pullRequestSourceBranchUpdated 事件
+
+在此示例事件中，代入名为 Admin 的角色（会话名称为 Mary_Major）的用户为 ID 为 1 的拉取请求更新了名为 test-branch 的源分支。
+
+pullRequestCreated 事件
+
+在此示例事件中，在名为 MyDemoRepo 的存储库中创建了一个拉取请求，创建者为代入名为 Admin 的角色（会话名称为 Mary_Major）的用户。未提供会话标记信息，因此该信息不包含在事件中。
+
+---
+
+Question #: 76
+Topic #: 1
+[All AWS Certified Developer - Associate DVA-C02 Questions]
+A developer deployed an application to an Amazon EC2 instance. The application needs to know the public IPv4 address of the instance.
+
+How can the application find this information?
+
+A. Query the instance metadata from http://169.254.169.254/latest/meta-data/.
+B. Query the instance user data from http://169.254.169.254/latest/user-data/.
+C. Query the Amazon Machine Image (AMI) information from http://169.254.169.254/latest/meta-data/ami/.
+D. Check the hosts file of the operating system.
+
+Suggested Answer: A
+
+---
+
+Question #: 77
+Topic #: 1
+[All AWS Certified Developer - Associate DVA-C02 Questions]
+An application under development is required to store hundreds of video files. The data must be encrypted within the application prior to storage, with a unique key for each video file.
+
+How should the developer code the application?
+
+A. Use the KMS Encrypt API to encrypt the data. Store the encrypted data key and data.
+B. Use a cryptography library to generate an encryption key for the application. Use the encryption key to encrypt the data. Store the encrypted data.
+C. Use the KMS GenerateDataKey API to get a data key. Encrypt the data with the data key. Store the encrypted data key and data.
+D. Upload the data to an S3 bucket using server side-encryption with an AWS KMS key.
+
+Suggested Answer: C 
+
+---
+
+Question #: 78
+Topic #: 1
+[All AWS Certified Developer Associate Questions]
+
+A developer has created a web API that uses Amazon Elastic Container Service (Amazon ECS) and an Application Load Balancer (ALB). An Amazon CloudFront distribution uses the API as an origin for web clients. The application has received millions of requests with a JSON Web Token (JWT) that is not valid in the authorization header. The developer has scaled out the application to handle the unauthenticated requests.
+What should the developer do to reduce the number of unauthenticated requests to the API?
+
+A. Add a request routing rule to the ALB to return a 401 status code if the authorization header is missing.
+B. Add a container to the ECS task definition to validate JWTs Set the new container as a dependency of the application container.
+C. Create a CloudFront function for the distribution Use the crypto module in the function to validate the JWT.
+D. Add a custom authorizer for AWS Lambda to the CloudFront distribution to validate the JWT.
+
+Suggested Answer: C 
+
+A: 有的有header但是header是无效的，要检查header
+B: 狗屁不通
+D: 和lambda无关
+
+---
+
+Question #: 79
+Topic #: 1
+[All AWS Certified Developer - Associate DVA-C02 Questions]
+A developer wants to debug an application by searching and filtering log data. The application logs are stored in Amazon CloudWatch Logs. The developer creates a new metric filter to count exceptions in the application logs. However, no results are returned from the logs.
+
+What is the reason that no filtered results are being returned?
+
+A. A setup of the Amazon CloudWatch interface VPC endpoint is required for filtering the CloudWatch Logs in the VPC.
+B. CloudWatch Logs only publishes metric data for events that happen after the filter is created.
+C. The log group for CloudWatch Logs should be first streamed to Amazon OpenSearch Service before metric filtering returns the results.
+D. Metric data points for logs groups can be filtered only after they are exported to an Amazon S3 bucket.
+
+Suggested Answer: B
+
+Filters do not retroactively filter data. Filters only publish the metric data points for events that happen after the filter was created.
+筛选条件不会以回溯方式筛选数据。筛选条件只会发布在创建后发生的事件的指标数据点。筛选结果返回前 50 行，如果筛选结果上的时间戳早于指标创建时间，则不会显示这些行。
+
+---
+
+Question #: 80
+Topic #: 1
+[All AWS Certified Developer - Associate DVA-C02 Questions]
+A company is planning to use AWS CodeDeploy to deploy an application to Amazon Elastic Container Service (Amazon ECS). During the deployment of a new version of the application, the company initially must expose only 10% of live traffic to the new version of the deployed application. Then, after 15 minutes elapse, the company must route all the remaining live traffic to the new version of the deployed application.
+
+Which CodeDeploy predefined configuration will meet these requirements?
+
+A. CodeDeployDefault.ECSCanary10Percent15Minutes
+B. CodeDeployDefault.LambdaCanary10Percent5Minutes
+C. CodeDeployDefault.LambdaCanary10Percentl15Minutes
+D. CodeDeployDefault.ECSLinear10PercentEvery1Minutes
+
+Suggested Answer: A
+
