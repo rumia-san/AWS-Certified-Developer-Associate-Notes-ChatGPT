@@ -2625,3 +2625,190 @@ Encryption SDK Feature - Data Key Caching:
 • Helps with reducing the number of calls to KMS with a security trade-off
 • Use LocalCryptoMaterialsCache (max age, max bytes, max number of messages)
 
+---
+
+Question #151
+
+A developer has code that is stored in an Amazon S3 bucket. The code must be deployed as an AWS Lambda function across multiple accounts in the same AWS Region as the S3 bucket. An AWS CloudFormation template that runs for each account will deploy the Lambda function.
+What is the MOST secure way to allow CloudFormation to access the Lambda code in the S3 bucket?
+
+A. Grant the CloudFormation service role the S3 ListBucket and GetObject permissions. Add a bucket policy to Amazon S3 with the pnncipal of "AWS": [account numbers].
+B. Grant the CloudFormation service role the S3 GetObject permission. Add a bucket policy to Amazon S3 with the principal of "*".
+C. Use a service-based link to grant the Lambda function the S3 ListBucket and GetObject permissions by explicitly adding the S3 bucket’s account number in the resource.
+D. Use a service-based link to grant the Lambda function the S3 GetObject permission. Add a resource of "*" to allow access to the S3 bucket.
+
+Correct Answer: A
+
+---
+
+Question #152
+
+A company is migrating a legacy application to a serverless application on AWS. The legacy application consists of a set of web services that are exposed by an Amazon API Gateway API. A developer needs to replace the existing implementation of web services with AWS Lambda functions. The developer needs to test a new version of the API that uses the functions in production. The developer must minimize the impact of the testing on the application's users.
+
+Which solution will meet these requirements?
+
+A. Create a beta stage for the new version of the API. Send the updated endpoint to the users.
+B. Create a development stage for the new version of the API. Use a canary deployment.
+C. Create a development stage for the new version of the API. Promote a canary release.
+D. Create a deployment stage. Enable mutual TLS for the new version of the API.
+
+Correct Answer: B
+
+---
+
+Question #153
+
+A developer needs to modify an application architecture to meet new functional requirements. Application data is stored in Amazon DynamoDB and processed for analysis in a nightly batch. The system analysts do not want to wait until the next day to view the processed data and have asked to have it available in near-real time.
+
+Which application architecture pattern would enable the data to be processed as it is received?
+
+A. Event driven
+B. Client-server driven
+C. Fan-out driven
+D. Schedule driven
+
+
+Correct Answer: A 
+
+---
+
+Question #154
+
+A company is migrating a web application from on premises to AWS. The company needs to move session storage from the application code to a shared service as part of the migration. The session storage data must be encrypted at rest.
+
+Which AWS services meet these requirements? (Choose two.)
+
+A. Amazon ElastiCache for Redis
+B. Amazon ElastiCache for Memcached
+C. Amazon CloudWatch
+D. AWS CloudTrail
+E. Amazon DynamoDB
+
+Correct Answer: AE
+
+**ElastiCache Memcached does not support encryption at rest**
+
+---
+
+Question #155
+
+A gaming application stores scores for players in an Amazon DynamoDB table that has four attributes user_id, user_name, user_score and user_rank. The users are allowed to update their names only. A user is authenticated by web identity federation.
+
+Which set of conditions should be added in the policy attached to the role for the dynamodb:PutItem API call?
+
+A ![](155-1.png)
+B ![](155-2.png)
+C ![](155-3.png)
+D ![](155-4.png)
+
+Correct Answer: A
+
+---
+
+Question #156
+
+A company is hosting a workshop for external users and wants to share the reference documents with the external users for 7 days. The company stores the reference documents in an Amazon S3 bucket that the company owns.
+
+What is the MOST secure way to share the documents with the external users?
+
+A. Use S3 presigned URLs to share the documents with the external users. Set an expiration time of 7 days.
+B. Move the documents to an Amazon WorkDocs folder Share the links of the WorkDocs folder with the external users.
+C. Create temporary IAM users that have read-only access to the S3 bucket. Share the access keys with the external users. Expire the credentials after 7 days.
+D. Create a role that has read-only access to the S3 bucket. Share the Amazon Resource Name (ARN) of this role with the external users.
+
+Correct Answer: A 
+
+---
+
+Question #157
+
+A developer is storing many objects in a single Amazon S3 bucket. The developer needs to optimize the S3 bucket for high request rates.
+
+How should the developer store the objects to meet this requirement?
+
+A. Store the objects by using S3 Intelligent-Tiering.
+B. Store the objects at the root of the S3 bucket.
+C. Store the objects by using object key names distributed across multiple prefixes.
+D. Store each object with an object tag named "prefix" that contains a unique value.
+
+Correct Answer: C
+
+According to Amazon S3 documentation, your application can achieve at least 3,500 PUT/COPY/POST/DELETE or 5,500 GET/HEAD requests **per second per partitioned prefix**. There are no limits to the number of prefixes in a bucket. You can increase your read or write performance by using parallelization1.
+
+您的应用程序可以实现至少每秒每个已分区前缀 3500 个 PUT/COPY/POST/DELETE 请求或 5500 个 GET/HEAD 请求。对桶中的前缀数量没有限制。您可以通过使用并行来增加读取或写入性能。例如，如果您在 Amazon S3 存储桶中创建 10 个前缀以并行处理读取，则可以将读取性能扩展到每秒 55,000 个读取请求。
+
+假设您的桶（admin-created）包含具有以下对象键的四个对象：
+
+Development/Projects.xls
+
+Finance/statement1.pdf
+
+Private/taxdocument.pdf
+
+s3-dg.pdf
+
+控制台使用键名前缀 (Development/、Finance/ 和 Private/) 和分隔符 (“/”) 呈现文件夹结构。s3-dg.pdf 键没有前缀，因此其对象直接在桶的根级别出现。如果您打开 Development/ 文件夹，可以看到 Projects.xlsx 对象。
+
+---
+
+Question #158
+
+A company has a serverless application that uses AWS Lambda functions and AWS Systems Manager parameters to store configuration data. The company moves the Lambda functions inside the VPC and into private subnets. The Lambda functions are now producing errors in their attempts to access Systems Manager parameters.
+
+Which solution will allow the Lambda functions to access Systems Manager parameters inside the VPC?
+
+A. Configure security groups to allow access to Systems Manager.
+B. Create an interface VPC endpoint for Systems Manager.
+C. Use an Internet gateway from inside the VPC.
+D. Create a gateway VPC endpoint for Systems Manager.
+
+Correct Answer: B
+
+Amazon VPC 中的 Lambda 函数没有访问互联网的权限。Lambda 在 Amazon VPC 内创建的网络接口具有私有 IP 地址，不能使用互联网网关访问互联网。此配置阻止函数访问 Amazon VPC 之外的其他 AWS 资源，例如 Parameter Store。
+
+**注意：**最佳做法是不要将 Lambda 函数放在 Amazon VPC 中，除非该函数必须访问 VPC 中的其他资源。
+解决方法
+
+要允许 Amazon VPC 中的 Lambda 函数访问 Parameter Store，请执行下面任意一项操作：
+
+    授予函数互联网访问权限。
+    在 Amazon VPC 中设置接口终端节点，允许您的函数访问 Systems Manager。
+
+    Give your function internet access.
+    Set up an interface endpoint in your Amazon VPC that allows your function to access Systems Manager.
+
+接口端点支持更多的 AWS 服务，包括 Amazon S3、DynamoDB、API Gateway、Kinesis、CloudWatch、CloudTrail 等。
+网关端点仅支持 Amazon S3 和 DynamoDB 两个服务。
+
+---
+
+Question #159
+
+A research company has a website that is used once each day to perform scientific calculations based on inputs that are submitted through a webpage. The calculations are CPU intensive. An AWS Lambda function performs the calculations once each day. Users occasionally receive errors because of Lambda function timeouts.
+
+Which change will reduce the Lambda function's runtime duration?
+
+A. Configure Lambda to run the function on an Amazon EC2 burstable instance type.
+B. Configure Lambda to run the function on an Amazon EC2 instance type that is recommended for high performance computing (HPC) workloads.
+C. Configure Lambda to run the function with a larger reserved concurrency value.
+D. Configure Lambda to run the function with a larger memory value.
+
+Correct Answer: D
+
+---
+
+Question #160
+
+A developer is creating an application. New users of the application must be able to create an account and register by using their own social media accounts.
+
+Which AWS service or resource should the developer use to meet these requirements?
+
+A. IAM role
+B. Amazon Cognito identity pools
+C. Amazon Cognito user pools
+D. AWS Directory Service
+
+Correct Answer: C 
+
+---
+
