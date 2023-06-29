@@ -2992,4 +2992,176 @@ Correct Answer: A
 
 ---
 
+Question #171
+
+A developer is writing a web application that is deployed on Amazon EC2 instances behind an internet-facing Application Load Balancer (ALB). The developer must add an Amazon CloudFront distribution in front of the ALB. The developer also must ensure that customer data from outside the VPC is encrypted in transit.
+
+Which combination of CloudFront configuration settings should the developer use to meet these requirements? (Choose two.)
+
+A. Restrict viewer access by using signed URLs.
+B. Set the Origin Protocol Policy setting to Match Viewer.
+C. Enable field-level encryption.
+D. Enable automatic object compression.
+E. Set the Viewer Protocol Policy setting to Redirect HTTP to HTTPS.
+
+Correct Answer: CE / BE 不确定
+
+https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/data-protection-summary.html
+
+Amazon CloudFront provides several options that you can use to help secure the content that it delivers:
+
+    Configure HTTPS connections.
+
+    Configure field-level encryption to provide additional security for specific data during transit.
+
+    Restrict access to content so that only specific people, or people in a specific area, can view it.
+
+---
+
+Question #172
+
+A developer is writing a web application that must share secure documents with end users. The documents are stored in a private Amazon S3 bucket. The application must allow only authenticated users to download specific documents when requested, and only for a duration of 15 minutes.
+
+How can the developer meet these requirements?
+
+A. Copy the documents to a separate S3 bucket that has a lifecycle policy for deletion after 15 minutes.
+B. Create a presigned S3 URL using the AWS SDK with an expiration time of 15 minutes.
+C. Use server-side encryption with AWS KMS managed keys (SSE-KMS) and download the documents using HTTPS.
+D. Modify the S3 bucket policy to only allow specific users to download the documents. Revert the change after 15 minutes.
+
+Correct Answer: B
+
+---
+
+Question #173
+
+A company wants to migrate an existing web application to AWS. The application consists of two web servers and a MySQL database.
+
+The company wants the application to automatically scale in response to demand. The company also wants to reduce its operational overhead for database backups and maintenance. The company needs the ability to deploy multiple versions of the application concurrently.
+
+What is the MOST operationally efficient solution that meets these requirements?
+
+A. Deploy the application to AWS Elastic Beanstalk. Migrate the database to an Amazon RDS Multi-AZ DB instance.
+B. Create an Amazon Machine Image (AMI) that contains the application code. Create an Auto Scaling group that is based on the AMI. Integrate the Auto Scaling group with an Application Load Balancer for the web servers. Migrate the database to a MySQL instance that runs on an Amazon EC2 instance.
+C. Deploy the application to AWS Elastic Beanstalk. Migrate the database to a MySQL instance that runs on an Amazon EC2 instance.
+D. Create an Amazon Machine Image (AMI) that contains the application code. Create an Auto Scaling group that is based on the AMI. Integrate the Auto Scaling group with an Application Load Balancer for the web servers. Migrate the database to an Amazon RDS Multi-AZ DB instance.
+
+Correct Answer: A
+
+---
+
+Question #174
+
+A financial company must store original customer records for 10 years for legal reasons. A complete record contains personally identifiable information (PII). According to local regulations. PII is available to only certain people in the company and must not be shared with third parties. The company needs to make the records available to third-party organizations for statistical analysis without sharing the PII.
+
+A developer wants to store the original immutable record in Amazon S3. Depending on who accesses the S3 document, the document should be returned as is or with all the PII removed. The developer has written an AWS Lambda function to remove the PII from the document. The function is named removePii.
+
+What should the developer do so that the company can meet the PII requirements while maintaining only one copy of the document?
+
+A. Set up an S3 event notification that invokes the removePii function when an S3 GET request is made. Call Amazon S3 by using a GET request to access the object without PII.
+B. Set up an S3 event notification that invokes the removePii function when an S3 PUT request is made. Call Amazon S3 by using a PUT request to access the object without PII.
+C. Create an S3 Object Lambda access point from the S3 console. Select the removePii function. Use S3 Access Points to access the object without PII.
+D. Create an S3 access point from the S3 console. Use the access point name to call the GetObjectLegalHold S3 API function. Pass in the removePii function name to access the object without PII.
+
+Correct Answer: C
+
+---
+
+Question #175
+
+A developer is designing an AWS Lambda function that creates temporary files that are less than 10 MB during invocation. The temporary files will be accessed and modified multiple times during invocation. The developer has no need to save or retrieve these files in the future.
+
+Where should the temporary files be stored?
+
+A. the /tmp directory
+B. Amazon Elastic File System (Amazon EFS)
+C. Amazon Elastic Block Store (Amazon EBS)
+D. Amazon S3
+
+Correct Answer: A
+
+---
+
+Question #176
+
+A developer is building a web and mobile application for two types of users: regular users and guest users. Regular users are required to log in, but guest users do not log in. Users should see only their data, regardless of whether they authenticate. Users need AWS credentials before they can access AWS resources.
+
+What is the MOST secure solution that the developer can implement to allow access for guest users?
+
+A. Use an Amazon Cognito credentials provider to issue temporary credentials that are linked to an unauthenticated role that has access to the required resources.
+B. Set up an IAM user that has permissions to the required resources. Hardcode the IAM credentials in the web and mobile application.
+C. Generate temporary keys that are stored in AWS Key Management Service (AWS KMS). Use the temporary keys to access the required resources.
+D. Generate temporary credentials. Store the temporary credentials in AWS Secrets Manager. Use the temporary credentials to access the required resources
+
+Correct Answer: A
+
+---
+
+Question #177
+
+A developer is using AWS Elastic Beanstalk to create a deployment for a web application that supports ecommerce. According to a company requirement. Amazon EC2 instances that host one version of the application must be retired when the deployment of a new version is complete.
+
+Which deployment methods can the developer use to meet this requirement? (Choose two.)
+
+A. All-al-once deployment
+B. In-place deployment
+C. Rolling deployment without an additional batch
+D. Blue/green deployment
+E. Immutable deployment
+
+Correct Answer: DE
+
+• Immutable: spins up new instances in a new ASG, deploys version to these instances, 
+and then swaps all the instances when everything is healthy
+• Blue Green: create a new environment and switch over when ready (Not a “direct feature” of Elastic Beanstalk, use Route53)
+
+---
+
+Question #178
+
+A company caches session information for a web application in an Amazon DynamoDB table. The company wants an automated way to delete old items from the table.
+
+What is the simplest way to do this?
+
+A. Write a script that deletes old records; schedule the script as a cron job on an Amazon EC2 instance.
+B. Add an attribute with the expiration time; enable the Time To Live feature based on that attribute.
+C. Each day, create a new table to hold session data; delete the previous day’s table.
+D. Add an attribute with the expiration time; name the attribute ItemExpiration.
+ 
+Correct Answer: B
+
+---
+
+Question #179
+
+A company's new mobile app uses Amazon API Gateway. As the development team completes a new release of its APIs, a developer must safely and transparently roll out the API change.
+
+What is the SIMPLEST solution for the developer to use for rolling out the new API version to a limited number of users through API Gateway?
+
+A. Create a new API in API Gateway. Direct a portion of the traffic to the new API using an Amazon Route 53 weighted routing policy.
+B. Validate the new API version and promote it to production during the window of lowest expected utilization.
+C. Implement an Amazon CloudWatch alarm to trigger a rollback if the observed HTTP 500 status code rate exceeds a predetermined threshold.
+D. Use the canary release deployment option in API Gateway. Direct a percentage of the API traffic using the canarySettings setting.
+
+Correct Answer: D 
+
+---
+
+Question #180
+
+A developer is designing a serverless application that customers use to select seats for a concert venue. Customers send the ticket requests to an Amazon API Gateway API with an AWS Lambda function that acknowledges the order and generates an order ID. The application includes two additional Lambda functions: one for inventory management and one for payment processing. These two Lambda functions run in parallel and write the order to an Amazon Dynamo DB table.
+
+The application must provide seats to customers according to the following requirements. If a seat is accidently sold more than once, the first order that the application received must get the seat. In these cases, the application must process the payment for only the first order. However, if the first order is rejected during payment processing, the second order must get the seat. In these cases, the application must process the payment for the second order.
+
+Which solution will meet these requirements?
+
+A. Send the order ID to an Amazon Simple Notification Service (Amazon SNS) FIFO topic that fans out to one Amazon Simple Queue Service (Amazon SQS) FIFO queue for inventory management and another SQS FIFO queue for payment processing.
+B. Change the Lambda function that generates the order ID to initiate the Lambda function for inventory management. Then initiate the Lambda function for payment processing.
+C. Send the order ID to an Amazon Simple Notification Service (Amazon SNS) topic. Subscribe the Lambda functions for inventory management and payment processing to the topic.
+D. Deliver the order ID to an Amazon Simple Queue Service (Amazon SQS) queue. Configure the Lambda functions for inventory management and payment processing to poll the queue.
+
+Correct Answer: A
+
+A is the answer. SNS FIFO topics and SQS FIFO queues working together with the fanout functionality is the way to go. These two together to provide strict message ordering and message deduplication.
+
 
