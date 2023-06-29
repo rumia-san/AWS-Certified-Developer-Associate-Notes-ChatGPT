@@ -3503,6 +3503,15 @@ Given: stored in as a "plaintext value"
 ssm: Systems Manager Parameter Store plaintext parameter. [[ ==> Correct answer ]]
 ssm-secure: Systems Manager Parameter Store secure string parameter.
 
+CloudFormation currently supports the following dynamic reference patterns:
+
+    ssm, for plaintext values stored in AWS Systems Manager Parameter Store.
+
+    ssm-secure, for secure strings stored in AWS Systems Manager Parameter Store.
+
+    secretsmanager, for entire secrets or secret values stored in AWS Secrets Manager.
+
+
 ---
 
 Question #200
@@ -3529,3 +3538,201 @@ X-Ray Concepts
 The X-Ray daemon / agent has a config to send traces cross account:
 • make sure the IAM permissions are correct – the agent will assume the role
 • This allows to have a central account for all your application tracing
+
+---
+
+Question #201
+
+A developer is deploying an application on Amazon EC2 instances that run in Account A. The application needs to read data from an existing Amazon Kinesis data stream in Account B.
+
+Which actions should the developer take to provide the application with access to the stream? (Choose two.)
+
+A. Update the instance profile role in Account A with stream read permissions.
+B. Create an IAM role with stream read permissions in Account B.
+C. Add a trust policy to the instance profile role and IAM role in Account B to allow the instance profile role to assume the IAM role.
+D. Add a trust policy to the instance profile role and IAM role in Account B to allow reads from the stream.
+E. Add a resource-based policy in Account B to allow read access from the instance profile role.
+
+Correct Answer: BC
+
+---
+
+Question #202
+
+A developer is working on an AWS Lambda function that accesses Amazon DynamoDB. The Lambda function must retrieve an item and update some of its attributes, or create the item if it does not exist. The Lambda function has access to the primary key.
+
+Which IAM permissions should the developer request for the Lambda function to achieve this functionality?
+
+GetItem, PutItem, UpdateItem
+
+Correct Answer: D 
+
+---
+
+Question #203
+
+A company is using AWS CloudFormation templates to deploy AWS resources. The company needs to update one of its AWS CloudFormation stacks.
+
+What can the company do to find out how the changes will impact the resources that are running?
+
+A. Investigate the change sets.
+B. Investigate the stack policies.
+C. Investigate the Metadata section.
+D. Investigate the Resources section.
+
+Correct Answer: A
+
+ChangeSets
+• When you update a stack, you need to know what changes before it 
+happens for greater confidence
+• ChangeSets won’t say if the update will be successful 
+
+---
+
+Question #204
+
+A developer is building an application integrating an Amazon API Gateway with an AWS Lambda function. When calling the API. the developer receives the following error:
+
+Wed Nov 08 01:13:00 UTC 2017 : Method completed with status: 502
+
+What should the developer do to resolve the error?
+
+A. Change the HTTP endpoint of the API to an HTTPS endpoint.
+B. Change the format of the payload sent to the API Gateway.
+C. Change the format of the Lambda function response to the API call.
+D. Change the authorization header in the API call to access the Lambda function.
+
+Correct Answer: C
+
+如果 Lambda 函数的权限不正确，或者对 API 请求的响应格式不正确，那么 API 网关会返回一个 HTTP 502 状态代码
+
+要使 API 网关处理 Lambda 函数的应答，该函数必须按照以下 JSON 格式返回输出：
+
+{
+    "isBase64Encoded": true|false,
+    "statusCode": httpStatusCode,
+    "headers": { "headerName": "headerValue", ... },
+    "body": "..."
+}
+
+---
+
+Question #205
+
+A company’s social media application stores image files in an Amazon S3 bucket. All the images are stored in S3 Standard storage. Users access images frequently during the first week after images are uploaded. Users rarely access images that were uploaded more than 1 week ago.
+
+The company needs a solution to reduce the application’s storage cost. Users must be able to access all images in the same amount of time, regardless of when the images were uploaded.
+
+Which solution will meet these requirements with the LEAST amount of effort?
+
+A. Modify the application to use S3 Intelligent-Tiering for all the images.
+B. Modify the application to use S3 One Zone-Infrequent Access (S3 One Zone-IA) for all the images.
+C. Use an S3 Lifecycle policy to move images that were uploaded more than 1 week ago to S3 Glacier Deep Archive.
+D. Use an S3 Lifecycle policy to move images that were uploaded more than 1 week ago to S3 Glacier Flexible Retrieval.
+
+Correct Answer: A 
+
+---
+
+Question #206
+
+A development team is designing a mobile app that requires multi-factor authentication.
+
+Which steps should be taken to achieve this? (Choose two.)
+
+A. Use Amazon Cognito to create a user pool and create users in the user pool.
+B. Send multi-factor authentication text codes to users with the Amazon SNS Publish API call in the app code.
+C. Enable multi-factor authentication for the Amazon Cognito user pool.
+D. Use AWS IAM to create IAM users.
+E. Enable multi-factor authentication for the users created in AWS IAM.
+
+Correct Answer: AC
+
+---
+
+Question #207
+
+A company is using AWS CodePipeline pipelines to deploy development Amazon EC2 instances for multiple teams. All the pipelines are using the same AWS CloudFormation template to deploy the EC2 instances and create dedicated CloudFormation stacks for each team. Each pipeline passes a parameter that is named TeamName to the CloudFormation stack to tag resources with the appropriate team’s name.
+
+The company discovers that each team's usage of EC2 instances is not consistent with the type of EC2 instances that the teams are deploying. The company needs to allow the teams to deploy different types of EC2 instances.
+
+Which solution will meet this requirement with the LEAST change to the pipelines?
+
+A. For each team, use a dedicated CloudFormation template that includes different types of EC2 instances. Update CodePipeline to use the dedicated template for each team.
+B. For each team, use a dedicated CloudFormation template that includes an InstanceType parameter and a value that is specific to the team's requirement. Update CodePipeline to use the dedicated template for each team
+C. Update the CloudFormation template by creating an InstanceType parameter. Update CodePipeline to pass the InstanceType parameter value that is specific to the team's requirement.
+D. Update the CloudFormation template by adding a map for the instance types to the Mappings section. Create a list of all the teams. Configure the required instance type for each team in the map.
+
+Correct Answer: D 
+
+LEAST change to the pipelines
+C会改pipeline
+
+---
+
+Question #208
+
+A developer is creating an application for a company. The application needs to read the file doc txt that is placed in the root folder of an Amazon S3 bucket that is named DOC-EXAMPLE-BUCKET. The company’s security team requires the principle of least privilege to be applied to the application’s IAM policy.
+
+Which IAM policy statement will meet these security requirements?
+
+![](208.png)
+
+Correct Answer: A
+
+---
+
+Question #209
+
+A company has migrated an application to Amazon EC2 instances. Automatic scaling is working well for the application user interface. However, the process to deliver shipping requests to the company's warehouse staff is encountering issues. Duplicate shipping requests are arriving, and some requests are lost or arrive out of order.
+
+The company must avoid duplicate shipping requests and must process the requests in the order that the requests arrive. Requests are never more than 250 KB in size and take 5-10 minutes to process. A developer needs to rearchitect the application to improve the reliability of the delivery and processing of the requests.
+
+What should the developer do to meet these requirements?
+
+A. Create an Amazon Kinesis Data Firehose delivery stream to process the requests. Create an Amazon Kinesis data stream. Modify the application to write the requests to the Kinesis data stream.
+B. Create an AWS Lambda function to process the requests. Create an Amazon Simple Notification Service (Amazon SNS) topic. Subscribe the Lambda function to the SNS topic. Modify the application to write the requests to the SNS topic.
+C. Create an AWS Lambda function to process the requests. Create an Amazon Simple Queue Service (Amazon SQS) standard queue. Set the SQS queue as an event source for the Lambda function. Modify the application to write the requests to the SQS queue.
+D. Create an AWS Lambda function to process the requests. Create an Amazon Simple Queue Service (Amazon SQS) FIFO queue. Set the SQS queue as an event source for the Lambda function. Modify the application to write the requests to the SQS queue.
+
+Correct Answer: D
+
+FIFO queues are designed to ensure that the order in which messages are sent and received is strictly preserved and that each message is delivered once and remains available until a consumer processes and deletes it.
+
+---
+
+Question #210
+
+A team of developers must migrate an application running inside an AWS Elastic Beanstalk environment from a Classic Load Balancer to an Application Load Balancer.
+
+Which steps should be taken to accomplish the task using the AWS Management Console?
+
+A. 
+1. Update the application code in the existing deployment.
+1. Select a new load balancer type before running the deployment
+2. Deploy the new version of the application code to the environment
+B. 
+1. Create a new environment with the same configurations except for the load balancer type.
+1. Deploy the same application version as used in the original environment.
+2. Run the swap-environment-cnames action
+C. 
+1. Clone the existing environment, changing the associated load balancer type.
+1. Deploy the same application version as used in the original environment.
+2. Run the swap-environment-cnames action
+D. 
+1. Edit the environment definitions in the existing deployment.
+1. Change the associated load balancer type according to the requirements.
+2. Rebuild the environment with the new load balancer type.
+
+Correct Answer: B
+
+https://repost.aws/questions/QUEemsrTM_TPG3r_HdoG08EQ/how-to-remove-or-change-a-load-balancer-type-with-elastic-beanstalk
+
+Elastic Beanstalk Migration: Load Balancer
+• After creating an Elastic Beanstalk environment, you **cannot change the Elastic Load Balancer type** (only the configuration)
+
+• To migrate: 
+1. create a new environment with the same configuration except LB (can’t clone)
+2. deploy your application onto the new environment
+3. perform a CNAME swap or Route 53 update 
+
