@@ -3164,4 +3164,194 @@ Correct Answer: A
 
 A is the answer. SNS FIFO topics and SQS FIFO queues working together with the fanout functionality is the way to go. These two together to provide strict message ordering and message deduplication.
 
+---
+
+Question #181
+
+A developer wants to implement authentication using Amazon Cognito user pools for an existing API in Amazon API Gateway. After creating the Amazon Cognito user pool, the developer tests the GET request to the API. Unauthenticated requests to the API return a 200 OK status response.
+
+Which combination of additional steps are required to complete the authentication implementation? (Choose two.)
+
+A. Create an Amazon Cognito authorizer in API Gateway and specify the Amazon Cognito user pool.
+B. Create an AWS Lambda authorizer in API Gateway and specify the Amazon Cognito user pool.
+C. Specify the authorizer in the GET method section of API Gateway and redeploy the API
+D. Use Amazon Cognito user pools to make and authenticate the request to API Gateway.
+E. Create an Amazon Cognito authorizer in API Gateway and specify the Amazon Cognito identity pool.
+
+Correct Answer: AC
+
+API Gateway – Security
+Cognito User Pools
+• Cognito fully manages user lifecycle, token expires automatically 
+• API gateway verifies identity automatically from AWS Cognito
+• No custom implementation required
+• Authentication = Cognito User Pools | Authorization = API Gateway Methods
+
+---
+
+Question #182
+
+A developer is creating a command line script to launch an Amazon EC2 instance at a preset time with a cron job. The developer will provide a user data script to start a task and then terminate the instance. The task cannot be interrupted and must run to completion.
+
+How should the developer launch the EC2 instance?
+
+A. Use the ec2 start-instances command.
+B. Use the ec2 request-spot-instances command.
+C. Use the ec2 run-instances command.
+D. Use the ec2 purchase-scheduled-instances command.
+
+Correct Answer: C
+
+---
+
+Question #183
+
+A developer is creating an Amazon DynamoDB table. The entire table must be encrypted at rest.
+
+Which solution will meet this requirement MOST cost-effectively?
+
+A. Create the DynamoDB table by using default encryption settings.
+B. Encrypt the data by using the DynamoDB Encryption Client.
+C. During creation of the DynamoDB table, configure encryption at rest with an AWS Key Management Service (AWS KMS) AWS managed key.
+D. During creation of the DynamoDB table, configure encryption at rest with an AWS Key Management Service (AWS KMS) customer managed key.
+
+Correct Answer: A 
+
+Option C, configuring encryption at rest with an AWS KMS AWS managed key, is a good solution for greater control over encryption keys and to meet specific compliance requirements. However, this option incurs additional costs for using AWS KMS.
+
+Option D, configuring encryption at rest with an AWS KMS customer managed key, provides even greater control over encryption keys, but also incurs additional costs for using AWS KMS and managing the customer-managed key.
+
+---
+
+Question #184
+
+A company configures an Amazon S3 bucket to deliver S3 object events to Amazon EventBridge (Amazon CloudWatch Events). An EventBridge rule invokes an AWS Lambda function for each object event that is received from the S3 bucket.
+
+A developer is working on a new version of the Lambda function. To ensure that the new Lambda function works as expected, the developer must run a repeatable test that uses realistic S3 bucket object events. The developer must minimize the amount of code and infrastructure that are required to support the test.
+
+Which solution will meet these requirements?
+
+A. Create another S3 bucket that can deliver object events to EventBridge. Add another EventBridge rule to deliver data events from the new S3 bucket to the new Lambda function Develop a tool to update objects in the new S3 bucket to produce the test S3 object events.
+B. Add the new Lambda function as an additional target of the existing EventBridge rule. Deliver the S3 object events to the existing Lambda function and the new Lambda function simultaneously.
+C. Use EventBridge to archive and replay production S3 object events. Set up a new EventBridge rule to deliver replayed S3 object events to the new Lambda function.
+D. Develop a tool that uses the EventBridge PutEvents API operation to publish aws.s3 data events. Add a new EventBridge rule that delivers the aws.s3 events to the new Lambda function.
+
+Correct Answer: C 
+
+Replaying archived Amazon EventBridge events
+
+After you create an archive, you can then replay events from the archive. For example, if you update an application with additional functionality, you can replay historical events to ensure that the events are reprocessed to keep the application consistent. You can also use an archive to replay events for new functionality. When you replay events, you can specify which archive to replay events from, the start and end time for the event to replay, the event bus, or one or more rules to replay the events to.
+
+
+---
+
+Question #185
+
+A developer has built an application running on AWS Lambda using AWS Serverless Application Model (AWS SAM).
+
+What is the correct sequence of steps to successfully deploy the application?
+
+A. 
+1. Build the SAM template in Amazon EC2.
+2. Package the SAM template to Amazon EBS storage.
+3. Deploy the SAM template from Amazon EBS.
+
+B. 
+1. Build the SAM template locally.
+1. Package the SAM template onto Amazon S3.
+2. Deploy the SAM template from Amazon S3.
+
+
+C. 
+1. Build the SAM template locally.
+1. Deploy the SAM template from Amazon S3.
+2. Package the SAM template for use.
+
+
+D. 
+1. Build the SAM template locally.
+1. Package the SAM template from AWS CodeCommit.
+2. Deploy the SAM template to CodeCommit.
+
+Correct Answer: B
+
+---
+
+Question #186
+
+A team of developers is using an AWS CodePipeline pipeline as a continuous integration and continuous delivery (CI/CD) mechanism for a web application. A developer has written unit tests to programmatically test the functionality of the application code. The unit tests produce a test report that shows the results of each individual check. The developer now wants to run these tests automatically during the CI/CD process.
+
+Which solution will meet this requirement with the LEAST operational effort?
+
+A. Write a Git pre-commit hook that runs the tests before every commit. Ensure that each developer who is working on the project has the pre-commit hook installed locally. Review the test report and resolve any issues before pushing changes to AWS CodeCommit.
+B. Add a new stage to the pipeline. Use AWS CodeBuild as the provider. Add the new stage after the stage that deploys code revisions to the test environment. Write a buildspec that fails the CodeBuild stage if any test does not pass. Use the test reports feature of CodeBuild to integrate the report with the CodeBuild console. View the test results in CodeBuild. Resolve any issues.
+C. Add a new stage to the pipeline. Use AWS CodeBuild as the provider. Add the new stage before the stage that deploys code revisions to the test environment. Write a buildspec that fails the CodeBuild stage if any test does not pass. Use the test reports feature of CodeBuild to integrate the report with the CodeBuild console. View the test results in CodeBuild. Resolve any issues.
+D. Add a new stage to the pipeline. Use Jenkins as the provider. Configure CodePipeline to use Jenkins to run the unit tests. Write a Jenkinsfile that fails the stage if any test does not pass. Use the test report plugin for Jenkins to integrate the report with the Jenkins dashboard. View the test results in Jenkins. Resolve any issues.
+
+Correct Answer: C
+
+和B的区别在于一个 after the stage另一个是before the stage that deploys code revisions to the test environment
+
+---
+
+Question #187
+
+A game stores user game data in an Amazon DynamoDB table. Individual users should not have access to other users' game data.
+
+How can this be accomplished?
+
+A. Encrypt the game data with individual user keys.
+B. Restrict access to specific items based on certain primary key values.
+C. Stage data in SQS queues to inject metadata before accessing DynamoDB.
+D. Read records from DynamoDB and discard irrelevant data client-side.
+
+Correct Answer: B 
+
+---
+
+Question #188
+
+A developer is creating an application that will give users the ability to store photos from their cellphones in the cloud. The application needs to support tens of thousands of users. The application uses an Amazon API Gateway REST API that is integrated with AWS Lambda functions to process the photos. The application stores details about the photos in Amazon DynamoDB.
+
+Users need to create an account to access the application. In the application, users must be able to upload photos and retrieve previously uploaded photos. The photos will range in size from 300 KB to 5 MB.
+
+Which solution will meet these requirements with the LEAST operational overhead?
+
+A. Use Amazon Cognito user pools to manage user accounts. Create an Amazon Cognito user pool authorizer in API Gateway to control access to the API. Use the Lambda function to store the photos and details in the DynamoDB table. Retrieve previously uploaded photos directly from the DynamoDB table.
+B. Use Amazon Cognito user pools to manage user accounts. Create an Amazon Cognito user pool authorizer in API Gateway to control access to the API. Use the Lambda function to store the photos in Amazon S3. Store the object's S3 key as part of the photo details in the DynamoDB table. Retrieve previously uploaded photos by querying DynamoDB for the S3 key.
+C. Create an IAM user for each user of the application during the sign-up process. Use IAM authentication to access the API Gateway API. Use the Lambda function to store the photos in Amazon S3. Store the object's S3 key as part of the photo details in the DynamoDB table. Retrieve previously uploaded photos by querying DynamoDB for the S3 key.
+D. Create a user’s table in DynamoDB. Use the table to manage user accounts. Create a Lambda authorizer that validates user credentials against the users table. Integrate the Lambda authorizer with API Gateway to control access to the API. Use the Lambda function to store the photos in Amazon S3. Store the object's S3 key as part of the photo details in the DynamoDB table. Retrieve previously uploaded photos by querying DynamoDB for the S3 key.
+
+Correct Answer: B
+
+---
+
+
+Question #189
+
+A developer is building a three-tier web application that should be able to handle a minimum of 5000 requests per minute. Requirements state that the web tier should be completely stateless while the application maintains session state for the users.
+
+How can session data be externalized, keeping latency at the LOWEST possible value?
+
+A. Create an Amazon RDS instance, then implement session handling at the application level to leverage a database inside the RDS database instance for session data storage.
+B. Implement a shared file system solution across the underlying Amazon EC2 instances, then implement session handling at the application level to leverage the shared file system for session data storage.
+C. Create an Amazon ElastiCache Memcached cluster, then implement session handling at the application level to leverage the cluster for session data storage.
+D. Create an Amazon DynamoDB table, then implement session handling at the application level to leverage the table for session data storage.
+
+Correct Answer: C 
+
+---
+
+Question #190
+
+A company is using an Amazon API Gateway REST API endpoint as a webhook to publish events from an on-premises source control management (SCM) system to Amazon EventBridge (Amazon CloudWatch Events). The company has configured an EventBridge (CloudWatch Events) rule to listen for the events and to control application deployment in a central AWS account. The company needs to receive the same events across multiple receiver AWS accounts.
+
+How can a developer meet these requirements without changing the configuration of the SCM system?
+
+A. Deploy the API Gateway REST API to all the required AWS accounts. Use the same custom domain name for all the gateway endpoints so that a single SCM webhook can be used for all events from all accounts.
+B. Deploy the API Gateway REST API to all the receiver AWS accounts. Create as many SCM webhooks as the number of AWS accounts.
+C. Grant permission to the central AWS account for EventBridge (CloudWatch Events)to access the receiver AWS accounts. Add an EventBridge (CloudWatch Events) event bus on the receiver AWS accounts as the targets to the existing EventBridge (CloudWatch Events) rule.
+D. Convert the API Gateway type from REST API to HTTP API.
+
+Correct Answer: C 
 
