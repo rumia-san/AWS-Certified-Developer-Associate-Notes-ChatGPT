@@ -2812,3 +2812,184 @@ Correct Answer: C
 
 ---
 
+Question #161
+
+A developer wants to use AWS CodeDeploy to deploy an Amazon Elastic Container Service (Amazon ECS) service.
+
+What are the MINIMUM properties required in the 'resources' section of the AppSpec file for CodeDeploy to deploy the ECS service successfully?
+
+A. name, alias currentversion, and targetversion
+B. TaskDefinition, ContainerName, and PlatformVersion
+C. TaskDefimtion, ContainerName, and ContainerPort
+D. name, currentversion, NetworkConfiguration, and PlatformVersion
+
+Correct Answer: C
+
+https://docs.aws.amazon.com/zh_cn/codedeploy/latest/userguide/reference-appspec-file-structure-resources.html
+
+---
+
+Question #162
+
+A company has deployed a single-page application on AWS. The application stores assets in an Amazon S3 bucket. The application has an Amazon CloudFront distribution that is configured with the S3 bucket as the origin. Amazon API Gateway APIs access AWS Lambda functions that store information in an Amazon DynamoDB table. The application ingests a payload that includes 20 fields of sensitive data.
+
+Which combination of steps should a developer take to protect the sensitive data through its entire lifecycle in AWS? (Choose two.)
+
+A. Create a Lambda@Edge function to encrypt data when CloudFront processes a client request. Configure the distribution to invoke the Lambda@Edge function when the origin request event occurs.
+B. Generate an AWS Key Management Service (AWS KMS) customer managed key that Lambda@Edge can use.
+C. Create an SSL/TLS certificate in AWS Certificate Manager (ACM). Associate the certificate with the Network Load Balancer.
+D. Set up a Network Load Balancer for API Gateway private integrations.
+E. Store the data in the S3 bucket by using server-side encryption with Amazon S3 managed encryption keys (SSE-S3). Transfer the encrypted data from the S3 bucket to the DynamoDB table.
+
+Correct Answer: AB / AE 不确定
+
+---
+
+Question #163
+
+A developer is writing an application that stores data in an Amazon DynamoDB table by using the Putltem API operation. The table has a partition key of streamID and has a sort key of seqID. The developer needs to make sure that the Putltem invocation does not overwrite the existing partition key and sort key.
+
+Which condition expression will maintain the uniqueness of the partition key and the sort key?
+
+A attribute_not_exist(streamID) AND attribute_not_exist(seqID)
+
+Correct Answer: A
+
+---
+
+Question #164
+
+A developer has created an AWS Lambda function that is written in Python. The Lambda function reads data from objects in Amazon S3 and writes data to an Amazon DynamoDB table.
+
+The function is successfully invoked from an S3 event notification when an object is created. However, the function fails when it attempts to write to the DynamoDB table.
+
+What is the MOST likely cause of this issue?
+
+A. The Lambda function's concurrency limit has been exceeded.
+B. The DynamoDB table requires a global secondary index (GSI) to support writes.
+C. The Lambda function does not have IAM permissions to write to DynamoDB.
+D. The DynamoDB table is not running in the same Availability Zone as the Lambda function.
+
+Correct Answer: C 
+
+---
+
+Question #165
+
+A development team wants to build a continuous integration/continuous delivery (CI/CD) pipeline. The team is using AWS CodePipeline to automate the code build and deployment. The team wants to store the program code to prepare for the CI/CD pipeline.
+
+Which AWS service should the team use to store the program code?
+
+A. AWS CodeDeploy
+B. AWS CodeArtifact
+C. AWS CodeCommit
+D. Amazon CodeGuru
+
+Correct Answer: C
+
+---
+
+Question #166
+
+A developer supports an application that accesses data in an Amazon DynamoDB table. One of the item attributes is expiration Date in the timestamp format. The application uses this attribute to find items, archive them, and remove them from the table based on the timestamp value.
+
+The application will be decommissioned soon, and the developer must find another way to implement this functionality. The developer needs a solution that will require the least amount of code to write.
+
+Which solution will meet these requirements?
+
+A. Enable TTL on the expirationDate attribute in the table. Create a DynamoDB stream. Create an AWS Lambda function to process the deleted items. Create a DynamoDB trigger for the Lambda function.
+B. Create two AWS Lambda functions: one to delete the items and one to process the items. Create a DynamoDB stream. Use the DeleteItem API operation to delete the items based on the expirationDate attribute. Use the GetRecords API operation to get the items from the DynamoDB stream and process them.
+C. Create two AWS Lambda functions: one to delete the items and one to process the items. Create an Amazon EventBridge (Amazon CloudWatch Events) scheduled rule to invoke the Lambda functions. Use the DeleteItem API operation to delete the items based on the expirationDate attribute. Use the GetRecords API operation to get the items from the DynamoDB table and process them.
+D. Enable TTL on the expirationDate attribute in the table. Specify an Amazon Simple Queue Service (Amazon SQS) dead-letter queue as the target to delete the items. Create an AWS Lambda function to process the items.
+
+Correct Answer: A 
+
+DynamoDB –Time To Live (TTL)
+• Automatically delete items after an expiry timestamp
+• Doesn’t consume any WCUs (i.e., no extra cost)
+• The TTL attribute must be a “Number” data type with “Unix Epoch timestamp” value
+• Expired items deleted within 48 hours of expiration
+• Expired items, that haven’t been deleted, appears in 
+reads/queries/scans (if you don’t want them, filter 
+them out)
+• Expired items are deleted from both LSIs and GSIs
+• A delete operation for each expired item enters the 
+DynamoDB Streams (can help recover expired 
+items)
+• Use cases: reduce stored data by keeping only 
+current items, adhere to regulatory obligations, …
+
+---
+
+Question #167
+
+A company has developed a new serverless application using AWS Lambda functions that will be deployed using the AWS Serverless Application Model (AWS SAM) CLI.
+
+Which step should the developer complete prior to deploying the application?
+
+A. Compress the application to a .zip file and upload it into AWS Lambda.
+B. Test the new AWS Lambda function by first tracing it in AWS X-Ray.
+C. Bundle the serverless application using a SAM package.
+D. Create the application environment using the eb create my-env command.
+
+Correct Answer: C 
+
+---
+
+Question #168
+
+A developer is working on an ecommerce website. The developer wants to review server logs without logging in to each of the application servers individually. The website runs on multiple Amazon EC2 instances, is written in Python, and needs to be highly available.
+
+How can the developer update the application to meet these requirements with MINIMUM changes?
+
+A. Rewrite the application to be cloud native and to run on AWS Lambda, where the logs can be reviewed in Amazon CloudWatch.
+B. Set up centralized logging by using Amazon OpenSearch Service (Amazon Elasticsearch Service), Logstash, and OpenSearch Dashboards (Kibana).
+C. Scale down the application to one larger EC2 instance where only one instance is recording logs.
+D. Install the unified Amazon CloudWatch agent on the EC2 instances. Configure the agent to push the application logs to CloudWatch.
+
+Correct Answer: D
+
+---
+
+Question #169
+
+A company needs an event-management platform to accept registrations for an upcoming event. The platform must perform a single invocation of an existing AWS Lambda function 10 minutes after a user completes a new account registration.
+
+Which solution will meet these requirements?
+
+A. Add an item to an Amazon DynamoDB table. Set the item TTL to 10 minutes. Invoke the Lambda function when the TTL expires.
+B. Create an ongoing Amazon EventBridge (Amazon CloudWatch Events) rule with a rate expression of 600 seconds. Create a rule/target to invoke the Lambda function.
+C. Send a message to an Amazon Simple Queue Service (Amazon SQS) delay queue. Set the queue to 600 seconds. Configure the Lambda function with the queue as an event source.
+D. Put a record in Amazon Kinesis Data Streams. Configure the Lambda function to use the data stream as an event source. Define the shard iterator AT_TIMESTAMP setting to 10 minutes.
+
+Correct Answer: C
+
+I think they are asking about the orchestration with the messages (they use the word "event" to mislead, because that`s the business of the company).
+Message timers let you specify an initial invisibility period for a message added to a queue (between 0 seconds and 15 minutes).
+
+https://docs.aws.amazon.com/zh_cn/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-message-timers.html
+
+消息定时器允许您为添加到队列的消息指定初始不可见时段。例如，如果您发送带有 45 秒计时器的消息，消费者在队列中的前 45 秒内不可见该消息。消息的默认（最短）延迟为 0 秒。最大值为 15 分钟。有关使用控制台使用定时器发送消息的信息，请参阅。发送消息.
+注意
+
+FIFO 队列不支持单个消息上的计时器。
+
+要在整个队列 (而不是各条消息) 上设置延迟期间，请使用延迟队列。各条消息的消息定时器设置将覆盖任何消息定时器DelaySecondsAmazon SQS 延迟队列中的值。
+To set a delay period on an entire queue, rather than on individual messages, use delay queues. A message timer setting for an individual message overrides any DelaySeconds value on an Amazon SQS delay queue. 
+
+---
+
+Question #170
+
+How would a developer notify users when a new item is written to a DynamoDB table without affecting the provisioned throughput?
+
+A. Set up a DynamoDB stream to trigger a Lambda function that sends an SNS notification to users.
+B. Schedule an Amazon CloudWatch event to regularly trigger a Lambda function that scans the DynamoDB table.
+C. Run a polling application that queries the DynamoDB table at one-second intervals and send SNS notification to users.
+D. Embed a Lambda notification function in DynamoDB and configure DynamoDB to trigger the embedded Lambda function when changes are made.
+
+Correct Answer: A 
+
+---
+
+
