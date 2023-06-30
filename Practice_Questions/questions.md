@@ -602,6 +602,36 @@ D. Define a resource-based policy on the KMS key to deny access when a request m
 
 Correct Answer: A 
 
+https://docs.aws.amazon.com/zh_cn/AmazonS3/latest/userguide/security-best-practices.html
+您可以使用 HTTPS（TLS）帮助防止潜在攻击者使用中间人攻击或类似攻击来窃听或操纵网络流量。我们建议通过在 Amazon S3 桶策略中使用 aws:SecureTransport 条件，以只允许通过 HTTPS（TLS）的加密连接。
+https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/reference_policies_elements_condition_operators.html#Conditions_Boolean
+例如，此基于身份的策略使用 Bool 条件运算符与 aws:SecureTransport 键拒绝对存储桶及其内容的所有 S3 操作（如果请求不是通过 SSL 进行的）。
+
+重要
+该策略不允许进行任何操作。可将此策略与允许特定操作的其他策略结合使用。
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "BooleanExample",
+      "Action": "s3:*",
+      "Effect": "Deny",
+      "Resource": [
+        "arn:aws:s3:::DOC-EXAMPLE-BUCKET",
+        "arn:aws:s3:::DOC-EXAMPLE-BUCKET/*"
+      ],
+      "Condition": {
+        "Bool": {
+          "aws:SecureTransport": "false"
+        }
+      }
+    }
+  ]
+}
+```
+
 ---
 
 Question #38
@@ -1033,6 +1063,14 @@ D. Use AWS Distro for Open Telemetry.
 Correct Answer: A
 
 C is wrong, Amazon Macie discover PII but dont hide it
+
+Amazon Macie 是一项数据安全服务，该服务使用机器学习和模式匹配来发现敏感数据，提供对数据安全风险的可见性，并实现针对这些风险的自动防护。
+
+为了帮助您管理组织的 Amazon Simazon Service (Amazon S3) 桶的清单，并且自动评估和监控这些桶以实现安全性和访问控制。如果 Macie 检测到潜在的数据安全性或隐私问题（例如桶变为可供公共访问），Macie 会生成调查发现，供您查看并在必要时进行补救。
+
+Macie 还自动发现和报告敏感数据，让您更好地了解组织在 Amazon S3 中存储的数据。要检测敏感数据，您可以使用 Macie 提供的内置标准和技术、您定义的自定义标准或两者的组合。如果 Macie 在 S3 对象中检测到敏感数据，Macie 会生成调查发现来通知您 Macie 找到的敏感数据。
+
+除了调查发现，Macie 还提供统计数据和其他数据，让您深入了解 Amazon S3 数据的安全状况，以及敏感数据可能存在于数据资产中的位置。统计数据和数据可以指导您做出决定，对特定 S3 存储桶和对象进行更深入的调查。您可以使用 Amazon Macie 控制台或 Amazon Macie API 查看和分析调查结果、统计数据和其他数据。您还可以利用 Macie 与 Amazon EventBridge 的集成，通过使用其他服务、应用程序和系统来监控、处理和修复调查结果。
 
 ---
 
@@ -1536,3 +1574,1132 @@ Regarding C & D, seems like D is more thorough and also pointing to $LATEST is n
 
 ---
 
+Question #: 86
+Topic #: 1
+[All AWS Certified Developer - Associate DVA-C02 Questions]
+A developer is implementing an AWS Cloud Development Kit (AWS CDK) serverless application. The developer will provision several AWS Lambda functions and Amazon API Gateway APIs during AWS CloudFormation stack creation. The developer's workstation has the AWS Serverless Application Model (AWS SAM) and the AWS CDK installed locally.
+
+How can the developer test a specific Lambda function locally?
+
+A. Run the sam package and sam deploy commands. Create a Lambda test event from the AWS Management Console. Test the Lambda function.
+B. Run the cdk synth and cdk deploy commands. Create a Lambda test event from the AWS Management Console. Test the Lambda function.
+C. Run the cdk synth and sam local invoke commands with the function construct identifier and the path to the synthesized CloudFormation template.
+D. Run the cdk synth and sam local start-lambda commands with the function construct identifier and the path to the synthesized CloudFormation template.
+
+Suggested Answer: C
+
+https://docs.aws.amazon.com/zh_cn/serverless-application-model/latest/developerguide/using-sam-cli-local-invoke.html
+
+使用AWS Serverless Application Model命令行接口 (AWS SAMCLI)sam local start-lambda 子命令通过AWS Command Line Interface (AWS CLI) 或 SDK 调用您的AWS Lambda函数。此命令启动模拟的本地端点AWS Lambda。
+使用AWS Serverless Application Model命令行接口 (AWS SAMCLI)sam local invoke 子命令在本地启动AWS Lambda函数的一次性调用。
+
+• Locally start AWS Lambda
+
+sam local start-lambda
+• Starts a local endpoint that emulates AWS Lambda
+• Can run automated tests against this local endpoint
+• Locally Invoke Lambda Function
+
+sam local invoke
+• Invoke Lambda function with payload once and quit after invocation completes
+• Helpful for generating test cases
+• If the function make API calls to AWS, make sure you are using the correct --profile option
+
+传递自定义事件调用 Lambda 函数
+
+要将事件传递给 Lambda 函数，请使用--event选项。以下是示例：
+
+`$ sam local invoke --event events/s3.json S3JsonLoggerFunction`
+
+您可以使用sam local generate-event子命令创建事件。要了解更多信息，请参阅 使用 sam local generate-event。
+
+https://docs.aws.amazon.com/zh_cn/cdk/v2/guide/hello_world.html
+
+CDK – Important Commands to know
+Command Description
+npm install -g aws-cdk-lib - Install the CDK CLI and libraries
+cdk init app - Create a new CDK project from a specified template
+cdk synth - Synthesizes and prints the CloudFormation template
+cdk bootstrap - Deploys the CDK Toolkit staging Stack
+cdk deploy - Deploy the Stack(s)
+cdk diff - View differences of local CDK and deployed Stack
+cdk destroy - Destroy the Stack(s)
+
+---
+
+Question #: 88
+Topic #: 1
+[All AWS Certified Developer - Associate DVA-C02 Questions]
+A company caches session information for a web application in an Amazon DynamoDB table. The company wants an automated way to delete old items from the table.
+
+What is the simplest way to do this?
+
+A. Write a script that deletes old records; schedule the script as a cron job on an Amazon EC2 instance.
+B. Add an attribute with the expiration time; enable the Time To Live feature based on that attribute.
+C. Each day, create a new table to hold session data; delete the previous day's table.
+D. Add an attribute with the expiration time; name the attribute ItemExpiration.
+
+Suggested Answer: B
+
+---
+
+Question #: 89
+Topic #: 1
+[All AWS Certified Developer - Associate DVA-C02 Questions]
+A company is using an Amazon API Gateway REST API endpoint as a webhook to publish events from an on-premises source control management (SCM) system to Amazon EventBridge. The company has configured an EventBridge rule to listen for the events and to control application deployment in a central AWS account. The company needs to receive the same events across multiple receiver AWS accounts.
+
+How can a developer meet these requirements without changing the configuration of the SCM system?
+
+A. Deploy the API Gateway REST API to all the required AWS accounts. Use the same custom domain name for all the gateway endpoints so that a single SCM webhook can be used for all events from all accounts.
+B. Deploy the API Gateway REST API to all the receiver AWS accounts. Create as many SCM webhooks as the number of AWS accounts.
+C. Grant permission to the central AWS account for EventBridge to access the receiver AWS accounts. Add an EventBridge event bus on the receiver AWS accounts as the targets to the existing EventBridge rule.
+D. Convert the API Gateway type from REST API to HTTP API.
+
+Suggested Answer: C
+
+
+---
+
+Question #: 90
+Topic #: 1
+[All AWS Certified Developer - Associate DVA-C02 Questions]
+A company moved some of its secure files to a private Amazon S3 bucket that has no public access. The company wants to develop a serverless application that gives its employees the ability to log in and securely share the files with other users.
+
+Which AWS feature should the company use to share and access the files securely?
+
+A. Amazon Cognito user pool
+B. S3 presigned URLs
+C. S3 bucket policy
+D. Amazon Cognito identity pool
+
+Suggested Answer: A / B 不确定
+
+---
+
+Question #: 91
+Topic #: 1
+[All AWS Certified Developer - Associate DVA-C02 Questions]
+A company needs to develop a proof of concept for a web service application. The application will show the weather forecast for one of the company's office locations. The application will provide a REST endpoint that clients can call. Where possible, the application should use caching features provided by AWS to limit the number of requests to the backend service. The application backend will receive a small amount of traffic only during testing.
+
+Which approach should the developer take to provide the REST endpoint MOST cost-effectively?
+
+A. Create a container image. Deploy the container image by using Amazon Elastic Kubernetes Service (Amazon EKS). Expose the functionality by using Amazon API Gateway.
+B. Create an AWS Lambda function by using the AWS Serverless Application Model (AWS SAM). Expose the Lambda functionality by using Amazon API Gateway.
+C. Create a container image. Deploy the container image by using Amazon Elastic Container Service (Amazon ECS). Expose the functionality by using Amazon API Gateway.
+D. Create a microservices application. Deploy the application to AWS Elastic Beanstalk. Expose the AWS Lambda functionality by using an Application Load Balancer.
+
+Suggested Answer: B
+
+---
+
+Question #: 92
+Topic #: 1
+[All AWS Certified Developer - Associate DVA-C02 Questions]
+An e-commerce web application that shares session state on-premises is being migrated to AWS. The application must be fault tolerant, natively highly scalable, and any service interruption should not affect the user experience.
+
+What is the best option to store the session state?
+
+A. Store the session state in Amazon ElastiCache.
+B. Store the session state in Amazon CloudFront.
+C. Store the session state in Amazon S3.
+D. Enable session stickiness using elastic load balancers.
+
+Suggested Answer: A 
+
+---
+
+Question #: 93
+Topic #: 1
+[All AWS Certified Developer - Associate DVA-C02 Questions]
+A developer is building an application that uses Amazon DynamoDB. The developer wants to retrieve multiple specific items from the database with a single API call.
+
+Which DynamoDB API call will meet these requirements with the MINIMUM impact on the database?
+
+A. BatchGetItem
+B. GetItem
+C. Scan
+D. Query
+
+Suggested Answer: A
+
+
+DynamoDB – Batch Operations
+• Allows you to save in latency by reducing the number of API calls
+• Operations are done in parallel for better efficiency
+• Part of a batch can fail; in which case we need to try again for the failed items
+
+BatchWriteItem
+• Up to 25 PutItem and/or DeleteItem in one call
+• Up to 16 MB of data written, up to 400 KB of data per item
+• Can’t update items (use UpdateItem)
+• UnprocessedItems for failed write operations (exponential backoff or add WCU)
+
+BatchGetItem
+• Return items from one or more tables
+• Up to 100 items, up to 16 MB of data
+• Items are retrieved in parallel to minimize latency
+• UnprocessedKeys for failed read operations (exponential backoff or add RCU)
+
+---
+
+Question #: 94
+Topic #: 1
+[All AWS Certified Developer - Associate DVA-C02 Questions]
+A developer has written an application that runs on Amazon EC2 instances. The developer is adding functionality for the application to write objects to an Amazon S3 bucket.
+
+Which policy must the developer modify to allow the instances to write these objects?
+
+A. The IAM policy that is attached to the EC2 instance profile role
+B. The session policy that is applied to the EC2 instance role session
+C. The AWS Key Management Service (AWS KMS) key policy that is attached to the EC2 instance profile role
+D. The Amazon VPC endpoint policy
+
+Suggested Answer: A 
+
+---
+
+Question #: 95
+Topic #: 1
+[All AWS Certified Developer - Associate DVA-C02 Questions]
+A developer is leveraging a Border Gateway Protocol (BGP)-based AWS VPN connection to connect from on-premises to Amazon EC2 instances in the developer's account. The developer is able to access an EC2 instance in subnet A, but is unable to access an EC2 instance in subnet B in the same VPC.
+
+Which logs can the developer use to verify whether the traffic is reaching subnet B?
+
+A. VPN logs
+B. BGP logs
+C. VPC Flow Logs
+D. AWS CloudTrail logs
+
+
+Suggested Answer: C 
+
+VPC Flow Logs
+• Capture information about IP traffic going into your interfaces:
+  • VPC Flow Logs
+  • Subnet Flow Logs
+  • Elastic Network Interface Flow Logs
+• Helps to monitor & troubleshoot connectivity issues. Example:
+  • Subnets to internet
+  • Subnets to subnets
+  • Internet to subnets
+• Captures network information from AWS managed interfaces too: Elastic Load Balancers, ElastiCache, RDS, Aurora, etc…
+• VPC Flow logs data can go to S3 / CloudWatch Logs
+
+---
+
+Question #: 96
+Topic #: 1
+[All AWS Certified Developer - Associate DVA-C02 Questions]
+A developer is creating a service that uses an Amazon S3 bucket for image uploads. The service will use an AWS Lambda function to create a thumbnail of each image. Each time an image is uploaded, the service needs to send an email notification and create the thumbnail. The developer needs to configure the image processing and email notifications setup.
+
+Which solution will meet these requirements?
+
+A. Create an Amazon Simple Notification Service (Amazon SNS) topic. Configure S3 event notifications with a destination of the SNS topic. Subscribe the Lambda function to the SNS topic. Create an email notification subscription to the SNS topic.
+B. Create an Amazon Simple Notification Service (Amazon SNS) topic. Configure S3 event notifications with a destination of the SNS topic. Subscribe the Lambda function to the SNS topic. Create an Amazon Simple Queue Service (Amazon SQS) queue. Subscribe the SQS queue to the SNS topic. Create an email notification subscription to the SQS queue.
+C. Create an Amazon Simple Queue Service (Amazon SQS) queue. Configure S3 event notifications with a destination of the SQS queue. Subscribe the Lambda function to the SQS queue. Create an email notification subscription to the SQS queue.
+D. Create an Amazon Simple Queue Service (Amazon SQS) queue. Send S3 event notifications to Amazon EventBridge. Create an EventBridge rule that runs the Lambda function when images are uploaded to the S3 bucket. Create an EventBridge rule that sends notifications to the SQS queue. Create an email notification subscription to the SQS queue.
+
+Suggested Answer: A
+
+---
+
+Question #: 97
+Topic #: 1
+[All AWS Certified Developer - Associate DVA-C02 Questions]
+A developer has designed an application to store incoming data as JSON files in Amazon S3 objects. Custom business logic in an AWS Lambda function then transforms the objects, and the Lambda function loads the data into an Amazon DynamoDB table. Recently, the workload has experienced sudden and significant changes in traffic. The flow of data to the DynamoDB table is becoming throttled.
+
+The developer needs to implement a solution to eliminate the throttling and load the data into the DynamoDB table more consistently.
+
+Which solution will meet these requirements?
+
+A. Refactor the Lambda function into two functions. Configure one function to transform the data and one function to load the data into the DynamoDB table. Create an Amazon Simple Queue Service (Amazon SQS) queue in between the functions to hold the items as messages and to invoke the second function.
+B. Turn on auto scaling for the DynamoDB table. Use Amazon CloudWatch to monitor the table's read and write capacity metrics and to track consumed capacity.
+C. Create an alias for the Lambda function. Configure provisioned concurrency for the application to use.
+D. Refactor the Lambda function into two functions. Configure one function to store the data in the DynamoDB table. Configure the second function to process the data and update the items after the data is stored in DynamoDB. Create a DynamoDB stream to invoke the second function after the data is stored.
+
+A / D / B 不确定
+
+---
+
+Question #: 98
+Topic #: 1
+[All AWS Certified Developer - Associate DVA-C02 Questions]
+A developer is creating an AWS Lambda function in VPC mode. An Amazon S3 event will invoke the Lambda function when an object is uploaded into an S3 bucket. The Lambda function will process the object and produce some analytic results that will be recorded into a file. Each processed object will also generate a log entry that will be recorded into a file.
+
+Other Lambda functions, AWS services, and on-premises resources must have access to the result files and log file. Each log entry must also be appended to the same shared log file. The developer needs a solution that can share files and append results into an existing file.
+
+Which solution should the developer use to meet these requirements?
+
+A. Create an Amazon Elastic File System (Amazon EFS) file system. Mount the EFS file system in Lambda. Store the result files and log file in the mount point. Append the log entries to the log file.
+B. Create an Amazon Elastic Block Store (Amazon EBS) Multi-Attach enabled volume. Attach the EBS volume to all Lambda functions. Update the Lambda function code to download the log file, append the log entries, and upload the modified log file to Amazon EBS.
+C. Create a reference to the /tmp local directory. Store the result files and log file by using the directory reference. Append the log entry to the log file.
+D. Create a reference to the /opt storage directory. Store the result files and log file by using the directory reference. Append the log entry to the log file.
+
+Suggested Answer: A
+
+其它服务也都要访问文件
+
+Lambda – File Systems Mounting
+• Lambda functions can access EFS file systems if they are running in a VPC
+• Configure Lambda to mount EFS file systems to local directory during initialization
+• Must leverage EFS Access Points
+• Limitations: watch out for the EFS connection limits (one function instance = one connection) and connection burst limits
+
+Amazon ECS – Data Volumes (EFS)
+• Mount EFS file systems onto ECS tasks
+• Works for both EC2 and Fargate launch types
+• Tasks running in any AZ will share the same data in the EFS file system
+• Fargate + EFS = Serverless
+• Use cases: persistent multi-AZ shared storage for your containers
+
+---
+
+Question #: 99
+Topic #: 1
+[All AWS Certified Developer - Associate DVA-C02 Questions]
+A company has an AWS Lambda function that processes incoming requests from an Amazon API Gateway API. The API calls the Lambda function by using a Lambda alias. A developer updated the Lambda function code to handle more details related to the incoming requests. The developer wants to deploy the new Lambda function for more testing by other developers with no impact to customers that use the API.
+
+Which solution will meet these requirements with the LEAST operational overhead?
+
+A. Create a new version of the Lambda function. Create a new stage on API Gateway with integration to the new Lambda version. Use the new API Gateway stage to test the Lambda function.
+B. Update the existing Lambda alias used by API Gateway to a weighted alias. Add the new Lambda version as an additional Lambda function with a weight of 10%. Use the existing API Gateway stage for testing.
+C. Create a new version of the Lambda function. Create and deploy a second Lambda function to filter incoming requests from API Gateway. If the filtering Lambda function detects a test request, the filtering Lambda function will invoke the new Lambda version of the code. For other requests, the filtering Lambda function will invoke the old Lambda version. Update the API Gateway API to use the filtering Lambda function.
+D. Create a new version of the Lambda function. Create a new API Gateway API for testing purposes. Update the integration of the new API with the new Lambda version. Use the new API for testing.
+
+Suggested Answer: A
+
+---
+
+Question #: 100
+Topic #: 1
+[All AWS Certified Developer - Associate DVA-C02 Questions]
+A company uses AWS Lambda functions and an Amazon S3 trigger to process images into an S3 bucket. A development team set up multiple environments in a single AWS account.
+
+After a recent production deployment, the development team observed that the development S3 buckets invoked the production environment Lambda functions. These invocations caused unwanted execution of development S3 files by using production Lambda functions. The development team must prevent these invocations. The team must follow security best practices.
+
+Which solution will meet these requirements?
+
+A. Update the Lambda execution role for the production Lambda function to add a policy that allows the execution role to read from only the production environment S3 bucket.
+B. Move the development and production environments into separate AWS accounts. Add a resource policy to each Lambda function to allow only S3 buckets that are within the same account to invoke the function.
+C. Add a resource policy to the production Lambda function to allow only the production environment S3 bucket to invoke the function.
+D. Move the development and production environments into separate AWS accounts. Update the Lambda execution role for each function to add a policy that allows the execution role to read from the S3 bucket that is within the same account.
+
+Suggested Answer: B / C 不确定
+
+https://wa.aws.amazon.com/wat.question.SEC_1.en.html
+
+Best Practices:
+Separate workloads using accounts: Establish common guardrails and isolation between environments (such as production, development, and test) and workloads through a multi-account strategy. Account-level separation is strongly recommended, as it provides a strong isolation boundary for security, billing, and access.
+
+---
+
+Question #: 101
+Topic #: 1
+[All AWS Certified Developer - Associate DVA-C02 Questions]
+A developer is creating an application. New users of the application must be able to create an account and register by using their own social media accounts.
+
+Which AWS service or resource should the developer use to meet these requirements?
+
+A. IAM role
+B. Amazon Cognito identity pools
+C. Amazon Cognito user pools
+D. AWS Directory Service
+
+Suggested Answer: C 
+
+---
+
+Question #: 102
+Topic #: 1
+[All AWS Certified Developer - Associate DVA-C02 Questions]
+A social media application uses the AWS SDK for JavaScript on the frontend to get user credentials from AWS Security Token Service (AWS STS). The application stores its assets in an Amazon S3 bucket. The application serves its content by using an Amazon CloudFront distribution with the origin set to the S3 bucket.
+
+The credentials for the role that the application assumes to make the SDK calls are stored in plaintext in a JSON file within the application code. The developer needs to implement a solution that will allow the application to get user credentials without having any credentials hardcoded in the application code.
+
+Which solution will meet these requirements?
+
+A. Add a Lambda@Edge function to the distribution. Invoke the function on viewer request. Add permissions to the function's execution role to allow the function to access AWS STS. Move all SDK calls from the frontend into the function.
+B. Add a CloudFront function to the distribution. Invoke the function on viewer request. Add permissions to the function's execution role to allow the function to access AWS STS. Move all SDK calls from the frontend into the function.
+C. Add a Lambda@Edge function to the distribution. Invoke the function on viewer request. Move the credentials from the JSON file into the function. Move all SDK calls from the frontend into the function.
+D. Add a CloudFront function to the distribution. Invoke the function on viewer request. Move the credentials from the JSON file into the function. Move all SDK calls from the frontend into the function.
+
+Suggested Answer: A
+
+The answer is A. Here is a reference directly from AWS docs:
+
+"If you need some of the capabilities of Lambda@Edge that are not available with CloudFront Functions, such as network access or a longer execution time, you can still use Lambda@Edge before and after content is cached by CloudFront."
+
+Since the requirement is to access the STS service, network access is required. Therefore, it can't be Cloudfront functions. Also, as a side note it's worth to mention that Cloudfront functions can only execute for up to 1ms. Apparently this isn't enough to fetch user creds (tokens) from STS.
+
+The table in the following link summarises the differences between Cloudfront functions and Lambda@edge
+
+https://aws.amazon.com/blogs/aws/introducing-cloudfront-functions-run-your-code-at-the-edge-with-low-latency-at-any-scale/
+
+---
+
+Question #: 103
+Topic #: 1
+[All AWS Certified Developer - Associate DVA-C02 Questions]
+
+An ecommerce website uses an AWS Lambda function and an Amazon RDS for MySQL database for an order fulfillment service. The service needs to return order confirmation immediately.
+
+During a marketing campaign that caused an increase in the number of orders, the website's operations team noticed errors for “too many connections” from Amazon RDS. However, the RDS DB cluster metrics are healthy. CPU and memory capacity are still available.
+
+What should a developer do to resolve the errors?
+
+A. Initialize the database connection outside the handler function. Increase the max_user_connections value on the parameter group of the DB cluster. Restart the DB cluster.
+B. Initialize the database connection outside the handler function. Use RDS Proxy instead of connecting directly to the DB cluster.
+C. Use Amazon Simple Queue Service (Amazon SQS) FIFO queues to queue the orders. Ingest the orders into the database. Set the Lambda function's concurrency to a value that equals the number of available database connections.
+D. Use Amazon Simple Queue Service (Amazon SQS) FIFO queues to queue the orders. Ingest the orders into the database. Set the Lambda function's concurrency to a value that is less than the number of available database connections.
+
+Suggested Answer: B
+
+---
+
+Question #: 104
+Topic #: 1
+[All AWS Certified Developer - Associate DVA-C02 Questions]
+
+A company stores its data in data tables in a series of Amazon S3 buckets. The company received an alert that customer credit card information might have been exposed in a data table on one of the company's public applications. A developer needs to identify all potential exposures within the application environment.
+
+Which solution will meet these requirements?
+
+A. Use Amazon Athena to run a job on the S3 buckets that contain the affected data. Filter the findings by using the SensitiveData:S3Object/Personal finding type.
+B. Use Amazon Macie to run a job on the S3 buckets that contain the affected data. Filter the findings by using the SensitiveData:S3Object/Financial finding type.
+C. Use Amazon Macie to run a job on the S3 buckets that contain the affected data. Filter the findings by using the SensitiveData:S3Object/Personal finding type.
+D. Use Amazon Athena to run a job on the S3 buckets that contain the affected data. Filter the findings by using the SensitiveData:S3Object/Financial finding type.
+
+Suggested Answer: B
+
+---
+
+Question #: 105
+Topic #: 1
+[All AWS Certified Developer - Associate DVA-C02 Questions]
+A software company is launching a multimedia application. The application will allow guest users to access sample content before the users decide if they want to create an account to gain full access. The company wants to implement an authentication process that can identify users who have already created an account. The company also needs to keep track of the number of guest users who eventually create an account.
+
+Which combination of steps will meet these requirements? (Choose two.)
+
+A. Create an Amazon Cognito user pool. Configure the user pool to allow unauthenticated users. Exchange user tokens for temporary credentials that allow authenticated users to assume a role.
+B. Create an Amazon Cognito identity pool. Configure the identity pool to allow unauthenticated users. Exchange unique identity for temporary credentials that allow all users to assume a role.
+C. Create an Amazon CloudFront distribution. Configure the distribution to allow unauthenticated users. Exchange user tokens for temporary credentials that allow all users to assume a role.
+D. Create a role for authenticated users that allows access to all content. Create a role for unauthenticated users that allows access to only the sample content.
+E. Allow all users to access the sample content by default. Create a role for authenticated users that allows access to the other content.
+
+Suggested Answer: BD
+
+option B because by configuring the identity pool to allow unauthenticated users, you can enable guest users to access the sample content. When users create an account, they can be authenticated, and then given access to the full content by assuming a role that allows them access.
+Option D is correct because creating roles for authenticated and unauthenticated users with different levels of access is an appropriate way to meet the requirement of identifying users who have created an account and keeping track of the number of guest users who eventually create an account.
+
+
+• Cognito Identity Pools allow for unauthenticated (guest) access
+
+---
+
+Question #: 106
+Topic #: 1
+[All AWS Certified Developer - Associate DVA-C02 Questions]
+
+A company is updating an application to move the backend of the application from Amazon EC2 instances to a serverless model. The application uses an Amazon RDS for MySQL DB instance and runs in a single VPC on AWS. The application and the DB instance are deployed in a private subnet in the VPC.
+
+The company needs to connect AWS Lambda functions to the DB instance.
+
+Which solution will meet these requirements?
+
+A. Create Lambda functions inside the VPC with the AWSLambdaBasicExecutionRole policy attached to the Lambda execution role. Modify the RDS security group to allow inbound access from the Lambda security group.
+B. Create Lambda functions inside the VPC with the AWSLambdaVPCAccessExecutionRole policy attached to the Lambda execution role. Modify the RDS security group to allow inbound access from the Lambda security group.
+C. Create Lambda functions with the AWSLambdaBasicExecutionRole policy attached to the Lambda execution role. Create an interface VPC endpoint for the Lambda functions. Configure the interface endpoint policy to allow the lambda:InvokeFunclion action for each Lambda function's Amazon Resource Name (ARN).
+D. Create Lambda functions with the AWSLambdaVPCAccessExecutionRole policy attached to the Lambda execution role. Create an interface VPC endpoint for the Lambda functions. Configure the interface endpoint policy to allow the lambda:InvokeFunction action for each Lambda function's Amazon Resource Name (ARN).
+
+Suggested Answer: B
+
+---
+
+Question #: 107
+Topic #: 1
+[All AWS Certified Developer - Associate DVA-C02 Questions]
+
+A company has a web application that runs on Amazon EC2 instances with a custom Amazon Machine Image (AMI). The company uses AWS CloudFormation to provision the application. The application runs in the us-east-1 Region, and the company needs to deploy the application to the us-west-1 Region.
+
+An attempt to create the AWS CloudFormation stack in us-west-1 fails. An error message states that the AMI ID does not exist. A developer must resolve this error with a solution that uses the least amount of operational overhead.
+
+Which solution meets these requirements?
+
+A. Change the AWS CloudFormation templates for us-east-1 and us-west-1 to use an AWS AMI. Relaunch the stack for both Regions.
+B. Copy the custom AMI from us-east-1 to us-west-1. Update the AWS CloudFormation template for us-west-1 to refer to AMI ID for the copied AMI. Relaunch the stack.
+C. Build the custom AMI in us-west-1. Create a new AWS CloudFormation template to launch the stack in us-west-1 with the new AMI ID.
+D. Manually deploy the application outside AWS CloudFormation in us-west-1.
+
+Suggested Answer: B
+
+---
+
+Question #: 108
+Topic #: 1
+[All AWS Certified Developer - Associate DVA-C02 Questions]
+
+A developer is updating several AWS Lambda functions and notices that all the Lambda functions share the same custom libraries. The developer wants to centralize all the libraries, update the libraries in a convenient way, and keep the libraries versioned.
+
+Which solution will meet these requirements with the LEAST development effort?
+
+A. Create an AWS CodeArtifact repository that contains all the custom libraries.
+B. Create a custom container image for the Lambda functions to save all the custom libraries.
+C. Create a Lambda layer that contains all the custom libraries.
+D. Create an Amazon Elastic File System (Amazon EFS) file system to store all the custom libraries.
+
+Suggested Answer: C
+
+---
+
+Question #: 109
+Topic #: 1
+[All AWS Certified Developer - Associate DVA-C02 Questions]
+A developer wants to use AWS Elastic Beanstalk to test a new version of an application in a test environment.
+
+Which deployment method offers the FASTEST deployment?
+
+A. Immutable
+B. Rolling
+C. Rolling with additional batch
+D. All at once
+
+Suggested Answer: D
+
+---
+
+Question #: 110
+Topic #: 1
+[All AWS Certified Developer - Associate DVA-C02 Questions]
+A company is providing read access to objects in an Amazon S3 bucket for different customers. The company uses IAM permissions to restrict access to the S3 bucket. The customers can access only their own files.
+
+Due to a regulation requirement, the company needs to enforce encryption in transit for interactions with Amazon S3.
+
+Which solution will meet these requirements?
+
+A. Add a bucket policy to the S3 bucket to deny S3 actions when the aws:SecureTransport condition is equal to false.
+B. Add a bucket policy to the S3 bucket to deny S3 actions when the s3:x-amz-acl condition is equal to public-read.
+C. Add an IAM policy to the IAM users to enforce the usage of the AWS SDK.
+D. Add an IAM policy to the IAM users that allows S3 actions when the s3:x-amz-acl condition is equal to bucket-owner-read.
+
+Suggested Answer: A
+
+---
+
+Question #: 111
+Topic #: 1
+[All AWS Certified Developer - Associate DVA-C02 Questions]
+A company has an image storage web application that runs on AWS. The company hosts the application on Amazon EC2 instances in an Auto Scaling group. The Auto Scaling group acts as the target group for an Application Load Balancer (ALB) and uses an Amazon S3 bucket to store the images for sale.
+
+The company wants to develop a feature to test system requests. The feature will direct requests to a separate target group that hosts a new beta version of the application.
+
+Which solution will meet this requirement with the LEAST effort?
+
+A. Create a new Auto Scaling group and target group for the beta version of the application. Update the ALB routing rule with a condition that looks for a cookie named version that has a value of beta. Update the test system code to use this cookie to test the beta version of the application.
+B. Create a new ALB, Auto Scaling group, and target group for the beta version of the application. Configure an alternate Amazon Route 53 record for the new ALB endpoint. Use the alternate Route 53 endpoint in the test system requests to test the beta version of the application.
+C. Create a new ALB, Auto Scaling group, and target group for the beta version of the application. Use Amazon CloudFront with Lambda@Edge to determine which specific request will go to the new ALB. Use the CloudFront endpoint to send the test system requests to test the beta version of the application.
+D. Create a new Auto Scaling group and target group for the beta version of the application. Update the ALB routing rule with a condition that looks for a cookie named version that has a value of beta. Use Amazon CloudFront with Lambda@Edge to update the test system requests to add the required cookie when the requests go to the ALB.
+
+Suggested Answer: A / B 不确定
+
+---
+
+Exam question from Amazon's AWS Certified Developer - Associate DVA-C02
+Question #: 112
+Topic #: 1
+[All AWS Certified Developer - Associate DVA-C02 Questions]
+
+A team is developing an application that is deployed on Amazon EC2 instances. During testing, the team receives an error. The EC2 instances are unable to access an Amazon S3 bucket.
+
+Which steps should the team take to troubleshoot this issue? (Choose two.)
+
+A. Check whether the policy that is assigned to the IAM role that is attached to the EC2 instances grants access to Amazon S3.
+B. Check the S3 bucket policy to validate the access permissions for the S3 bucket.
+C. Check whether the policy that is assigned to the IAM user that is attached to the EC2 instances grants access to Amazon S3.
+D. Check the S3 Lifecycle policy to validate the permissions that are assigned to the S3 bucket.
+E. Check the security groups that are assigned to the EC2 instances. Make sure that a rule is not blocking the access to Amazon S3.
+
+Suggested Answer: AB
+
+---
+
+Question #: 113
+Topic #: 1
+[All AWS Certified Developer - Associate DVA-C02 Questions]
+
+A developer is working on an ecommerce website. The developer wants to review server logs without logging in to each of the application servers individually. The website runs on multiple Amazon EC2 instances, is written in Python, and needs to be highly available.
+
+How can the developer update the application to meet these requirements with MINIMUM changes?
+
+A. Rewrite the application to be cloud native and to run on AWS Lambda, where the logs can be reviewed in Amazon CloudWatch.
+B. Set up centralized logging by using Amazon OpenSearch Service, Logstash, and OpenSearch Dashboards.
+C. Scale down the application to one larger EC2 instance where only one instance is recording logs.
+D. Install the unified Amazon CloudWatch agent on the EC2 instances. Configure the agent to push the application logs to CloudWatch.
+
+Suggested Answer: D 
+
+---
+
+Question #: 114
+Topic #: 1
+[All AWS Certified Developer - Associate DVA-C02 Questions]
+A company is creating an application that processes .csv files from Amazon S3. A developer has created an S3 bucket. The developer has also created an AWS Lambda function to process the .csv files from the S3 bucket.
+
+Which combination of steps will invoke the Lambda function when a .csv file is uploaded to Amazon S3? (Choose two.)
+
+A. Create an Amazon EventBridge rule. Configure the rule with a pattern to match the S3 object created event.
+B. Schedule an Amazon EventBridge rule to run a new Lambda function to scan the S3 bucket.
+C. Add a trigger to the existing Lambda function. Set the trigger type to EventBridge. Select the Amazon EventBridge rule.
+D. Create a new Lambda function to scan the S3 bucket for recently added S3 objects.
+E. Add S3 Lifecycle rules to invoke the existing Lambda function.
+
+Suggested Answer: AC
+
+---
+
+Question #: 115
+Topic #: 1
+[All AWS Certified Developer - Associate DVA-C02 Questions]
+
+A developer needs to build an AWS CloudFormation template that self-populates the AWS Region variable that deploys the CloudFormation template.
+
+What is the MOST operationally efficient way to determine the Region in which the template is being deployed?
+
+A. Use the AWS::Region pseudo parameter.
+B. Require the Region as a CloudFormation parameter.
+C. Find the Region from the AWS::StackId pseudo parameter by using the Fn::Split intrinsic function.
+D. Dynamically import the Region by referencing the relevant parameter in AWS Systems Manager Parameter Store.
+
+Suggested Answer: A
+
+---
+
+Question #: 116
+Topic #: 1
+[All AWS Certified Developer - Associate DVA-C02 Questions]
+
+A company has hundreds of AWS Lambda functions that the company's QA team needs to test by using the Lambda function URLs. A developer needs to configure the authentication of the Lambda functions to allow access so that the QA IAM group can invoke the Lambda functions by using the public URLs.
+
+Which solution will meet these requirements?
+
+A. Create a CLI script that loops on the Lambda functions to add a Lambda function URL with the AWS_IAM auth type. Run another script to create an IAM identity-based policy that allows the lambda:InvokeFunctionUrl action to all the Lambda function Amazon Resource Names (ARNs). Attach the policy to the QA IAM group.
+B. Create a CLI script that loops on the Lambda functions to add a Lambda function URL with the NONE auth type. Run another script to create an IAM resource-based policy that allows the lambda:InvokeFunctionUrl action to all the Lambda function Amazon Resource Names (ARNs). Attach the policy to the QA IAM group.
+C. Create a CLI script that loops on the Lambda functions to add a Lambda function URL with the AWS_IAM auth type. Run another script to loop on the Lambda functions to create an IAM identity-based policy that allows the lambda:InvokeFunctionUrl action from the QA IAM group's Amazon Resource Name (ARN).
+D. Create a CLI script that loops on the Lambda functions to add a Lambda function URL with the NONE auth type. Run another script to loop on the Lambda functions to create an IAM resource-based policy that allows the lambda:InvokeFunctionUrl action from the QA IAM group's Amazon Resource Name (ARN).
+
+Suggested Answer: A 
+
+Lambda – Function URL Security
+
+• AuthType NONE – allow public and unauthenticated access
+  • Resource-based Policy is always in effect (must grant public access)
+
+• AuthType AWS_IAM – IAM is used to authenticate and authorize requests
+  • Both Principal’s Identity-based Policy & Resource-based Policy are evaluated
+  • Principal must have lambda:InvokeFunctionUrl permissions
+  • Same account – Identity-based Policy OR Resource-based Policy as ALLOW
+  • Cross account – Identity-based Policy AND Resource Based Policy as ALLOW
+
+https://docs.aws.amazon.com/zh_cn/lambda/latest/dg/urls-auth.html
+
+您可以使用 AuthType 参数和附上特定函数的基于资源的策略来控制对 Lambda 函数 URL 的访问。这两个组件的配置决定了谁可以对函数 URL 调用或执行其他管理操作。
+
+AuthType 参数确定了 Lambda 如何对函数 URL 的请求进行身份验证或授权。配置函数 URL 时，必须指定以下 AuthType 选项之一：
+
+AWS_IAM – Lambda 根据 IAM 主体的身份策略和函数基于资源的策略使用 AWS Identity and Access Management (IAM) 对请求进行身份验证和授权。如果只希望经过身份验证的 用户和角色通过函数 URL 调用函数，请选择此选项。
+
+NONE – Lambda 在调用函数之前不会执行任何身份验证。但是，函数基于资源的策略始终有效，并且必须在函数 URL 接收请求之前授予公有访问权限。选择此选项可允许对函数 URL 进行未经身份验证的公有访问。
+
+如果选择 AWS_IAM 身份验证类型，则需要调用 Lambda 函数 URL 的用户必须具有 lambda:InvokeFunctionUrl 权限。根据发出调用请求的人员，您可能需要使用基于资源的策略授予此权限。
+
+如果发出请求的主体与函数 URL 的 AWS 账户 相同，则主体必须或者在其基于身份的策略中拥有 lambda:InvokeFunctionUrl 权限，或者在函数基于资源的策略中获授权限。换句话说，如果用户已经在其基于身份的策略中拥有 lambda:InvokeFunctionUrl 权限，则基于资源的策略为可选。策略评估遵循确定是允许还是拒绝账户内的请求中概述的规则。
+
+如果发出请求的主体位于不同的账户中，则主体必须同时具有基于身份的策略（该策略为其提供 lambda:InvokeFunctionUrl 权限）和基于资源的策略（基于其尝试调用的函数）中授予的权限。在这些跨账户情况下，策略评估遵循确定是否允许跨账户请求中概述的规则。
+
+
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::444455556666:role/example"
+            },
+            "Action": "lambda:InvokeFunctionUrl",
+            "Resource": "arn:aws:lambda:us-east-1:123456789012:function:my-function",
+            "Condition": {
+                "StringEquals": {
+                    "lambda:FunctionUrlAuthType": "AWS_IAM"
+                }
+            }
+        }
+    ]
+}
+```
+
+如果选择 NONE 身份验证类型，Lambda 不会使用 IAM 对函数 URL 的请求进行身份验证。但是，用户仍必须拥有 lambda:InvokeFunctionUrl 权限才能成功调用函数 URL。您可以使用以下基于资源的策略授予 lambda:InvokeFunctionUrl 权限：
+
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": "lambda:InvokeFunctionUrl",
+            "Resource": "arn:aws:lambda:us-east-1:123456789012:function:my-function",
+            "Condition": {
+                "StringEquals": {
+                    "lambda:FunctionUrlAuthType": "NONE"
+                }
+            }
+        }
+    ]
+}
+```
+
+---
+
+Question #: 117
+Topic #: 1
+[All AWS Certified Developer - Associate DVA-C02 Questions]
+
+A developer maintains a critical business application that uses Amazon DynamoDB as the primary data store. The DynamoDB table contains millions of documents and receives 30-60 requests each minute. The developer needs to perform processing in near-real time on the documents when they are added or updated in the DynamoDB table.
+
+How can the developer implement this feature with the LEAST amount of change to the existing application code?
+
+A. Set up a cron job on an Amazon EC2 instance. Run a script every hour to query the table for changes and process the documents.
+B. Enable a DynamoDB stream on the table. Invoke an AWS Lambda function to process the documents.
+C. Update the application to send a PutEvents request to Amazon EventBridge. Create an EventBridge rule to invoke an AWS Lambda function to process the documents.
+D. Update the application to synchronously process the documents directly after the DynamoDB write.
+
+Suggested Answer: B 
+
+---
+
+Question #: 118
+Topic #: 1
+[All AWS Certified Developer - Associate DVA-C02 Questions]
+A developer is writing an application for a company. The application will be deployed on Amazon EC2 and will use an Amazon RDS for Microsoft SQL Server database. The company's security team requires that database credentials are rotated at least weekly.
+
+How should the developer configure the database credentials for this application?
+
+A. Create a database user. Store the user name and password in an AWS Systems Manager Parameter Store secure string parameter. Enable rotation of the AWS Key Management Service (AWS KMS) key that is used to encrypt the parameter.
+B. Enable IAM authentication for the database. Create a database user for use with IAM authentication. Enable password rotation.
+C. Create a database user. Store the user name and password in an AWS Secrets Manager secret that has daily rotation enabled.
+D. Use the EC2 user data to create a database user. Provide the user name and password in environment variables to the application.
+
+Suggested Answer: C
+
+---
+
+Question #: 119
+Topic #: 1
+[All AWS Certified Developer - Associate DVA-C02 Questions]
+A real-time messaging application uses Amazon API Gateway WebSocket APIs with backend HTTP service. A developer needs to build a feature in the application to identify a client that keeps connecting to and disconnecting from the WebSocket connection. The developer also needs the ability to remove the client.
+
+Which combination of changes should the developer make to the application to meet these requirements? (Choose two.)
+
+A. Switch to HTTP APIs in the backend service.
+B. Switch to REST APIs in the backend service.
+C. Use the callback URL to disconnect the client from the backend service.
+D. Add code to track the client status in Amazon ElastiCache in the backend service.
+E. Implement $connect and $disconnect routes in the backend service.
+
+Suggested Answer: CE/DE 不确定
+
+https://docs.aws.amazon.com/zh_cn/apigateway/latest/developerguide/apigateway-how-to-call-websocket-api-connections.html
+
+您后端服务可以使用以下 WebSocket 连接 HTTP 请求向连接的客户端发送回调消息、获取连接信息或断开客户端连接。
+
+重要
+这些请求使用 IAM 授权，因此您必须使用签名版本 4 (SigV4) 对其进行签名。为此，您可以使用 API Gateway 管理 API。有关更多信息，请参阅 ApiGatewayManagementApi。
+
+在以下命令中，您需要将 {api-id} 替换为实际的 API ID，该 ID 显示在 API Gateway 控制台中或由 AWS CLI create-api 命令返回。此外，如果您的 API 位于 us-east-1 以外的区域，则需要替换正确的区域。
+
+要向客户端发送回调消息，请使用：
+POST https://{api-id}.execute-api.us-east-1.amazonaws.com/{stage}/@connections/{connection_id}
+要获取客户端的最新连接状态，请使用：
+GET https://{api-id}.execute-api.us-east-1.amazonaws.com/{stage}/@connections/{connection_id}
+要断开客户端连接，请使用：
+DELETE https://{api-id}.execute-api.us-east-1.amazonaws.com/{stage}/@connections/{connection_id}
+
+https://docs.aws.amazon.com/zh_cn/apigateway/latest/developerguide/apigateway-websocket-api-route-keys-connect-disconnect.html
+
+客户端应用程序通过发送 WebSocket 升级请求连接到 WebSocket API。如果请求成功，则在建立连接时会执行 $connect 路由。
+在连接关闭后，会执行 $disconnect 路由。
+
+API Gateway – WebSocket API – Routing
+• Incoming JSON messages are routed to different backend
+• If no routes => sent to $default
+• You request a route selection expression to select the field on JSON to route from
+• Sample expression: $request.body.action
+• The result is evaluated against the route keys available in your API Gateway
+• The route is then connected to the backend you’ve setup through API Gateway
+
+---
+
+Question #: 120
+Topic #: 1
+[All AWS Certified Developer - Associate DVA-C02 Questions]
+
+A developer has written code for an application and wants to share it with other developers on the team to receive feedback. The shared application code needs to be stored long-term with multiple versions and batch change tracking.
+
+Which AWS service should the developer use?
+
+A. AWS CodeBuild
+B. Amazon S3
+C. AWS CodeCommit
+D. AWS Cloud9
+
+Suggested Answer: C
+
+---
+
+Question #: 121
+Topic #: 1
+[All AWS Certified Developer - Associate DVA-C02 Questions]
+A company's developer is building a static website to be deployed in Amazon S3 for a production environment. The website integrates with an Amazon Aurora PostgreSQL database by using an AWS Lambda function. The website that is deployed to production will use a Lambda alias that points to a specific version of the Lambda function.
+
+The company must rotate the database credentials every 2 weeks. Lambda functions that the company deployed previously must be able to use the most recent credentials.
+
+Which solution will meet these requirements?
+
+A. Store the database credentials in AWS Secrets Manager. Turn on rotation. Write code in the Lambda function to retrieve the credentials from Secrets Manager.
+B. Include the database credentials as part of the Lambda function code. Update the credentials periodically and deploy the new Lambda function.
+C. Use Lambda environment variables. Update the environment variables when new credentials are available.
+D. Store the database credentials in AWS Systems Manager Parameter Store. Turn on rotation. Write code in the Lambda function to retrieve the credentials from Systems Manager Parameter Store.
+
+Suggested Answer: A 
+
+---
+
+Question #: 122
+Topic #: 1
+[All AWS Certified Developer - Associate DVA-C02 Questions]
+A developer is developing an application that uses signed requests (Signature Version 4) to call other AWS services. The developer has created a canonical request, has created the string to sign, and has calculated signing information.
+
+Which methods could the developer use to complete a signed request? (Choose two.)
+
+A. Add the signature to an HTTP header that is named Authorization.
+B. Add the signature to a session cookie.
+C. Add the signature to an HTTP header that is named Authentication.
+D. Add the signature to a query string parameter that is named X-Amz-Signature.
+E. Add the signature to an HTTP header that is named WWW-Authenticate.
+
+Suggested Answer: AD
+
+Signing AWS API requests
+• When you call the AWS HTTP API, you sign the request so that AWS can identify you, using your AWS credentials (access key & secret key)
+• Note: some requests to Amazon S3 don’t need to be signed
+• If you use the SDK or CLI, the HTTP requests are signed for you
+• You should sign an AWS HTTP request using Signature v4 (SigV4)
+
+SigV4 Request examples
+
+HTTP Header option (signature in Authorization header)
+
+Query String option, ex: S3 pre-signed URLs (signature in X-Amz-Signature)
+
+您可使用 HTTP Authorization 标头或查询字符串参数，将身份验证信息添加至请求。您无法同时使用 Authorization 标头和查询字符串参数来添加身份验证信息。
+
+例 示例：授权标头
+以下示例显示了 DescribeInstances 操作的 Authorization 标头。为便于阅读，此示例已使用换行符编排过格式。在您的代码中，这必须是连续的字符串。算法和 Credential 之间没有逗号。但是，必须使用逗号分隔其他元素。
+
+```
+Authorization: AWS4-HMAC-SHA256
+Credential=AKIAIOSFODNN7EXAMPLE/20220830/us-east-1/ec2/aws4_request,
+SignedHeaders=host;x-amz-date,
+Signature=calculated-signature
+```
+例 示例：请求在查询字符串中使用身份验证参数
+以下示例显示了对包含身份验证信息的 DescribeInstances 操作的查询。为便于阅读，此示例已使用换行符编排过格式，而非 URL 编码。在您的代码中，查询字符串必须是采用 URL 编码的连续字符串。
+
+```
+https://ec2.amazonaws.com/?
+Action=DescribeInstances&
+Version=2016-11-15&
+X-Amz-Algorithm=AWS4-HMAC-SHA256&
+X-Amz-Credential=AKIAIOSFODNN7EXAMPLE/20220830/us-east-1/ec2/aws4_request&
+X-Amz-Date=20220830T123600Z&
+X-Amz-SignedHeaders=host;x-amz-date&
+X-Amz-Signature=calculated-signature
+```
+
+---
+
+Question #: 123
+Topic #: 1
+[All AWS Certified Developer - Associate DVA-C02 Questions]
+A company must deploy all its Amazon RDS DB instances by using AWS CloudFormation templates as part of AWS CodePipeline continuous integration and continuous delivery (CI/CD) automation. The primary password for the DB instance must be automatically generated as part of the deployment process.
+
+Which solution will meet these requirements with the LEAST development effort?
+
+A. Create an AWS Lambda-backed CloudFormation custom resource. Write Lambda code that generates a secure string. Return the value of the secure string as a data field of the custom resource response object. Use the CloudFormation Fn::GetAtt intrinsic function to get the value of the secure string. Use the value to create the DB instance.
+B. Use the AWS CodeBuild action of CodePipeline to generate a secure string by using the following AWS CLI command: aws secretsmanager get-random-password. Pass the generated secure string as a CloudFormation parameter with the NoEcho attribute set to true. Use the parameter reference to create the DB instance.
+C. Create an AWS Lambda-backed CloudFormation custom resource. Write Lambda code that generates a secure string. Return the value of the secure string as a data field of the custom resource response object. Use the CloudFormation Fn::GetAtt intrinsic function to get a value of the secure string. Create secrets in AWS Secrets Manager. Use the secretsmanager dynamic reference to use the value stored in the secret to create the DB instance.
+D. Use the AWS::SecretsManager::Secret resource to generate a secure string. Store the secure string as a secret in AWS Secrets Manager. Use the secretsmanager dynamic reference to use the value stored in the secret to create the DB instance.
+
+Suggested Answer: D
+
+https://docs.aws.amazon.com/zh_cn/AWSCloudFormation/latest/UserGuide/aws-resource-secretsmanager-secret.html
+
+AWS::SecretsManager::Secret
+
+Creates a new secret. A secret can be a password, a set of credentials such as a user name and password, an OAuth token, or other secret information that you store in an encrypted form in Secrets Manager.
+
+B选项生成的密码没地方管理
+
+---
+
+Question #: 124
+Topic #: 1
+[All AWS Certified Developer - Associate DVA-C02 Questions]
+An organization is storing large files in Amazon S3, and is writing a web application to display meta-data about the files to end-users. Based on the metadata a user selects an object to download. The organization needs a mechanism to index the files and provide single-digit millisecond latency retrieval for the metadata.
+
+What AWS service should be used to accomplish this?
+
+A. Amazon DynamoDB
+B. Amazon EC2
+C. AWS Lambda
+D. Amazon RDS
+
+Suggested Answer: A
+
+---
+
+Question #: 125
+Topic #: 1
+[All AWS Certified Developer - Associate DVA-C02 Questions]
+A developer is creating an AWS Serverless Application Model (AWS SAM) template. The AWS SAM template contains the definition of multiple AWS Lambda functions, an Amazon S3 bucket, and an Amazon CloudFront distribution. One of the Lambda functions runs on Lambda@Edge in the CloudFront distribution. The S3 bucket is configured as an origin for the CloudFront distribution.
+
+When the developer deploys the AWS SAM template in the eu-west-1 Region, the creation of the stack fails.
+
+Which of the following could be the reason for this issue?
+
+A. CloudFront distributions can be created only in the us-east-1 Region.
+B. Lambda@Edge functions can be created only in the us-east-1 Region.
+C. A single AWS SAM template cannot contain multiple Lambda functions.
+D. The CloudFront distribution and the S3 bucket cannot be created in the same Region.
+
+Suggested Answer: B
+
+Lambda@Edge function 只能在 us-east-1
+
+---
+
+Question #: 126
+Topic #: 1
+[All AWS Certified Developer - Associate DVA-C02 Questions]
+A developer is integrating Amazon ElastiCache in an application. The cache will store data from a database. The cached data must populate real-time dashboards.
+
+Which caching strategy will meet these requirements?
+
+A. A read-through cache
+B. A write-behind cache
+C. A lazy-loading cache
+D. A write-through cache
+
+Suggested Answer: D 
+
+---
+
+Question #: 127
+Topic #: 1
+[All AWS Certified Developer - Associate DVA-C02 Questions]
+A developer is creating an AWS Lambda function. The Lambda function needs an external library to connect to a third-party solution. The external library is a collection of files with a total size of 100 MB. The developer needs to make the external library available to the Lambda execution environment and reduce the Lambda package space.
+
+Which solution will meet these requirements with the LEAST operational overhead?
+
+A. Create a Lambda layer to store the external library. Configure the Lambda function to use the layer.
+B. Create an Amazon S3 bucket. Upload the external library into the S3 bucket. Mount the S3 bucket folder in the Lambda function. Import the library by using the proper folder in the mount point.
+C. Load the external library to the Lambda function's /tmp directory during deployment of the Lambda package. Import the library from the /tmp directory.
+D. Create an Amazon Elastic File System (Amazon EFS) volume. Upload the external library to the EFS volume. Mount the EFS volume in the Lambda function. Import the library by using the proper folder in the mount point.
+
+Suggested Answer: A
+
+---
+
+Question #: 128
+Topic #: 1
+[All AWS Certified Developer - Associate DVA-C02 Questions]
+A company has a front-end application that runs on four Amazon EC2 instances behind an Elastic Load Balancer (ELB) in a production environment that is provisioned by AWS Elastic Beanstalk. A developer needs to deploy and test new application code while updating the Elastic Beanstalk platform from the current version to a newer version of Node.js. The solution must result in zero downtime for the application.
+
+Which solution meets these requirements?
+
+A. Clone the production environment to a different platform version. Deploy the new application code, and test it. Swap the environment URLs upon verification.
+B. Deploy the new application code in an all-at-once deployment to the existing EC2 instances. Test the code. Redeploy the previous code if verification fails.
+C. Perform an immutable update to deploy the new application code to new EC2 instances. Serve traffic to the new instances after they pass health checks.
+D. Use a rolling deployment for the new application code. Apply the code to a subset of EC2 instances until the tests pass. Redeploy the previous code if the tests fail.
+
+Suggested Answer: C
+
+---
+
+Question #: 129
+Topic #: 1
+[All AWS Certified Developer - Associate DVA-C02 Questions]
+
+A developer is creating an AWS Lambda function. The Lambda function will consume messages from an Amazon Simple Queue Service (Amazon SQS) queue. The developer wants to integrate unit testing as part of the function's continuous integration and continuous delivery (CI/CD) process.
+
+How can the developer unit test the function?
+
+A. Create an AWS CloudFormation template that creates an SQS queue and deploys the Lambda function. Create a stack from the template during the CI/CD process. Invoke the deployed function. Verify the output.
+B. Create an SQS event for tests. Use a test that consumes messages from the SQS queue during the function's Cl/CD process.
+C. Create an SQS queue for tests. Use this SQS queue in the application's unit test. Run the unit tests during the CI/CD process.
+D. Use the aws lambda invoke command with a test event during the CIICD process.
+
+Suggested Answer: C
+
+Unit testing is a type of testing that verifies the correctness of individual units of source code, typically functions or methods. When unit testing a Lambda function that interacts with Amazon SQS, you can create a separate test SQS queue that the Lambda function interacts with during testing. You would then validate the behavior of the function based on its interactions with the test queue. This approach isolates the function's behavior from the rest of the system, which is a key principle of unit testing.
+
+Option A is incorrect because AWS CloudFormation is typically used for infrastructure deployment, not for unit testing.
+
+Option B is incorrect because it does not actually test the function; it only creates an event.
+
+Option D is incorrect because the 'aws lambda invoke' command is used to manually trigger a Lambda function, but doesn't necessarily facilitate testing the function's behavior when consuming messages from an SQS queue.
+能自定义假事件来测试lambda的是sam local invoke 
+
+---
+
+Question #: 130
+Topic #: 1
+[All AWS Certified Developer - Associate DVA-C02 Questions]
+A developer is working on a web application that uses Amazon DynamoDB as its data store. The application has two DynamoDB tables: one table that is named artists and one table that is named songs. The artists table has artistName as the partition key. The songs table has songName as the partition key and artistName as the sort key.
+
+The table usage patterns include the retrieval of multiple songs and artists in a single database operation from the webpage. The developer needs a way to retrieve this information with minimal network traffic and optimal application performance.
+
+Which solution will meet these requirements?
+
+A. Perform a BatchGetltem operation that returns items from the two tables. Use the list of songName/artistName keys for the songs table and the list of artistName key for the artists table.
+B. Create a local secondary index (LSI) on the songs table that uses artistName as the partition key. Perform a query operation for each artistName on the songs table that filters by the list of songName. Perform a query operation for each artistName on the artists table.
+C. Perform a BatchGetitem operation on the songs table that uses the songName/artistName keys. Perform a BatchGetltem operation on the artists table that uses artistName as the key.
+D. Perform a Scan operation on each table that filters by the list of songName/artistName for the songs table and the list of artistName in the artists table.
+
+Suggested Answer: A 
+
+---
+
+Question #: 131
+Topic #: 1
+[All AWS Certified Developer - Associate DVA-C02 Questions]
+A company is developing an ecommerce application that uses Amazon API Gateway APIs. The application uses AWS Lambda as a backend. The company needs to test the code in a dedicated, monitored test environment before the company releases the code to the production environment.
+
+Which solution will meet these requirements?
+
+A. Use a single stage in API Gateway. Create a Lambda function for each environment. Configure API clients to send a query parameter that indicates the environment and the specific Lambda function.
+B. Use multiple stages in API Gateway. Create a single Lambda function for all environments. Add different code blocks for different environments in the Lambda function based on Lambda environment variables.
+C. Use multiple stages in API Gateway. Create a Lambda function for each environment. Configure API Gateway stage variables to route traffic to the Lambda function in different environments.
+D. Use a single stage in API Gateway. Configure API clients to send a query parameter that indicates the environment. Add different code blocks for different environments in the Lambda function to match the value of the query parameter.
+
+Suggested Answer: C
+
+---
+
+Question #: 132
+Topic #: 1
+[All AWS Certified Developer Associate Questions]
+
+How should custom libraries be utilized in AWS Lambda?
+A. Host the library on Amazon S3 and reference to it from the Lambda function.
+B. Install the library locally and upload a ZIP file of the Lambda function.
+C. Import the necessary Lambda blueprint when creating the function.
+D. Modify the function runtime to include the necessary library.
+
+Suggested Answer: B
+
+---
+
+Question #: 133
+Topic #: 1
+[All AWS Certified Developer Associate Questions]
+
+A developer is using an Amazon Kinesis Data Firehose delivery stream to store data in Amazon S3. Before storing the data in Amazon S3, the developer wants to enrich the data by combining the data with data from an Amazon DynamoDB table.
+How can the developer implement the data enrichment?
+
+A. Create a Kinesis Data Firehose data transformation by using an Amazon EC2 instance.
+B. Configure the Kinesis Data Firehose delivery stream to send data to a Kinesis data stream. Enrich the data by using an AWS Lambda function.
+C. Configure the Kinesis Data Firehose delivery stream to store data in the DynamoDB table. Export the table to Amazon S3.
+D. Create a Kinesis Data Firehose data transformation by using an AWS Lambda function.
+
+Suggested Answer: D
+
+---
+
+Question #: 134
+Topic #: 1
+[All AWS Certified Developer Associate Questions]
+
+An AWS Lambda function generates a 3MB JSON file and then uploads it to an Amazon S3 bucket daily. The file contains sensitive information, so the Developer must ensure that it is encrypted before uploading to the bucket.
+Which of the following modifications should the Developer make to ensure that the data is encrypted before uploading it to the bucket?
+
+A. Use the default AWS KMS customer master key for S3 in the Lambda function code.
+B. Use the S3 managed key and call the GenerateDataKey API to encrypt the file.
+C. Use the GenerateDateKey API, then use that data key to encrypt the file in the Lambda function code.
+D. Use a custom KMS customer master key created for S3 in the Lambda function code.
+
+Suggested Answer: C
+
+---
+
+Question #: 135
+Topic #: 1
+[All AWS Certified Developer Associate Questions]
+
+A Developer wants to find a list of items in a global secondary index from an Amazon DynamoDB table.
+Which DynamoDB API call can the Developer use in order to consume the LEAST number of read capacity units?
+
+A. Scan operation using eventually-consistent reads
+B. Query operation using strongly-consistent reads
+C. Query operation using eventually-consistent reads
+D. Scan operation using strongly-consistent reads
+
+Suggested Answer: C
+
+---
+
+Question #: 136
+Topic #: 1
+[All AWS Certified Developer Associate Questions]
+
+A Developer has published an update to an application that is served to a global user base using Amazon CloudFront. After deploying the application, users are not able to see the updated changes.
+How can the Developer resolve this issue?
+
+A. Remove the origin from the CloudFront configuration and add it again.
+B. Disable forwarding of query strings and request headers from the CloudFront distribution configuration.
+C. Invalidate all the application objects from the edge caches.
+D. Disable the CloudFront distribution and enable it again to update all the edge locations.
+
+Suggested Answer: C
+
+
+If you need to remove a file from CloudFront edge caches before it expires, you can do one of the following:
+
+Invalidate the file from edge caches. The next time a viewer requests the file, CloudFront returns to the origin to fetch the latest version of the file.
+
+Use file versioning to serve a different version of the file that has a different name. For more information, see Updating existing files using versioned file names.
+
+To invalidate files, you can specify either the path for individual files or a path that ends with the * wildcard, which might apply to one file or to many, as shown in the following examples:
+
+/images/image1.jpg
+
+/images/image*
+
+/images/*
+
+CloudFront Caching
+• The cache lives at each CloudFront Edge Location
+• CloudFront identifies each object in the cache using the Cache Key (see next slide)
+• You want to maximize the Cache Hit ratio to minimize requests to the origin
+• You can invalidate part of the cache using the CreateInvalidation API
+
+What is CloudFront Cache Key?
+• A unique identifier for every object in the cache
+• By default, consists of hostname + resource portion of the URL
+• If you have an application that serves up content that varies based on user, device, language, location…
+• You can add other elements (HTTP headers, cookies, query strings) to the Cache Key using CloudFront Cache Policies
+
+CloudFront – Cache Invalidations
+• In case you update the back-end origin, CloudFront doesn’t know about it and will only get the refreshed content after the TTL has expired
+• However, you can force an entire or partial cache refresh (thus bypassing the TTL) by performing a CloudFront Invalidation
+• You can invalidate all files * or a special path (/images/*)
