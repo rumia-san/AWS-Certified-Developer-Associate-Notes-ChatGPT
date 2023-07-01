@@ -9,7 +9,7 @@ D. Encrypt the access token by using an AWS Key Management Service (AWS KMS) AWS
 
 Correct Answer:  C 不确定
 
-要跨account访问
+要跨account访问 aws managed key不支持
 
 ---
 
@@ -420,6 +420,19 @@ D. Create an Amazon ElastiCache for Memcached instance. Store the unique identif
 
 Correct Answer: B 
 
+C不对是因为lambda要求幂等
+https://repost.aws/zh-Hans/knowledge-center/lambda-function-idempotent
+
+Lambda 函数幂等最佳实践
+在开发应用程序之前就计划好幂等性功能。
+确保您的 Lambda 代码在处理重复事件时可以在不产生错误的情况下终止。
+**注意：**抛出错误可能会导致 Lambda 或者调用函数的其他服务不断重试。
+需要时更改 Lambda 函数超时设置，以便正确处理完整的运行时。
+**注意：**如果使用单独的服务来保存数据和控制重复事件，可能需要对 HTTPS 终端节点的 API 调用。因此，对 HTTPS 终端节点的 API 调用所需的运行时可能会超过默认的三秒。
+测试并尽可能优化您的函数，模拟真实场景和请求速率。
+**注意：**测试和优化幂等函数逻辑对于帮助防止潜在的副作用（如超时、过长延迟或瓶颈）至关重要。
+使用 DynamoDB 等可以轻松扩展并提供高吞吐量的服务来存储会话数据。
+
 ---
 
 Question #27
@@ -437,6 +450,8 @@ Correct Answer: A
 如果不使用显式加密参数，在默认情况下，CopyImage 操作会在复制 AMI 的源快照时保持这些快照的现有加密状态。您也可以复制 AMI，同时通过提供加密参数来对其关联的 EBS 快照应用新的加密状态。
 
 您无法直接加密现有未加密卷或快照。但是，您可以从未加密的卷或快照创建加密卷或快照。
+
+---
 
 Question #28
 
@@ -468,6 +483,10 @@ D. Use Amazon SNS instead of Kinesis.
 E. Reduce the number of KCL consumers.
 
 Correct Answer: AC 
+
+https://repost.aws/knowledge-center/kinesis-data-stream-throttling
+
+相比PutRecords，PutRecord需要调更多次，增加调用次数导致问题严重
 
 ---
 
@@ -646,6 +665,8 @@ D. Update the S3 bucket policy by including the S3:ListBucket permission and by 
 
 Correct Answer: B
 
+---
+
 Question #39
 
 A company is planning to securely manage one-time fixed license keys in AWS. The company's development team needs to access the license keys in automaton scripts that run in Amazon EC2 instances and in AWS CloudFormation stacks.
@@ -657,6 +678,8 @@ C. AWS Systems Manager Parameter Store SecureString parameters
 D. CloudFormation NoEcho parameters
 
 Correct Answer: C 
+
+两个原因：要求 one-time fixed 而 AWS Secrets Manager 会自动 rotation，还有就是要cost-effectively
 
 ---
 
@@ -800,6 +823,17 @@ D. Set up AWS CodePipeline to deploy the most recent version of the application 
 E. Remove any commands that perform operating system patching from the UserData script.
 
 Correct Answer: AE （不确定）
+
+Why choose A over B? Problem is that B will tie an AMI with a specific version, so if there is a new version, we need to create a new AMI, and that contradicts with "minimize the number of images that are created".
+
+Then E over C, D? E is obviously complementary to A, where removing commands from User Data will make the instance booting process much faster (and of course with A you don't need that anymore).
+
+C and D also works but 1/not complementary with any other options; 2/CodeDeploy takes time to execute.
+
+Hope this helps somebody struggling with this question.
+
+---
+
 
 Question #48
 
@@ -977,18 +1011,13 @@ Correct Answer: A
 
 Cache Behaviors是CloudFront的内容
 
-• Configure different settings for a given URL path 
-pattern
-• Example: one specific cache behavior to images/*.jpg 
-files on your origin web server
-• Route to different kind of origins/origin groups 
-based on the content type or path pattern
+• Configure different settings for a given URL path pattern
+• Example: one specific cache behavior to images/*.jpg files on your origin web server
+• Route to different kind of origins/origin groups based on the content type or path pattern
 • /images/*
 • /api/*
 • /* (default cache behavior)
-• When adding additional Cache Behaviors, the 
-Default Cache Behavior is always the last to be 
-processed and is always /*
+• When adding additional Cache Behaviors, the Default Cache Behavior is always the last to be processed and is always /*
 
 ---
 
