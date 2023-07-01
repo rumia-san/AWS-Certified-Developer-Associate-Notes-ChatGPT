@@ -4728,3 +4728,73 @@ LSI会用主表的WCUs and RCUs
 
 ---
 
+Question #: 441
+Topic #: 1
+[All AWS Certified Developer Associate Questions]
+
+A developer is deploying an AWS Lambda function. The developer wants the ability to return to older versions of the function quickly and seamlessly.
+
+How can the developer achieve this goal with the LEAST operational overhead?
+
+A. Use AWS OpsWorks to perform blue/green deployments.
+B. Use a function alias with different versions.
+C. Maintain deployment packages for older versions in Amazon S3.
+D. Use AWS CodePipeline for deployments and rollbacks.
+
+Suggested Answer: B
+
+---
+
+Question #: 442
+Topic #: 1
+[All AWS Certified Developer Associate Questions]
+
+A developer is creating a utility application as an AWS Lambda function. The code is using multiple threads. The developer runs the Lambda function, and the function does not perform as well as the developer expected.
+
+What should the developer do to improve the performance of the Lambda function?
+
+A. Increase the Lambda function timeout setting.
+B. Request to increase the Lambda function concurrency quota.
+C. Increase the memory allocation of the Lambda function.
+D. Modify the reserved concurrency of the Lambda function to a higher number.
+
+Suggested Answer: C
+
+improve the performance
+
+---
+
+Question #: 443
+Topic #: 1
+[All AWS Certified Developer Associate Questions]
+A company has a web application in an Amazon Elastic Container Service (Amazon ECS) cluster running hundreds of secure services in AWS Fargate containers. The services are in target groups routed by an Application Load Balancer (ALB). Application users log in to the website anonymously, but they must be authenticated using any OpenID Connect protocol-compatible identity provider (IdP) to access the secure services.
+
+Which authentication approach would meet these requirements with the LEAST amount of effort?
+
+A. Configure the services to use Amazon Cognito.
+B. Configure the ALB to use Amazon Cognito.
+C. Configure the services to use AWS Security Token Service (AWS STS) with the OpenID Connect IdP.
+D. Configure the Amazon ECS cluster to use AWS Security Token Service (AWS STS) with the OpenID Connect IdP.
+
+Suggested Answer: B
+
+---
+
+Question #: 444
+Topic #: 1
+[All AWS Certified Security - Specialty Questions]
+
+A company has a single-page application (SPA) that is served by Amazon CloudFront. An Amazon S3 bucket is the origin of the CloudFront distribution. The company is using Amazon Cognito for authentication.
+
+An external security review reveals that unauthenticated users can download the application source code from the SPA in index.html and view internal details of the SPA. A security engineer needs to implement a solution to avoid exposing the source code to unauthenticated users.
+
+Which solution will meet these requirements?
+
+A. Split the login logic to a separate login.html page. Designate the new page as the landing page. Attach an AWS WAF web ACL to the CloudFront distribution to deny unauthenticated requests to index html.
+B. Change the authentication method in Amazon Cognito to use an AWS Lambda authorizer. Configure the Lambda authorizer to control authentication and disallow downloads if the user is not authenticated.
+C. Implement an Amazon Cognito hosted UI for the login. Add Lambda@Edge logic to the CloudFront distribution to either serve content or redirect to the login page.
+D. Create an origin access identity (OAI). Associate the OAI with the CloudFront distribution. Configure S3 bucket permissions for the OAI to allow access to authenticated users only.
+
+Suggested Answer: C
+
+
