@@ -3908,3 +3908,247 @@ Correct Answer: A
 AWSLambdaBasicExecutionRole is an AWS managed policy that: Provides write permissions to CloudWatch Logs.
 
 CloudWatchLambdaInsightsExecutionRolePolicy is an AWS managed policy that: Policy required for the Lambda Insights Extension
+
+---
+
+Question #: 400
+Topic #: 1
+[All AWS Certified Developer Associate Questions]
+
+A developer is changing the configuration for a CPU-intensive AWS Lambda function that runs once an hour. The function usually takes 45 seconds to run, but sometimes the run time is up to 1 minute. The timeout parameter is set to 3 minutes, and all other parameters are set to default.
+The developer needs to optimize the run time of this function.
+Which solution will meet this requirement?
+
+A. Redeploy the function within the default VPC.
+B. Increase the function's memory.
+C. Redeploy the function by using Lambda layers.
+D. Increase the function's reserved concurrency.
+
+Suggested Answer: B
+
+---
+
+Question #: 401
+Topic #: 1
+[All AWS Certified Developer Associate Questions]
+
+A developer is creating a website that will be hosted from an Amazon S3 bucket. The website must support secure browser connections.
+Which combination of actions must the developer take to meet this requirement? (Choose two.)
+
+A. Create an Elastic Load Balancer (ELB). Configure the ELB to direct traffic to the S3 bucket.
+B. Create an Amazon CloudFront distribution. Set the S3 bucket as an origin.
+C. Configure the Elastic Load Balancer with an SSL/TLS certificate.
+D. Configure the Amazon CloudFront distribution with an SSL/TLS certificate.
+E. Configure the S3 bucket with an SSL/TLS certificate.
+
+Suggested Answer: BD
+
+https://docs.aws.amazon.com/zh_cn/AmazonCloudFront/latest/DeveloperGuide/getting-started-secure-static-website-cloudformation-template.html
+安全静态网站入门
+
+您可以通过使用本主题中介绍的解决方案为您的域名创建安全静态网站来开始使用 Amazon CloudFront。静态网站 仅使用静态文件（如 HTML、CSS、JavaScript、图像和视频），并且不需要服务器或服务器端处理。使用此解决方案，您的网站将获得以下好处：
+
+    使用 Amazon Simple Storage Service (Amazon S3) 的持久存储 – 此解决方案创建 Amazon S3 存储桶来托管静态网站的内容。要更新您的网站，只需将新文件上传到 S3 存储桶。
+
+    通过 Amazon CloudFront 内容分发网络加快速度 – 此解决方案创建一个 CloudFront 分配，以便以低延迟将您的网站提供给查看器。此分配配置了源访问身份，以确保网站只能通过 CloudFront（而不是直接从 S3）访问。
+
+    由 HTTPS 和其他安全标头保护 – 此解决方案在 AWS Certificate Manager (ACM) 中创建 SSL/TLS 证书，并将其附加到 CloudFront 分配。此证书使分配能够使用 HTTPS 安全地为您的域名网站提供服务。
+
+    此解决方案还使用 Lambda@Edge 向每个服务器响应添加安全标头。安全标头是 Web 服务器响应中的一组标头，它们告诉 Web 浏览器采取额外的安全预防措施。有关更多信息，请参阅此博客文章：使用 Lambda@Edge 和 Amazon CloudFront 添加 HTTP 安全标头。
+
+使用 AWS CloudFormation 进行配置和部署 – 此解决方案使用 AWS CloudFormation 模板来设置所有组件，因此，您可以更多地关注网站的内容，而更少地关注配置组件。
+
+解决方案概述
+
+下图显示此静态网站解决方案的工作原理的概述：
+
+    查看器在 www.example.com 上请求访问网站。
+
+    如果缓存请求的对象，则 CloudFront 将对象从其缓存返回给查看器。
+
+    如果对象不在 CloudFront 的缓存中，CloudFront 会从源（S3 存储桶）请求对象。
+
+    S3 将对象返回到 CloudFront，这将触发 Lambda@Edge 源响应事件。
+
+    对象（包括由 Lambda@Edge 函数添加的安全标头）被添加到 CloudFront 的缓存中。
+
+    （未显示）对象将返回给查看器。对去往同一 CloudFront 边缘站点的对象的后续请求将从 CloudFront 缓存中提供服务。
+    
+---
+
+Question #: 402
+Topic #: 1
+[All AWS Certified Developer Associate Questions]
+
+A company has an application that runs on AWS Lambda@Edge. The application serves content that varies based on the device that the viewer is using.
+Information about the number of hits by device type is written to logs that are stored in a log group in Amazon CloudWatch Logs. The company needs to publish an Amazon CloudWatch custom metric for each device type.
+Which approach will meet these requirements?
+
+A. Create a CloudWatch Logs Insights query to extract the device type information from the logs and to create a custom metric with device type as a dimension.
+B. Create a CloudWatch metric filter to extract metrics from the log files with device type as a dimension.
+C. Update the application to write its logs in the CloudWatch embedded metric format with device type as a dimension.
+D. Configure the CloudWatch Logs agent for Lambda integration. Update the application to use the StatsD protocol to emit the metrics.
+
+Suggested Answer: B
+
+CloudWatch Logs Metric Filter & Insights
+• CloudWatch Logs can use filter expressions
+• For example, find a specific IP inside of a log
+• Or count occurrences of “ERROR” in your logs 
+• Metric filters can be used to trigger CloudWatch alarms
+
+ CloudWatch Logs Insights can be used to query logs and add queries to CloudWatch Dashboard
+
+---
+
+Question #: 403
+Topic #: 1
+[All AWS Certified Developer Associate Questions]
+
+A company manages a website that runs on Amazon EC2 instances behind an Elastic Load Balancer. The EC2 Instances are CPU-constrained. The company's engineering team needs to secure the inbound internet traffic.
+Which combination of steps will meet these requirements? (Choose two.)
+
+A. Configure the Elastic Load Balancer with SSL passthrough.
+B. Configure SSL certificates on the Elastic Load Balancer.
+C. Configure the Elastic Load Balancer with a Loadable Storage System.
+D. Install SSL certificates on the EC2 instances.
+E. Configure the Elastic Load Balancer with SSL termination.
+
+Suggested Answer: BE
+
+---
+
+Question #: 405
+Topic #: 1
+[All AWS Certified Developer Associate Questions]
+
+A company is serving private media content on Amazon S3 by using an Amazon CloudFront distribution. A developer needs to secure the media content with the signed URL.
+What should the developer do to meet this requirement?
+
+A. Use an access Key and a secret access key to generate an S3 presigned URL. Replace the S3 hostname with a CloudFront distribution name in the URL.
+B. Create an SSH-2 RSA key pair. Upload the public key to CloudFront, and assign the public key to a trusted signer. Use a public key and key ID to sign the CloudFront URL.
+C. Create an SSH-2 DSA key pair. Upload the public key to CloudFront, and assign the public key to a trusted signer. Use a private key and key ID to sign the CloudFront URL.
+D. Create an SSH-2 RSA key pair. Upload the public key to CloudFront, and assign the public key to a trusted signer. Use a private key and key ID to sign the CloudFront URL.
+
+Suggested Answer: D
+
+• You generate your own public / private key
+• The private key is used by your applications (e.g. EC2) to sign URLs
+• The public key (uploaded) is used by CloudFront to verify URLs
+
+---
+
+Question #: 406
+Topic #: 1
+[All AWS Certified Developer Associate Questions]
+
+A developer is writing code for an AWS Lambda function. The function will be used as a Lambda authorizer so that Amazon API Gateway can control access to a specific API.
+What should this code return in addition to the principal identifier upon successful authentication?
+
+A. An HTTP response status code of 200 that indicates successful completion
+B. An integer 0 that indicates successful completion
+C. The Amazon Resource Name (ARN) of an IAM role that will be assumed for authentication
+D. A policy document with desired permissions
+
+Suggested Answer: D
+
+Lambda Authorizer (formerly Custom Authorizers)
+• Token-based authorizer (bearer token) – ex JWT (JSON Web Token) or Oauth
+• A request parameter-based Lambda authorizer (headers, query string, stage var)
+• Lambda must return an IAM policy for the user, result policy is cached
+• Authentication = External | Authorization = Lambda function
+
+API Gateway Lambda authorization workflow
+
+    The client calls a method on an API Gateway API method, passing a bearer token or request parameters.
+
+    API Gateway checks whether a Lambda authorizer is configured for the method. If it is, API Gateway calls the Lambda function.
+
+    The Lambda function authenticates the caller by means such as the following:
+
+        Calling out to an OAuth provider to get an OAuth access token.
+
+        Calling out to a SAML provider to get a SAML assertion.
+
+        Generating an IAM policy based on the request parameter values.
+
+        Retrieving credentials from a database.
+
+    If the call succeeds, the Lambda function grants access by returning an output object containing at least an IAM policy and a principal identifier.
+
+    API Gateway evaluates the policy.
+
+        If access is denied, API Gateway returns a suitable HTTP status code, such as 403 ACCESS_DENIED.
+
+        If access is allowed, API Gateway executes the method. If caching is enabled in the authorizer settings, API Gateway also caches the policy so that the Lambda authorizer function doesn't need to be invoked again.
+
+---
+
+Question #: 407
+Topic #: 1
+[All AWS Certified Developer Associate Questions]
+
+The developer is creating a web application that collects highly regulated and confidential user data through a POST request. The web application is served through Amazon CloudFront. User names and phone numbers must be encrypted at the edge and must remain encrypted throughout the entire application stack.
+What is the MOST secure way to meet these requirements?
+
+A. Enforce Match Viewer with HTTPS Only on CloudFront.
+B. Use only the newest TLS security policy on CloudFront.
+C. Enforce a signed URL on CloudFront on the front end.
+D. Use field-level encryption on CloudFront.
+
+Suggested Answer: D 
+
+---
+
+Question #: 408
+Topic #: 1
+[All AWS Certified Developer Associate Questions]
+
+A company runs a traditional three-tier application, including its NoSQL database, on Amazon EC2 instances in a VPC. The company wants to migrate the database to Amazon DynamoDB.
+During testing, a developer notices that the application on the EC2 instances cannot write data to the DynamoDB table. The developer needs to grant the application write access to the DynamoDB table in a secure manner.
+Which combination of actions will meet these requirements? (Choose two.)
+
+A. Create a gateway VPC endpoint for DynamoDB. Specify the VPC ID in the --vpc-id parameter.
+B. Create an interface VPC endpoint for DynamoDB. Specify the VPC ID in the --vpc-id parameter.
+C. Create an IAM user that allows write access to the DynamoDB table. Add the user to the EC2 Instances.
+D. Create an IAM role that allows write access to the DynamoDB table. Add the role to the EC2 instances.
+E. Create an IAM group that allows write access to the DynamoDB table. Add the group to the EC2 instances.
+
+Suggested Answer: AD
+
+• VPC Endpoint Gateway: S3 & DynamoDB
+• VPC Endpoint Interface: the rest
+
+---
+
+Question #: 409
+Topic #: 1
+[All AWS Certified Developer Associate Questions]
+
+A company is hosting a workshop for external users and wants to share the reference documents with the external users for 7 days. The company stores the reference documents in an Amazon S3 bucket that the company owns.
+What is the MOST secure way to share the documents with the external users?
+
+A. Use S3 presigned URLs to share the documents with the external users. Set an expiration time of 7 days.
+B. Move the documents to an Amazon WorkDocs folder. Share the links of the WorkDocs folder with the external users.
+C. Create temporary IAM users that have read-only access to the S3 bucket. Share the access keys with the external users. Expire the credentials after 7 days.
+D. Create a role that has read-only access to the S3 bucket. Share the Amazon Resource Name (ARN) of this role with the external users.
+
+Suggested Answer: A 
+
+---
+
+Question #: 410
+Topic #: 1
+[All AWS Certified Developer Associate Questions]
+
+A developer has written an application that writes data to Amazon DynamoDB. The DynamoDB table has been configured to use conditional writes. During peak usage times, writes are failing due to a ConditionalCheckFailedException error.
+How can the developer increase the application's reliability when multiple clients are attempting to write to the same record?
+
+A. Write data to an Amazon SNS topic.
+B. Increase the amount of write capacity for the table to anticipate short-term spikes or bursts in write operations.
+C. Implement a caching solution, such as DynamoDB Accelerator or Amazon ElastiCache.
+D. Implement error retries and exponential backoff with jitter.
+
+Suggested Answer: D
+
+---
