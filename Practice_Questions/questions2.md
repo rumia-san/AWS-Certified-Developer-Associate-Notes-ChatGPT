@@ -4523,3 +4523,208 @@ Suggested Answer: A
 
 ---
 
+Question #: 431
+Topic #: 1
+[All AWS Certified Developer Associate Questions]
+
+A developer assumes a role with the AWS CLI to get a set of temporary security credentials.
+Which of the following must be set in the environment variables or AWS configuration file to authenticate to AWS?
+
+A. AccessKeyId SecretAccessKey, and AssumedRoleId
+B. UserId, SessionToken, and AssumedRoleId
+C. AccessKeyId, SecretAccessKey, and SessionToken
+D. UserId, SessionToken and Credentials
+
+Suggested Answer: C 
+
+https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/id_credentials_temp_use-resources.html
+
+```
+$ export AWS_ACCESS_KEY_ID=ASIAIOSFODNN7EXAMPLE
+$ export AWS_SECRET_ACCESS_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+$ export AWS_SESSION_TOKEN=AQoDYXdzEJr...<remainder of session token>
+$ aws ec2 describe-instances --region us-west-1
+```
+
+---
+
+Question #: 432
+Topic #: 1
+[All AWS Certified Developer Associate Questions]
+
+A company uses AWS Organizations to manage multiple accounts. Account A has an application that runs on an Amazon EC2 instance. The application uses the
+AWS CLI to run automated deployments in Account ׀’. An administrator set up cross-account access by using an EC2 IAM service role in Account A and an IAM role in Account ׀’.
+The application uses the following command to assume the IAM role in Account ׀’ but is unable to deploy anything in Account ׀’. aws sts assume-role --role-arn `am:aws:iam::<AccountB-ID>:role/AccountB-Role` --role-session-name AccountB-Role-Session
+Which step is needed next so that the application can successfully use the credentials that it obtains by using the role in Account B?
+
+A. Configure the access key and secret access key of a valid IAM user from Account ׀’ in the environment variables.
+B. Configure the access key, secret access key, and token from the assume-role command in the environment variables.
+C. Create a CLI profile for the EC2 IAM service role in the AWS configuration file.
+D. Delete any access keys and secret access keys in the environment variables.
+
+Suggested Answer: B
+
+---
+
+Question #: 433
+Topic #: 1
+[All AWS Certified Developer Associate Questions]
+
+A developer wants to implement Amazon EC2 Auto Scaling for a web application The developer wants to ensure that sessions will not be lost during scale-in events.
+How can the developer maintain the session state and share it across the EC2 instances?
+
+A. Write the sessions to an Amazon Elastic Block Store (Amazon EBS) volume. Mount the EBS volume to each EC2 instance in the group.
+B. Store the sessions in an Amazon ElastiCache for Memcached cluster. Configure the application to use the Memcached API.
+C. Publish the sessions to an Amazon Simple Notification Service (Amazon SNS) topic. Subscribe each EC2 instance in the group to the topic.
+D. Write the sessions to an Amazon Redshift cluster. Configure the application to use the Amazon Redshift API.
+
+Suggested Answer: B
+
+Amazon Redshift 是亚马逊 Web 服务（AWS）提供的一种云数据仓库服务。它专为大规模数据分析和数据仓库工作负载而设计，提供高性能、可扩展和成本效益的解决方案。
+
+---
+
+Question #: 434
+Topic #: 1
+[All AWS Certified Developer Associate Questions]
+A company stores all personally identifiable information (PII) in an Amazon DynamoDB table named PII in Account A. Developers are working on an application that is running on Amazon EC2 instances in Account B. The application in Account B requires access to the PII table.
+
+An administrator in Account A creates an IAM role named AccessPII that has permission to access the PII table. The administrator also creates a trust policy that specifies Account B as a principal that can assume the role.
+
+Which combination of steps should the developers take in Account B to allow their application to access the PII table? (Choose two.)
+
+A. Allow the EC2 IAM role the permission to assume the AccessPII role
+B. Allow the EC2 IAM role the permission to access the PII table.
+C. Include the AWS API in the application code logic to obtain temporary credentials from the EC2 IAM role to access the PII table.
+D. Include the AssumeRole API operation in the application code logic to obtain temporary credentials to access the PII table.
+E. Include the GetSessionToken API operation in the application code logic to obtain temporary credentials to access the PII table.
+
+Suggested Answer: AD
+
+---
+
+Question #: 435
+Topic #: 1
+[All AWS Certified Developer Associate Questions]
+
+A developer is running an application on an Amazon EC2 instance. When the application tries to read an Amazon S3 bucket the application fails. The developer notices that the associated IAM role is missing the S3 read permission. The developer needs to give the application the ability to read the S3 bucket.
+Which solution will meet this requirement with the LEAST application disruption?
+
+A. Add the permission to the role. Terminate the existing EC2 instance. Launch a new EC2 instance
+B. Add the permission to the role so that the change will take effect automatically
+C. Add the permission to the role. Hibernate and restart the existing EC2 instance.
+D. Add the permission to the S3 bucket. Restart the EC2 instance.
+
+Suggested Answer: B
+
+---
+
+Question #: 436
+Topic #: 1
+[All AWS Certified Developer Associate Questions]
+
+A developer is using Amazon API Gateway as an HTTP proxy to a backend endpoint. There are three separate environments development, testing, and production. Each environment has a corresponding stage in the API.
+The developer needs to direct traffic to different backend endpoints for each of these stages without creating a separate API for each stage.
+Which solution will meet these requirements?
+
+A. Add a model to the API. Add a schema to differentiate the different backend endpoints
+B. Create stage variables. Configure the variables in the HTTP integration request of the API.
+C. Use API custom authorizers to create an authorizer for each of the different stages.
+D. Update the integration response of the API to add different backend endpoint.
+
+Suggested Answer: B 
+
+With deployment stages in API Gateway, you can manage multiple release stages for each API, such as alpha, beta, and production. Using stage variables you can configure an API deployment stage to interact with different backend endpoints.
+
+For example, your API can pass a GET request as an HTTP proxy to the backend web host (for example, http://example.com). In this case, the backend web host is configured in a stage variable so that when developers call your production endpoint, API Gateway calls example.com. When you call your beta endpoint, API Gateway uses the value configured in the stage variable for the beta stage, and calls a different web host (for example, beta.example.com). Similarly, stage variables can be used to specify a different AWS Lambda function name for each stage in your API.
+
+---
+
+Question #: 437
+Topic #: 1
+[All AWS Certified Developer Associate Questions]
+
+An application that is deployed to Amazon EC2 is using Amazon DynamoDB. The application calls the DynamoDB REST API. Periodically, the application receives a ProvisionedThroughputExceededException error when the application writes to a DynamoDB table.
+
+Which solutions will mitigate this error MOST cost-effectively? (Choose two.)
+
+A. Modify the application code to perform exponential backoff when the error is received.
+B. Modify the application to use the AWS SDKs for DynamoDB.
+C. Increase the read and write throughput of the DynamoDB table.
+D. Create a DynamoDB Accelerator (DAX) cluster for the DynamoDB table.
+E. Create a second DynamoDB table. Distribute the reads and writes between the two tables.
+
+Suggested Answer: AB
+
+Each of the AWS SDKs provides important services to your application, including the following : Implementing basic retry logic in case of errors.
+https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Programming.SDKOverview.html
+
+cost-effectively 而C要花钱
+
+• If you get ThrottlingException intermittently, use exponential backoff
+• Retry mechanism already included in AWS SDK API calls 
+• Must implement yourself if using the AWS API as-is or in specific cases
+• Must only implement the retries on 5xx server errors and throttling
+• Do not implement on the 4xx client errors
+
+---
+
+Question #: 438
+Topic #: 1
+[All AWS Certified Developer Associate Questions]
+
+A physician's office management application requires that all data in transit between an EC2 instance and an Amazon EBS volume be encrypted.
+Which of the following techniques fulfills this requirement? (Choose two.)
+
+A. Create encrypted snapshots into Amazon S3.
+B. Use Amazon RDS with encryption.
+C. Use IAM roles to limit access to the Amazon EBS volume.
+D. Enable EBS encryption.
+E. Leverage OS-level encryption.
+
+Suggested Answer: CD / DE 不确定
+
+---
+
+Question #: 439
+Topic #: 1
+[All AWS Certified Developer Associate Questions]
+
+A gaming company has deployed a web portal on AWS Elastic Beanstalk. The company sometimes needs to deploy new versions three or four times in a day.
+The company needs to deploy new features for all users as quickly as possible. The solution must minimize performance impact and must maximize availability.
+What solution will meet these requirements?
+
+A. Use a rolling deployment policy to deploy to Amazon EC2 instances.
+B. Use an immutable deployment policy to deploy to Amazon EC2 instances.
+C. Use an all-at-once deployment policy to deploy to Amazon EC2 instances.
+D. Use a canary deployment strategy to deploy changes to Amazon EC2 instances.
+
+Suggested Answer: B
+
+Traffic Splitting: canary testing – send a small % of traffic to new deployment
+canary还是有一小部分流量会被送到新的东西，不是maximize availability
+
+---
+
+Question #: 440
+Topic #: 1
+[All AWS Certified Developer Associate Questions]
+
+A company has an application that provides blog hosting services to its customers. The application includes an Amazon DynamoDB table with a primary key. The primary key consists of the customers’ UserName as a partition key and the NumberOfBlogs as a sort key. The application stores the TotalReactionsOnBlogs as an attribute on the same DynamoDB table.
+
+A developer needs to implement an operation to retrieve the top 10 customers based on the greatest number of reactions on their blogs. This operation must not consume the DynamoDB table’s existing read capacity.
+
+What should the developer do to meet these requirements in the MOST operationally efficient manner?
+
+A. For the existing DynamoDB table, create a new global secondary index (GSI) that has the UserName as a partition key and the TotalReactionsOnBlogs as a sort key.
+B. For the existing DynamoDB table, create a new local secondary index (LSI) that has the UserName as a partition key and the TotalReactionsOnBlogs as a sort key.
+C. Back up and restore the DynamoDB table to a new DynamoDB table. Create a new global secondary index (GSI) that has the UserName as a partition key and the TotalReactionsOnBlogs as a sort key. Delete the old DynamoDB table.
+D. Back up and restore the DynamoDB table to a new DynamoDB table. Create a new local secondary index (LSI) that has the UserName as a partition key and the TotalReactionsOnBlogs as a sort key. Delete the old DynamoDB table.
+
+Suggested Answer: A
+
+GSI的WCUs and RCUs是独立分配的
+LSI会用主表的WCUs and RCUs
+
+---
+
