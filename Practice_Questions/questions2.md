@@ -4152,3 +4152,195 @@ D. Implement error retries and exponential backoff with jitter.
 Suggested Answer: D
 
 ---
+
+Question #: 411
+Topic #: 1
+[All AWS Certified Developer Associate Questions]
+
+A company has a REST application that consists of an Amazon API Gateway API and several AWS Lambda functions. A developer is responding to an alert that the API Gateway API's HTTP response error rate has unexpectedly increased. The developer must determine which Lambda function is malfunctioning and must make the determination as quickly as possible.
+Which solution will meet these requirements?
+
+A. Implement error handling in the functions to write error logs to the AWS X-Ray API. Use the X-Ray console to query the logs.
+B. Enable Amazon CloudWatch Logs and detailed CloudWatch metrics. Use CloudWatch Logs Insights to query the API Gateway logs.
+C. Download the API Gateway logs and Lambda invocation logs from Amazon S3. Perform a line-by-line search against them.
+D. Export the API Gateway logs and Lambda invocation logs from Amazon EventBridge (Amazon CloudWatch Events) and Amazon CloudWatch Logs. Perform a line-by-line search against them.
+
+Suggested Answer: B
+
+---
+
+Question #: 412
+Topic #: 1
+[All AWS Certified Developer Associate Questions]
+
+A company built an online event platform. For each event, the company organizes quizzes and generates leaderboards that are based on the quiz scores. The company stores the leaderboard data in Amazon DynamoDB and retains the data for 30 days after an event is complete. The company then uses a scheduled job to delete the old leaderboard data.
+The DynamoDB table is configured with a fixed write capacity. During the months when many events occur, the DynamoDB write API requests are throttled when the scheduled delete job runs.
+A developer must create a long-term solution that deletes the old leaderboard data and optimizes write throughput.
+Which solution meets these requirements?
+
+A. Configure a TTL attribute for the leaderboard data.
+B. Use DynamoDB Streams to schedule and delete the leaderboard data.
+C. Use AWS Step Functions to schedule and delete the leaderboard data.
+D. Set a higher write capacity when the scheduled delete job runs.
+
+Suggested Answer: A
+
+---
+
+Question #: 413
+Topic #: 1
+[All AWS Certified Developer Associate Questions]
+
+A developer is troubleshooting a three-tier application, which is deployed on Amazon EC2 instances. There is a connectivity problem between the application servers and the database servers.
+Which AWS services or tools should be used to identify the faulty component? (Choose two.)
+
+A. AWS CloudTrail
+B. AWS Trusted Advisor
+C. Amazon VPC Flow Logs
+D. Network access control lists
+E. AWS Config rules
+
+Suggested Answer: CD
+
+ NACL (Network ACL)
+• A firewall which controls traffic from and to subnet
+• Can have ALLOW and DENY rules
+• Are attached at the Subnet level
+• Rules only include IP addresses
+
+A: CloudTrail doesn't record network traffic events
+B: recommends best practises
+E: helps check compliance
+
+---
+
+Question #: 414
+Topic #: 1
+[All AWS Certified Developer Associate Questions]
+
+An international ecommerce company's website encourages customers to leave reviews of products that they have purchased. Products are seasonal. The products are popular for a short period of time and then are not popular in the next season.
+Customers leave the reviews in their native language. A developer is using Amazon Translate to implement a new feature to translate the reviews into other languages for customers who speak different languages. The website has hundreds of thousands of products with millions of reviews and is growing. Most reviews will be viewed in only two or three languages.
+What is the MOST cost-effective way to implement this new feature?
+
+A. Update the application code that writes the review to the database to translate the review into all supported languages. Persist a copy of each translation in the database for future visitors.
+B. Update the application code that reads the review from the database to check an Amazon ElastiCache cluster for translated reviews. If a visitor is requesting a review and language combination that is not in the cache, configure the application to translate it and store it in the cache with a TTL of 1 month.
+C. Update the application code that reads the review from the database to translate the review in real time and return the translated version without persisting it.
+D. Set up a database change stream to write events to a stream each time a customer writes a review. Configure an AWS Lambda function to read the events from the stream, translate the review into all supported languages, and update the review database to include all translations for future visitors.
+
+Suggested Answer: B/C 不确定
+
+B的问题：cache可能会变得特别大，而且不一定会hit，因为产品和翻译太多了，不一定会有人看同一个review，花费可能会很高又没用
+
+---
+
+Question #: 415
+Topic #: 1
+[All AWS Certified Developer Associate Questions]
+
+A developer has written an application hosted on Amazon EC2 instances. The application generates and uploads thousands of new objects to an Amazon S3 bucket located in the same AWS Region. The size of each object is less than 1 MB. The application is taking too long to run.
+How can the performance of the application be improved?
+
+A. Use the S3 Multipart Upload API.
+B. Use S3 Transfer Acceleration.
+C. Upload the objects in parallel to Amazon S3.
+D. Add a random prefix to the object Keys.
+
+Suggested Answer: C
+
+---
+
+Question #: 416
+Topic #: 1
+[All AWS Certified Developer Associate Questions]
+
+A developer is building an application on Amazon EC2. The developer encountered an “Access Denied” error on some of the API calls to AWS services while testing. The developer needs to modify permissions that have been already given to the instance.
+
+How can these requirements be met with minimal changes and minimum downtime?
+
+A. Make a new IAM role with the needed permissions. Stop the instance. Attach the new IAM role to the instance. Start the instance.
+B. Delete the existing IAM role. Attach a new IAM role with the needed permissions.
+C. Stop the instance. Update the attached IAM role adding the needed permissions. Start the instance.
+D. Update the attached IAM role adding the needed permissions.
+
+Suggested Answer: D
+
+---
+
+Question #: 417
+Topic #: 1
+[All AWS Certified Developer Associate Questions]
+A developer has three microservice projects that are separated into different folders under the same AWS CodeCommit repository. Each project has a separate
+AWS CodePipeline pipeline. The developer notices that when changes are pushed to one microservice, all three pipelines begin to run.
+The developer needs to ensure that only relevant pipelines run. The developer cannot make any changes to how the repository is organized.
+Which solution will meet these requirements?
+
+A. For each of the three microservice projects, create a separate CodeCommit repository.
+B. Create an Amazon EventBridge (Amazon CloudWatch Events) rule that invokes an AWS Lambda function to evaluate changes to the repository and run the appropriate pipeline.
+C. Create an Amazon API Gateway API that is backed by an AWS Lambda function to determine the appropriate pipeline to run. Add the API endpoint to a webhook in CodeCommit.
+D. Migrate all three pipelines to a single pipeline. Add conditional stages to build a certain microservice project.
+
+Suggested Answer: B
+
+Correct answer is B. "To introduce custom logic and control the events that kickoff the pipeline, this example configures the default CloudWatch Events rule to detect changes in the source and trigger a Lambda function rather than invoke the pipeline directly."
+Ref: https://aws.amazon.com/blogs/devops/adding-custom-logic-to-aws-codepipeline-with-aws-lambda-and-amazon-cloudwatch-events/
+
+---
+
+Question #: 418
+Topic #: 1
+[All AWS Certified Developer Associate Questions]
+
+A company is working on a new serverless application. A developer needs to find an automated way to deploy AWS Lambda functions and the dependent infrastructure with minimum coding effort. The application also needs to be reliable.
+
+Which method will meet these requirements with the LEAST operational overhead?
+
+A. Build the application by using shell scripts to create .zip files for each Lambda function. Manually upload the .zip files to the AWS Management Console.
+B. Build the application by using the AWS Serverless Application Model (AWS SAM). Use a continuous integration and continuous delivery (CI/CD) pipeline and the SAM CLI to deploy the Lambda functions.
+C. Build the application by using shell scripts to create .zip files for each Lambda function. Upload the .zip files. Deploy the .zip files as Lambda functions by using the AWS CLI in a continuous integration and continuous delivery (CI/CD) pipeline.
+D. Build a container for each Lambda function. Store the container images in AWS CodeArtifact. Deploy the containers as Lambda functions by using the AWS CLI in a continuous integration and continuous delivery (CI/CD) pipeline.
+
+Suggested Answer: B
+
+要deploy AWS Lambda functions 和 the dependent infrastructure
+
+---
+
+Question #: 419
+Topic #: 1
+[All AWS Certified Developer Associate Questions]
+
+A company has deployed web servers on Amazon EC2 instances with Amazon Linux in the us-east-1 Region. The EC2 instances are backed by Amazon Elastic
+Block Store (Amazon EBS). A developer wants to ensure that all of these instances will provide encryption at rest by using an AWS Key Management Service
+(AWS KMS) key.
+How can the developer enable encryption at rest on existing and new instances by using an AWS KMS key?
+
+A. Use AWS Certificate Manager (ACM) to generate a TLS certificate. Store the private key in AWS KMS. Use AWS KMS on the instances to enable TLS encryption.
+B. Manually enable EBS encryption with AWS KMS on running instances. Then enable EBS encryption by default for new instances.
+C. Enable EBS encryption by default. Create snapshots from the running instances. Replace running instances with new instances from snapshots.
+D. Export the AWS KMS key to the application. Encrypt all application data by using the exported key. Enable EBS encryption by default to encrypt all other data.
+
+Suggested Answer: C
+
+You cannot directly encrypt existing unencrypted volumes or snapshots. However, you can create encrypted volumes or snapshots from unencrypted volumes or snapshots
+
+---
+
+Question #: 420
+Topic #: 1
+[All AWS Certified Developer Associate Questions]
+
+A developer is writing an application to encrypt files outside of AWS before uploading the files to an Amazon S3 bucket. The encryption must be symmetric and must be performed inside the application.
+
+How can the developer implement the encryption in the application to meet these requirements?
+
+A. Create a data key in AWS Key Management Service (AWS KMS). Use the AWS Encryption SDK to encrypt the files.
+B. Create a Hash-Based Message Authentication Code (HMAC) key in AWS Key Management Service (AWS KMS). Use the AWS Encryption SDK to encrypt the files.
+C. Create a data key pair in AWS Key Management Service (AWS KMS). Use the AWS CL to encrypt the files.
+D. Create a data key in AWS Key Management Service (AWS KMS). Use the AWS CLI to encrypt the files.
+
+Suggested Answer: A
+
+---
+
+
+
