@@ -74,3 +74,23 @@ https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/id_credentials_ssh-keys.h
 # 在AWS账户之间发送和接收亚马逊EventBridge事件
 跨账户传event
 https://docs.aws.amazon.com/zh_cn/eventbridge/latest/userguide/eb-cross-account.html
+
+# At-least-once 交付
+
+Amazon SQS 将消息的副本存储在多台服务器上，从而实现冗余和高可用性。在极少数情况下，当您接收或删除消息时，存储消息副本的某台服务器可能不可用。
+
+如果出现这种情况，则该不可用服务器上的消息副本将不会被删除，并且您在接收消息时可能会再次获得该消息副本。将应用程序设计为幂等 应用程序 (多次处理同一消息时，它们不应受到不利影响)。
+
+# exactly once 确切一次处理
+
+与标准队列不同，FIFO 队列不会引入重复的消息。FIFO 队列可帮助您避免向队列发送重复的内容。如果您在 5 分钟的重复数据删除间隔内重试该SendMessage操作，Amazon SQS 不会在队列中引入任何重复项。
+
+要配置重复数据删除，必须执行以下操作之一：
+
+    启用基于内容的重复数据删除。这指示 Amazon SQS 使用 SHA-256 哈希通过消息的正文（而不是消息的属性）生成消息的重复数据删除 ID。有关更多信息，请参阅《亚马逊简单队列服务 API 参考》中关于GetQueueAttributes、和SetQueueAttributes操作的文档。CreateQueue
+
+    为消息显式提供消息重复数据删除 ID (或查看序列号)。有关更多信息，请参阅《亚马逊简单队列服务 API 参考》中关于SendMessageBatch、和ReceiveMessage操作的文档。SendMessage
+
+• Two de-duplication methods:
+• Content-based deduplication: will do a SHA-256 hash of the message body
+• Explicitly provide a Message Deduplication ID 

@@ -4342,5 +4342,184 @@ Suggested Answer: A
 
 ---
 
+Question #: 421
+Topic #: 1
+[All AWS Certified Developer Associate Questions]
 
+A company created a serverless application that includes users' favorite actors. The company modeled its data in an Amazon DynamoDB table The categories of the table are Actor, Movie, and Year.
+Each actor appears in several movies and can appear in multiple movies in a single year. The company wants to see which of the users' favorite actors were in the same movie and which movies were in the same year. A developer needs to design the DynamoDB table to minimize response time for those queries.
+Which solution meets these requirements?
+
+A. Create a composite primary key with Actor as the partition key and Movie as the sort key Use Year as the sort key for a global secondary index (GSI).
+B. Create a composite primary key with Actor as the partition key and Year as the sort key Use Movie as the sort key for a global secondary index (GSI).
+C. Create a composite primary key with Movie as the partition key and Actor as the sort key Use Year as the sort key for a global secondary index (GSI).
+D. Create a simple primary key with Actor as the partition key. Use Year as the sort key for a local secondary index (LSI).
+
+Suggested Answer: C 
+
+Interested in each Movie's actors & actor's movies with its release year.
+So Movie + year > Actor
+Movie: primary partition key
+Actor : sort key
+Year : GSI
+
+---
+
+Question #: 422
+Topic #: 1
+[All AWS Certified Developer Associate Questions]
+
+A company is running a custom web application on Amazon EC2 instances behind an Application Load Balancer. The instances run in an Auto Scaling group. The company's development team is using AWS CloudFormation to deploy all the services. The application is time-consuming to install and configure when the development team launches a new instance
+Which combination of steps should a developer take to optimize the performance when a new instance is launched? (Choose two.)
+
+A. Use an AWS Marketplace Amazon Machine Image (AMI) with a prebuilt application.
+B. Create a prebuilt Amazon Machine Image (AMI) with the application installed and configured.
+C. Update the launch template resource in the CloudFormation template.
+D. Use AWS Systems Manager Run Command to install and configure the application.
+E. Use CloudFormation helper scripts to install and configure the application.
+
+Suggested Answer: BC
+
+---
+
+Question #: 423
+Topic #: 1
+[All AWS Certified Developer Associate Questions]
+
+A developer is writing a web application that will run on AWS Lambda. The application will give users the ability to log in to view private documents. All pages in the application must be designed to match the company's branding.
+How can the developer host the sign-in pages with the LEAST amount of custom code?
+
+A. Upload files for the sign-in pages with the required branding to an Amazon S3 bucket. Configure static website hosting for the S3 bucket.
+B. Create a Lambda function to serve the sign-in pages with the required branding. Configure Amazon API Gateway to route traffic to the function.
+C. Create a Lambda@Edge function to serve the sign-in pages with the required branding. Configure Amazon CloudFront to invoke the function in response to user requests.
+D. Configure an Amazon Cognito user pool with an Amazon Cognito hosted UI for the sign-in pages. Customize the pages with the required branding.
+
+Suggested Answer: D
+
+---
+
+Question #: 424
+Topic #: 1
+[All AWS Certified Developer Associate Questions]
+
+A company is using an Amazon SQS standard queue to store messages sent from the front-end tier to the backend tier of an application. The backend tier parses the message and saves an entry to an Amazon DynamoDB table. A developer discovers that duplicate entries are being stored in the DynamoDB table, even though AWS CloudTrail records only a single Amazon SQS message per entry.
+
+What change needs to be made to resolve this issue?
+A. Enable queue de-duplication to prevent duplicate messages.
+B. Modify the front-end tier to use the MessageGroupID argument.
+C. Modify the application logic to use Amazon SNS between Amazon SQS and the front-end tier.
+D. Change the Amazon SQS queue type to first-in, first-out (FIFO).
+
+Suggested Answer: D
+
+Standard Queue type can have duplicate messages (at least once delivery, occasionally).
+FIFO Queue has an exactly-once-send capability (by removing duplicates).
+'A' is wrong, de-duplication option is only available for the FIFO queue; you have to create a new FIFO to enable this de-duplication.
+
+---
+
+Question #: 425
+Topic #: 1
+[All AWS Certified Developer Associate Questions]
+
+A company is building a Java application that deploys to AWS services. The company uses AWS CodePipeline to build a pipeline for the project. Whenever a team member commits changes to the source code, CodePipeline must build and deploy the application in the AWS Cloud.
+Which combination of AWS services does the company need to use to meet these requirements?
+
+A. Amazon S3, AWS CodeBuild, and AWS CodeCommit
+B. Amazon S3, AWS CodeBuild, and Amazon Elastic Container Service (Amazon ECS)
+C. AWS CodeCommit, AWS CodeBuild, and AWS CodeDeploy
+D. Amazon CodeGuru, AWS CodeCommit, and AWS CodeBuild
+
+Suggested Answer: C
+
+CodeGuru 是自动review和自动性能优化建议
+
+Provides two functionalities
+• CodeGuru Reviewer: automated code reviews for static code analysis (development)
+• CodeGuru Profiler: visibility/recommendations about application performance during runtime (production)
+
+---
+
+Question #: 427
+Topic #: 1
+[All AWS Certified Developer Associate Questions]
+
+A developer needs to modify an application architecture to meet new functional requirements. Application data is stored in Amazon DynamoDB and processed for analysis in a nightly batch. The system analysts do not want to wait until the next day to view the processed data and have asked to have it available in near-real time.
+Which application architecture pattern would enable the data to be processed as it is received?
+
+A. Event driven
+B. Client-server driven
+C. Fan-out driven
+D. Schedule driven
+
+Suggested Answer: A
+
+---
+
+Question #: 428
+Topic #: 1
+[All AWS Certified Developer Associate Questions]
+
+A developer is writing a mobile application that allows users to view images from an S3 bucket. The users must be able to log in with their Amazon login, as well as supported social media accounts.
+
+How can the developer provide this authentication functionality?
+
+A. Use Amazon Cognito with web identity federation.
+B. Use Amazon Cognito with SAML-based identity federation.
+C. Use IAM access keys and secret keys in the application code to allow Get* on the S3 bucket.
+D. Use AWS STS AssumeRole in the application code and assume a role with Get* permissions on the S3 bucket.
+
+Suggested Answer: A 
+
+DynamoDB – Fine-Grained Access Control
+• Using Web Identity Federation or Cognito Identity Pools, each user gets AWS credentials
+• You can assign an IAM Role to these users with a Condition to limit their API access to DynamoDB
+• LeadingKeys – limit row-level access for users on the Primary Key
+• Attributes – limit specific attributes the user can see
+
+
+Web Identity Federation（网络身份联合）是一种 AWS 身份验证机制，允许用户使用第三方身份提供商（如 Google、Facebook、Amazon、Microsoft 等）的身份来访问 AWS 服务。它允许用户在无需创建 AWS IAM 用户或使用长期凭证的情况下，通过使用他们在第三方身份提供商中拥有的身份来进行身份验证和授权。
+
+---
+
+Question #: 429
+Topic #: 1
+[All AWS Certified Developer Associate Questions]
+
+A company set up a continuous build process that uses AWS CodeBuild and AWS CodeCommit. During the development phase, developers are frequently pushing code and causing significant build failures. The company wants a solution that will build code before the developers push the code to the main branch.
+Which solution meets these requirements MOST cost-effectively?
+
+A. Configure am Amazon EC2 instance with the CodeBuild agent to build the code.
+B. Configure CodeBuild jobs on AWS for each branch build process.
+C. Configure the CodeBuild agent to build the code in the local system.
+D. Configure a Jenkins plugin for CodeBuild to run the code build process
+
+Suggested Answer: C
+
+用CodeBuild agent在本地编译最省钱
+
+Run builds locally with the AWS CodeBuild agent
+
+You can use the AWS CodeBuild agent to run CodeBuild builds on a local machine. There are agents available for x86_64 and ARM platforms.
+
+You can also subscribe to receive notifications when new versions of the agent are published. 
+
+---
+
+Question #: 430
+Topic #: 1
+[All AWS Certified Developer Associate Questions]
+
+A company has designed a serverless application that uses Amazon Simple Queue Service (Amazon SQS) and an AWS Lambda function. The application receives data in an SQS queue on the last day of every month. The function successfully processes all the data in the queue within 1 day.
+A detailed AWS bill shows a large number of SQS API requests throughout the month, even though the queue receives data only on the last day of the month.
+What is the root cause of the extra API requests?
+
+A. Lambda is using long polling to check for messages in the SQS queue.
+B. The SQS queue is sending ping messages to Lambda.
+C. The function is not automatically deleting the messages from the SQS queue.
+D. Visibility timeout is not set to 0 to remove the extra API requests.
+
+Suggested Answer: A
+
+---
 
