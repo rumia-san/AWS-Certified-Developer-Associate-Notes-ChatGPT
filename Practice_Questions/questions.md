@@ -1,3 +1,5 @@
+Question #1
+
 A company is implementing an application on Amazon EC2 instances. The application needs to process incoming transactions. When the application detects a transaction that is not valid, the application must send a chat message to the company's support team. To send the message, the application needs to retrieve the access token to authenticate by using the chat API.
 A developer needs to implement a solution to store the access token. The access token must be encrypted at rest and in transit. The access token must also be accessible from other AWS accounts.
 Which solution will meet these requirements with the LEAST management overhead?
@@ -13,6 +15,8 @@ Suggested Answer:  C 不确定
 
 ---
 
+Question #2
+
 A company is running Amazon EC2 instances in multiple AWS accounts. A developer needs to implement an application that collects all the lifecycle events of the EC2 instances. The application needs to store the lifecycle events in a single Amazon Simple Queue Service (Amazon SQS) queue in the company's main AWS account for further processing.
 Which solution will meet these requirements?
 
@@ -26,6 +30,8 @@ Suggested Answer: D
 要跨account传递消息，用event bridge
 
 ---
+
+Question #3
 
 An application is using Amazon Cognito user pools and identity pools for secure access. A developer wants to integrate the user-specific file upload and download features in the application with Amazon S3. The developer must ensure that the files are saved and retrieved in a secure manner and that users can access only their own files. The file sizes range from 3 KB to 300 MB.
 Which option will meet these requirements with the HIGHEST level of security?
@@ -51,6 +57,8 @@ https://docs.aws.amazon.com/zh_cn/IAM/latest/UserGuide/reference_policies_exampl
 
 ---
 
+Question #4
+
 A company is building a scalable data management solution by using AWS services to improve the speed and agility of development. The solution will ingest large volumes of data from various sources and will process this data through multiple business rules and transformations.
 The solution requires business rules to run in sequence and to handle reprocessing of data if errors occur when the business rules run. The company needs the solution to be scalable and to require the least possible maintenance.
 Which AWS service should the company use to manage and automate the orchestration of the data flows to meet these requirements?
@@ -68,6 +76,8 @@ https://docs.aws.amazon.com/step-functions/latest/dg/welcome.html
 
 ---
 
+Question #5
+
 A developer has created an AWS Lambda function that is written in Python. The Lambda function reads data from objects in Amazon S3 and writes data to an Amazon DynamoDB table. The function is successfully invoked from an S3 event notification when an object is created. However, the function fails when it attempts to write to the DynamoDB table.
 What is the MOST likely cause of this issue?
 
@@ -80,6 +90,8 @@ Suggested Answer: C
 
 ---
 
+Question #6
+
 A developer is creating an AWS CloudFormation template to deploy Amazon EC2 instances across multiple AWS accounts. The developer must choose the EC2 instances from a list of approved instance types.
 How can the developer incorporate the list of approved instance types in the CloudFormation template?
 
@@ -91,6 +103,8 @@ D. In the CloudFormation template, create a parameter with the list of EC2 insta
 Suggested Answer: D
 
 ---
+
+Question #7
 
 A developer has an application that makes batch requests directly to Amazon DynamoDB by using the BatchGetItem low-level API operation. The responses frequently return values in the UnprocessedKeys element.
 Which actions should the developer take to increase the resiliency of the application when the batch response includes values in UnprocessedKeys? (Choose two.)
@@ -110,6 +124,8 @@ The AWS SDKs implement automatic retry logic and exponential backoff.
 BatchGetItem：  UnprocessedKeys for failed read operations (exponential backoff or add RCU)
 
 ---
+
+Question #8
 
 A company is running a custom application on a set of on-premises Linux servers that are accessed using Amazon API Gateway. AWS X-Ray tracing has been enabled on the API test stage.
 How can a developer enable X-Ray tracing on the on-premises servers with the LEAST amount of configuration?
