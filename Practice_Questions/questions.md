@@ -7,7 +7,7 @@ B. Encrypt the access token by using an AWS Key Management Service (AWS KMS) cus
 C. Use AWS Secrets Manager with an AWS Key Management Service (AWS KMS) customer managed key to store the access token. Add a resource-based policy to the secret to allow access from other accounts. Update the IAM role of the EC2 instances with permissions to access Secrets Manager. Retrieve the token from Secrets Manager. Use the decrypted access token to send the message to the chat.
 D. Encrypt the access token by using an AWS Key Management Service (AWS KMS) AWS managed key. Store the access token in an Amazon S3 bucket. Add a bucket policy to the S3 bucket to allow access from other accounts. Update the IAM role of the EC2 instances with permissions to access Amazon S3 and AWS KMS. Retrieve the token from the S3 bucket. Decrypt the token by using AWS KMS on the EC2 instances. Use the decrypted access token to send the massage to the chat.
 
-Correct Answer:  C 不确定
+Suggested Answer:  C 不确定
 
 要跨account访问 aws managed key不支持
 
@@ -21,7 +21,7 @@ B. Use the resource policies of the SQS queue in the main account to give each a
 C. Write an AWS Lambda function that scans through all EC2 instances in the company accounts to detect EC2 instance lifecycle changes. Configure the Lambda function to write a notification message to the SQS queue in the main account if the function detects an EC2 instance lifecycle change. Add an Amazon EventBridge scheduled rule that invokes the Lambda function every minute.
 D. Configure the permissions on the main account event bus to receive events from all accounts. Create an Amazon EventBridge rule in each account to send all the EC2 instance lifecycle events to the main account event bus. Add an EventBridge rule to the main account event bus that matches all EC2 instance lifecycle events. Set the SQS queue as a target for the rule. 
     
-Correct Answer: D 
+Suggested Answer: D 
 
 要跨account传递消息，用event bridge
 
@@ -35,7 +35,7 @@ B. Save the details of the uploaded files in a separate Amazon DynamoDB table. F
 C. Use Amazon API Gateway and an AWS Lambda function to upload and download files. Validate each request in the Lambda function before performing the requested operation.
 D. Use an IAM policy within the Amazon Cognito identity prefix to restrict users to use their own folders in Amazon S3. 
 
-Correct Answer: D
+Suggested Answer: D
 
 前两个狗屁不通，C选项自己实现验证也是狗屁不通，D是对的
 Amazon Cognito identity prefix指的应该是
@@ -60,7 +60,7 @@ B. AWS Step Functions
 C. AWS Glue
 D. AWS Lambda
 
-Correct Answer: B
+Suggested Answer: B
 
 step function：无服务器、工作流程、顺序、出错也可以retry和catch
 
@@ -76,7 +76,7 @@ B. DynamoDB table requires a global secondary index (GSI) to support writes.
 C. The Lambda function does not have IAM permissions to write to DynamoDB.
 D. The DynamoDB table is not running in the same Availability Zone as the Lambda function.
 
-Correct Answer: C
+Suggested Answer: C
 
 ---
 
@@ -88,7 +88,7 @@ B. In the Resources section of the CloudFormation template, create resources for
 C. In the CloudFormation template, create a separate parameter for each EC2 instance type in the list.
 D. In the CloudFormation template, create a parameter with the list of EC2 instance types as AllowedValues.
 
-Correct Answer: D
+Suggested Answer: D
 
 ---
 
@@ -101,7 +101,7 @@ C. Update the application to use an AWS software development kit (AWS SDK) to ma
 D. Increase the provisioned read capacity of the DynamoDB tables that the operation accesses.
 E. Increase the provisioned write capacity of the DynamoDB tables that the operation accesses.
 
-Correct Answer: B 和 C
+Suggested Answer: B 和 C
 
 D好像也对，不确定
 
@@ -119,7 +119,7 @@ B. Install and run the X-Ray daemon on the on-premises servers to capture and re
 C. Capture incoming requests on-premises and configure an AWS Lambda function to pull, process, and relay relevant data to X-Ray using the PutTraceSegments API call.
 D. Capture incoming requests on-premises and configure an AWS Lambda function to pull, process, and relay relevant data to X-Ray using the PutTelemetryRecords API call.
 
-Correct Answer: B 
+Suggested Answer: B 
 
 ---
 
@@ -134,7 +134,7 @@ B. Store the API credentials in a local code variable. Push the code to a secure
 C. Store the API credentials as an object in a private Amazon S3 bucket. Restrict access to the S3 object by using IAM policies. Retrieve the API credentials at runtime by using the AWS SDK. Use the credentials to make the API call.
 D. Store the API credentials in an Amazon DynamoDB table. Restrict access to the table by using resource-based policies. Retrieve the API credentials at runtime by using the AWS SDK. Use the credentials to make the API call.
 
-Correct Answer: A
+Suggested Answer: A
 
 ---
 
@@ -148,7 +148,7 @@ B. Update the application to retrieve the variables from AWS Key Management Serv
 C. Update the application to retrieve the variables from an encrypted file that is stored with the application. Store the API URL and credentials in unique files for each environment.
 D. Update the application to retrieve the variables from each of the deployed environments. Define the authentication information and API URL in the ECS task definition as unique names during the deployment process.
 
-Correct Answer: A
+Suggested Answer: A
 
 ---
 
@@ -162,7 +162,7 @@ B. Store each employee's contact information in an Amazon DynamoDB table along w
 C. Use Amazon Cognito user pools to implement the employee directory in a fully managed software-as-a-service (SaaS) method.
 D. Store employee contact information in an Amazon RDS DB instance with the photos stored in Amazon Elastic File System (Amazon EFS).
 
-Correct Answer: B
+Suggested Answer: B
 
 ---
 
@@ -177,7 +177,7 @@ B. Use Amazon Cognito user pools to manage user accounts. Create an Amazon Cogni
 C. Create an IAM user for each user of the application during the sign-up process. Use IAM authentication to access the API Gateway API. Use the Lambda function to store the photos in Amazon S3. Store the object's S3 key as part of the photo details in the DynamoDB table. Retrieve previously uploaded photos by querying DynamoDB for the S3 key.
 D. Create a users table in DynamoDB. Use the table to manage user accounts. Create a Lambda authorizer that validates user credentials against the users table. Integrate the Lambda authorizer with API Gateway to control access to the API. Use the Lambda function to store the photos in Amazon S3. Store the object's S3 key as par of the photo details in the DynamoDB table. Retrieve previously uploaded photos by querying DynamoDB for the S3 key.
 
-Correct Answer: B 
+Suggested Answer: B 
 
 ---
 
@@ -192,7 +192,7 @@ B. Create a different Lambda function for each partner. Configure the Lambda fun
 C. Create an Amazon Simple Notification Service (Amazon SNS) topic. Configure the Lambda function to publish messages with specific attributes to the SNS topic. Subscribe each partner to the SNS topic. Apply the appropriate filter policy to the topic subscriptions.
 D. Create one Amazon Simple Notification Service (Amazon SNS) topic. Subscribe all partners to the SNS topic.
 
-Correct Answer: C 
+Suggested Answer: C 
 
 https://docs.aws.amazon.com/sns/latest/dg/sns-message-filtering.html
 默认情况下，Amazon SNS 主题订阅者会收到发布到该主题的每条消息。要仅接收一部分消息，订阅者必须将筛选策略 分配给主题订阅。
@@ -215,7 +215,7 @@ B. Set up an S3 event notification that invokes the removePii function when an S
 C. Create an S3 Object Lambda access point from the S3 console. Select the removePii function. Use S3 Access Points to access the object without PII.
 D. Create an S3 access point from the S3 console. Use the access point name to call the GetObjectLegalHold S3 API function. Pass in the removePii function name to access the object without PII.
 
-Correct Answer: C
+Suggested Answer: C
 
 https://aws.amazon.com/cn/s3/features/object-lambda/
 
@@ -240,7 +240,7 @@ B. Use a function alias with different versions.
 C. Maintain deployment packages for older versions in Amazon S3.
 D. Use AWS CodePipeline for deployments and rollbacks.
 
-Correct Answer: B 
+Suggested Answer: B 
 
 ---
 
@@ -254,7 +254,7 @@ B. Increase the function's memory.
 C. Increase the function's reserved concurrency.
 D. Increase the function's timeout.
 
-Correct Answer: B
+Suggested Answer: B
 
 ---
 
@@ -267,7 +267,7 @@ B. ApplicationStop -> BeforeInstall -> AfterInstall -> ApplicationStart
 C. BeforeInstall -> ApplicationStop -> ValidateService -> ApplicationStart
 D. ApplicationStop -> BeforeInstall -> ValidateService -> ApplicationStart
 
-Correct Answer: B
+Suggested Answer: B
 
 https://docs.aws.amazon.com/zh_cn/codedeploy/latest/userguide/reference-appspec-file-structure-hooks.html#reference-appspec-file-structure-hooks-run-order-ecs
 
@@ -290,7 +290,7 @@ B. Publish custom metrics to CloudWatch that record the failures of the external
 C. Publish the results of the external payment processing API calls to a new Amazon SNS topic. Subscribe the support team members to the new SNS topic.
 D. Write the results of the external payment processing API calls to Amazon S3. Schedule an Amazon Athena query to run at regular intervals. Configure Athena to send notifications to the existing SNS topic when the error rate exceeds the specified rate.
 
-Correct Answer: B 
+Suggested Answer: B 
 
 Logs Insights是另一个东西，A太复杂
 CloudWatch Logs Insights can be used to query logs and add queries to CloudWatch Dashboard
@@ -306,7 +306,7 @@ B. Configure API Gateway to use an interface VPC endpoint.
 C. Enable cross-origin resource sharing (CORS) for the APIs.
 D. Configure usage plans and API keys in API Gateway.
 
-Correct Answer: A 
+Suggested Answer: A 
 
 ---
 
@@ -324,7 +324,7 @@ B. Create an Amazon DynamoDB table. Configure the table with a primary key that 
 C. On an Amazon RDS DB instance, create a table that contains columns for title, release year, and genre. Configure the title as the primary key.
 D. On an Amazon RDS DB instance, create a table where the primary key is the title and all other data is encoded into JSON format as one additional column.
 
-Correct Answer: A
+Suggested Answer: A
 
 ---
 
@@ -339,7 +339,7 @@ B. Define a new API Gateway API that points to the new API application code. Ins
 C. Implement a query parameter in the API application code that determines which code version to call.
 D. Specify new API Gateway endpoints for the API endpoints that the developer wants to add.
 
-Correct Answer: A 
+Suggested Answer: A 
 
 ---
 
@@ -353,7 +353,7 @@ B. Create an Amazon ElastiCache for Memcached instance. Enable encryption of dat
 C. Create an Amazon RDS for MySQL read replica. Connect to the read replica by using SSL. Configure the read replica to store frequently accessed data.
 D. Create an Amazon DynamoDB table and a DynamoDB Accelerator (DAX) cluster for the table. Store frequently accessed data in the DynamoDB table.
 
-Correct Answer: A
+Suggested Answer: A
 
 ---
 
@@ -367,7 +367,7 @@ B. Deploy a micro EC2 instance with an instance store volume. Use the host opera
 C. Create an Amazon S3 bucket to host the repository. Migrate the existing .xml files to the S3 bucket. Update the application code to use the AWS SDK to read and write configuration files from Amazon S3.
 D. Create an Amazon S3 bucket to host the repository. Migrate the existing .xml files to the S3 bucket. Mount the S3 bucket to the EC2 instances as a local volume. Update the application code to read and write configuration files from the disk.
  
-Correct Answer: C
+Suggested Answer: C
 
 ---
 
@@ -382,7 +382,7 @@ B. Host each website in AWS Elastic Beanstalk with multiple environments. Use th
 C. Host each website in different Amazon S3 buckets for each environment. Configure AWS CodePipeline to pull source code from version control. Add an AWS CodeBuild stage to copy source code to Amazon S3.
 D. Host each website on its own Amazon EC2 instance. Write a custom deployment script to bundle each website's static assets. Copy the assets to Amazon EC2. Set up a workflow to run the script when code is merged.
 
-Correct Answer: A
+Suggested Answer: A
 
 B和D会引入running server
 C不支持HTTPS，所以有问题
@@ -403,7 +403,7 @@ B. Use a multi-AZ Amazon RDS deployment. Modify the code so that queries access 
 C. Deploy Amazon RDS with one or more read replicas. Modify the application code so that queries use the URL for the read replicas.
 D. Use open source replication software to create a copy of the MySQL database on an Amazon EC2 instance. Modify the application code so that queries use the IP address of the EC2 instance.
 
-Correct Answer: C
+Suggested Answer: C
 
 ---
 
@@ -418,7 +418,7 @@ B. Create an Amazon DynamoDB table. Store the unique identifier for each request
 C. Create an Amazon DynamoDB table. Store the unique identifier for each request in the table. Modify the Lambda function to return a client error response when the function receives a duplicate request.
 D. Create an Amazon ElastiCache for Memcached instance. Store the unique identifier for each request in the cache. Modify the Lambda function to check the cache for the identifier before processing the request.
 
-Correct Answer: B 
+Suggested Answer: B 
 
 C不对是因为lambda要求幂等
 https://repost.aws/zh-Hans/knowledge-center/lambda-function-idempotent
@@ -445,7 +445,7 @@ B. Use AWS Key Management Service (AWS KMS) to enable encryption on the unencryp
 C. Use AWS Certificate Manager (ACM) to enable encryption on the unencrypted AMIs. Copy the encrypted AMIs to the destination Region.
 D. Copy the unencrypted AMIs to the destination Region. Enable encryption by default in the destination Region.
 
-Correct Answer: A
+Suggested Answer: A
 
 如果不使用显式加密参数，在默认情况下，CopyImage 操作会在复制 AMI 的源快照时保持这些快照的现有加密状态。您也可以复制 AMI，同时通过提供加密参数来对其关联的 EBS 快照应用新的加密状态。
 
@@ -464,7 +464,7 @@ B. Create a bucket policy that allows access to the central S3 bucket. Attach th
 C. Create a cross-origin resource sharing (CORS) configuration that allows access to the central S3 bucket. Add the CORS configuration to the central S3 bucket.
 D. Create a Content-MD5 header that provides a message integrity check for the central S3 bucket. Insert the Content-MD5 header for each web application request.
 
-Correct Answer: C 
+Suggested Answer: C 
 
 ---
 
@@ -482,7 +482,7 @@ C. Reduce the frequency and/or size of the requests.
 D. Use Amazon SNS instead of Kinesis.
 E. Reduce the number of KCL consumers.
 
-Correct Answer: AC 
+Suggested Answer: AC 
 
 https://repost.aws/knowledge-center/kinesis-data-stream-throttling
 
@@ -499,7 +499,7 @@ B. Create an AWS Lambda function that uses Amazon Simple Email Service (Amazon S
 C. Create an AWS Lambda function that uses Amazon Simple Email Service (Amazon SES) to send the email notification. Create an Amazon CloudWatch Logs log subscription filter to invoke the function based on the login status.
 D. Configure Amazon Cognito to stream all logs to Amazon Kinesis Data Firehose. Create an AWS Lambda function to process the streamed logs and to send the email notification based on the login status of each user.
 
-Correct Answer: B
+Suggested Answer: B
 
 ---
 
@@ -513,7 +513,7 @@ B. Set the x-amz-server-side-encryption header when invoking the PutObject API o
 C. Provide the encryption key in the HTTP header of every request.
 D. Apply TLS to encrypt the traffic to the S3 bucket.
 
-Correct Answer: B
+Suggested Answer: B
 
 
 ---
@@ -528,7 +528,7 @@ B. Create an AWS CloudFormation template that defines the load test resources. U
 C. Create an AWS Systems Manager document that defines the resources. Use the document to create the resources in the desired Regions.
 D. Create an AWS CloudFormation template that defines the load test resources. Use the AWS CLI deploy command to create a stack from the template in each Region.
 
-Correct Answer: B 
+Suggested Answer: B 
 
 AWS CloudFormation StackSets allow developers to deploy CloudFormation stacks across multiple AWS accounts and regions with a single CloudFormation template.
 
@@ -545,7 +545,7 @@ B. Import the SSL/TLS certificate into CloudFront. Create a DNS CNAME record for
 C. Import the SSL/TLS certificate into AWS Certificate Manager (ACM) in the same Region as the API. Create a DNS CNAME record for the custom domain.
 D. Import the SSL/TLS certificate into AWS Certificate Manager (ACM) in the us-east-1 Region. Create a DNS CNAME record for the custom domain.
 
-Correct Answer: D
+Suggested Answer: D
 
 要在 AWS Certificate Manager (ACM) 中使用证书以要求在查看器和 CloudFront 之间使用 HTTPS，请确保您在美国东部（弗吉尼亚北部）区域 (us-east-1) 中请求（或导入）该证书。
 
@@ -567,7 +567,7 @@ B. AWS Elastic Beanstalk
 C. AWS Serverless Application Model (AWS SAM)
 D. AWS Cloud Development Kit (AWS CDK)
 
-Correct Answer: C 
+Suggested Answer: C 
 
 ---
 
@@ -581,7 +581,7 @@ B. Configure an S3 event to invoke an AWS Lambda function that inserts records i
 C. Create an AWS Lambda function that will poll the S3 bucket and then insert the records into DynamoDB.
 D. Create a cron job that will run at a scheduled time and insert the records into DynamoDB.
 
-Correct Answer: B
+Suggested Answer: B
 
 ---
 
@@ -597,7 +597,7 @@ C. Modify the database to use a Multi-AZ deployment.
 D. Create a CloudFormation stack set for the web application and database deployments.
 E. Add a Cloud Formation DeletionPolicy attribute with the Retain value to the stack.
 
-Correct Answer: AB
+Suggested Answer: AB
 
 https://docs.aws.amazon.com/zh_cn/AWSCloudFormation/latest/UserGuide/aws-attribute-deletionpolicy.html
 
@@ -619,7 +619,7 @@ B. Define a resource-based policy on the S3 bucket to allow access when a reques
 C. Define a role-based policy on the other accounts' roles to deny access when a request meets the condition of “aws:SecureTransport”: “false”.
 D. Define a resource-based policy on the KMS key to deny access when a request meets the condition of “aws:SecureTransport”: “false”.
 
-Correct Answer: A 
+Suggested Answer: A 
 
 https://docs.aws.amazon.com/zh_cn/AmazonS3/latest/userguide/security-best-practices.html
 您可以使用 HTTPS（TLS）帮助防止潜在攻击者使用中间人攻击或类似攻击来窃听或操纵网络流量。我们建议通过在 Amazon S3 桶策略中使用 aws:SecureTransport 条件，以只允许通过 HTTPS（TLS）的加密连接。
@@ -663,7 +663,7 @@ B. Update the IAM instance profile that is attached to the EC2 instance to inclu
 C. Update the developer's user permissions to include the S3:ListBucket permission for the S3 bucket.
 D. Update the S3 bucket policy by including the S3:ListBucket permission and by setting the Principal element to specify the account number of the EC2 instance.
 
-Correct Answer: B
+Suggested Answer: B
 
 ---
 
@@ -677,7 +677,7 @@ B. AWS Secrets Manager secrets with a tag that is named SecretString
 C. AWS Systems Manager Parameter Store SecureString parameters
 D. CloudFormation NoEcho parameters
 
-Correct Answer: C 
+Suggested Answer: C 
 
 两个原因：要求 one-time fixed 而 AWS Secrets Manager 会自动 rotation，还有就是要cost-effectively
 
@@ -693,7 +693,7 @@ B. Create and launch a Lambda function in a new public subnet that is in a new V
 C. Create the Lambda function. Configure VPC1 access for the function. Assign a security group named SG1 to the Lambda function. Assign a second security group named SG2 to the database. Add an inbound rule to SG1 to allow TCP traffic from Port 3306.
 D. Export the data from the Aurora database to Amazon S3. Create and launch a Lambda function in VPC1. Configure the Lambda function query the data from Amazon S3.
 
-Correct Answer: C 
+Suggested Answer: C 
 
 Answer A is wrong because you do not need to configure outbound rule for security groups. 
 
@@ -710,7 +710,7 @@ C. CacheMissCount
 D. Latency
 E. Count
 
-Correct Answer: BD 
+Suggested Answer: BD 
 
 • IntegrationLatency: The time between when API Gateway relays a 
 request to the backend and when it receives a response from the 
@@ -731,7 +731,7 @@ B. AWS CodeArtifact
 C. AWS CodeCommit
 D. Amazon CodeGuru
 
-Correct Answer: C 
+Suggested Answer: C 
 
 ---
 
@@ -745,7 +745,7 @@ B. Amazon Elastic File System (Amazon EFS)
 C. Amazon Elastic Block Store (Amazon EBS)
 D. Amazon S3
 
-Correct Answer: A 
+Suggested Answer: A 
 
 ---
 
@@ -759,7 +759,7 @@ B. Create a Lambda layer with the required Python library. Use the Lambda layer 
 C. Combine the two Lambda functions into one Lambda function. Deploy the Lambda function as a single .zip file archive.
 D. Download the Python library to an S3 bucket. Program the Lambda functions to reference the object URLs.
 
-Correct Answer: B 
+Suggested Answer: B 
 
 Lambda 层是可以包含其他代码或其他内容的 .zip 文件归档。层可以包含库、自定义运行时、数据或配置文件。使用层可以缩小部署包大小，并促进代码共享和责任分离，以便您可以更快地迭代编写业务逻辑。
 
@@ -780,7 +780,7 @@ B. Obtain the request identifier from the AWS request ID field in the event obje
 C. Obtain the request identifier from the AWS request ID field in the event object. Configure the application to write logs to standard output.
 D. Obtain the request identifier from the AWS request ID field in the context object. Configure the application to write logs to a file.
 
-Correct Answer: A
+Suggested Answer: A
 
 Event Object
 • JSON-formatted document contains data for the function to process
@@ -806,7 +806,7 @@ B. Create an Amazon EventBridge rule to invoke the Lambda function on a regular 
 C. Enable DynamoDB Streams on the table. Create a trigger to connect the DynamoDB stream to the Lambda function.
 D. Create an Amazon Kinesis Data Firehose delivery stream, and attach it to the DynamoDB table. Configure the delivery stream destination as the Lambda function.
 
-Correct Answer: C 
+Suggested Answer: C 
 
 ---
 
@@ -822,7 +822,7 @@ C. Set up AWS CodeDeploy to deploy the most recent version of the application at
 D. Set up AWS CodePipeline to deploy the most recent version of the application at runtime.
 E. Remove any commands that perform operating system patching from the UserData script.
 
-Correct Answer: AE （不确定）
+Suggested Answer: AE （不确定）
 
 Why choose A over B? Problem is that B will tie an AMI with a specific version, so if there is a new version, we need to create a new AMI, and that contradicts with "minimize the number of images that are created".
 
@@ -845,7 +845,7 @@ B. Encrypt the credentials with the default AWS Key Management Service (AWS KMS)
 C. Store the credentials in AWS Secrets Manager. Set the secret type to Credentials for Amazon RDS database. Select the database that the secret will access. Use the default AWS Key Management Service (AWS KMS) key to encrypt the secret. Enable automatic rotation for the secret. Use the secret from Secrets Manager on the Lambda function to connect to the database.
 D. Encrypt the credentials by using AWS Key Management Service (AWS KMS). Store the credentials in an Amazon DynamoDB table. Create a second Lambda function to rotate the credentials. Invoke the second Lambda function by using an Amazon EventBridge rule that runs on a schedule. Update the DynamoDB table. Update the database to use the generated credentials. Retrieve the credentials from DynamoDB with the first Lambda function. Connect to the database.
 
-Correct Answer: C 
+Suggested Answer: C 
 
 ---
 
@@ -860,7 +860,7 @@ B. Access on all buckets that start with “DOC-EXAMPLE-BUCKET” except the “
 C. Access on all objects in the “DOC-EXAMPLE-BUCKET” bucket along with access to all S3 actions for objects in the “DOC-EXAMPLE-BUCKET” bucket that start with “secrets”
 D. Access on all objects in the “DOC-EXAMPLE-BUCKET” bucket except on objects that start with “secrets”
 
-Correct Answer: D 
+Suggested Answer: D 
 
 ---
 
@@ -874,7 +874,7 @@ B. Create an Amazon EC2 instance that serves the backend REST API by using an AW
 C. Customize the API Gateway stage to select a response type based on the request.
 D. Use a request mapping template to select the mock integration response.
 
-Correct Answer: D
+Suggested Answer: D
 
 ---
 
@@ -889,7 +889,7 @@ B. Download the CloudWatch agent to the on-premises server. Configure the agent 
 C. Upload log files from the on-premises server to Amazon S3 and have CloudWatch read the files.
 D. Upload log files from the on-premises server to an Amazon EC2 instance and have the instance forward the logs to CloudWatch.
 
-Correct Answer: B
+Suggested Answer: B
 
 ---
 
@@ -903,7 +903,7 @@ B. Launch an Amazon EC2 instance. Set the EC2 instance as the destination of the
 C. Create an Amazon OpenSearch Service instance. Set the OpenSearch Service instance as the destination of the delivery stream. Use search and replace to remove the customer identifiers. Export the data to an Amazon S3 bucket.
 D. Create an AWS Step Functions workflow to remove the customer identifiers. As the last step in the workflow, store the transformed data in an Amazon S3 bucket. Set the workflow as the destination of the delivery stream.
 
-Correct Answer: A 
+Suggested Answer: A 
 
 ---
 
@@ -917,7 +917,7 @@ B. Create an Amazon Simple Queue Service (Amazon SQS) queue. Set the SQS queue a
 C. Create an AWS Step Functions state machine that invokes the avatar generator Lambda function and uses the image resize Lambda function as a fallback. Create an Amazon EventBridge rule that matches events from the S3 bucket to invoke the state machine.
 D. Create an Amazon Simple Notification Service (Amazon SNS) topic. Set the SNS topic as a destination with an on failure condition for the avatar generator Lambda function. Subscribe the image resize Lambda function to the SNS topic.
 
-Correct Answer: A 不确定
+Suggested Answer: A 不确定
 
 Nov 2019: Can configure to send result to a 
 destination
@@ -943,7 +943,7 @@ B. Use Amazon ElastiCache for Memcached to store and manage the session data. Us
 C. Use Amazon ElastiCache for Memcached to store and manage the session data and the application data.
 D. Use the EC2 instance store to manage the session data. Use an Amazon RDS for MySQL DB instance to store the application data.
 
-Correct Answer: B
+Suggested Answer: B
 
 ---
 
@@ -957,7 +957,7 @@ B. AWS CloudTrail
 C. Amazon CloudWatch
 D. Amazon DynamoDB
 
-Correct Answer: C
+Suggested Answer: C
 
 ---
 
@@ -972,7 +972,7 @@ C. Increase the memory that is allocated to the Lambda function.
 D. Decrease the number of shards of the Kinesis data stream.
 E. Increase the timeout of the Lambda function.
 
-Correct Answer: AC 
+Suggested Answer: AC 
 
 https://repost.aws/knowledge-center/lambda-iterator-age
 
@@ -991,7 +991,7 @@ B. Create a new CodePipeline stage that occurs after the container image is buil
 C. Create a new CodePipeline stage that occurs after source code has been retrieved from its repository. Run a security scanner on the latest revision of the source code. Fail the pipeline if there are findings.
 D. Add an action to the deployment stage of the pipeline so that the action occurs before the deployment to the EKS cluster. Configure ECR basic image scanning to scan on image push. Use an AWS Lambda function as the action provider. Configure the Lambda function to check the scan results and to fail the pipeline if there are findings.
 
-Correct Answer: B 不确定
+Suggested Answer: B 不确定
 
 ---
 
@@ -1007,7 +1007,7 @@ B. Add a second cache behavior to the distribution with the same origin as the d
 C. Add a second origin as a failover origin to the default cache behavior. Point the failover origin to the S3 bucket. Set the path pattern for the primary origin to *, and make viewer access restricted. Set the path pattern for the failover origin to the path of the login page, and make viewer access unrestricted.
 D. Add a bucket policy to the S3 bucket to allow read access. Set the resource on the policy to the Amazon Resource Name (ARN) of the login page object in the S3 bucket. Add a CloudFront function to the default cache behavior to redirect unauthorized requests to the login page's S3 URL.
 
-Correct Answer: A
+Suggested Answer: A
 
 Cache Behaviors是CloudFront的内容
 
@@ -1031,7 +1031,7 @@ B. Create unit tests in the application. Deploy the unit tests by using the ampl
 C. Add a test phase to the amplify.yml build settings for the application.
 D. Add a test phase to the aws-exports.js file for the application.
 
-Correct Answer: C
+Suggested Answer: C
 
 ---
 
@@ -1045,7 +1045,7 @@ B. Create and inspect the Lambda dead-letter queue. Troubleshoot the failed func
 C. Inspect the Lambda logs in Amazon CloudWatch for possible errors. Fix the errors.
 D. Make sure that caching is disabled for the POST API in API Gateway.
 
-Correct Answer: B
+Suggested Answer: B
 
 A不对是因为这是asynchronously的，所以前端永远202
 
@@ -1061,7 +1061,7 @@ B. Generate the reports and then store the reports in an Amazon S3 bucket that u
 C. Generate the reports and then store the reports in an Amazon S3 bucket that uses server-side encryption. Generate a presigned URL that contains an expiration date Provide the URL to customers through the web application. Add S3 Lifecycle configuration rules to the S3 bucket to delete old reports.
 D. Generate the reports and then store the reports in an Amazon RDS database with a date stamp. Generate an URL that retrieves the reports from the RDS database. Provide the URL to customers through the web application. Schedule an hourly AWS Lambda function to delete database records that have expired date stamps.
 
-Correct Answer: C
+Suggested Answer: C
 
 ---
 
@@ -1075,7 +1075,7 @@ B. Change the deployment policy to traffic splitting. Specify an evaluation time
 C. Change the deployment policy to rolling with additional batch. Specify a batch size of 1.
 D. Change the deployment policy to rolling. Specify a batch size of 2.
 
-Correct Answer: C
+Suggested Answer: C
 
 ---
 
@@ -1089,7 +1089,7 @@ B. Use the X-Ray auto-instrumentation agent.
 C. Use Amazon Macie to detect and hide PII. Call the X-Ray API from AWS Lambda.
 D. Use AWS Distro for Open Telemetry.
 
-Correct Answer: A
+Suggested Answer: A
 
 C is wrong, Amazon Macie discover PII but dont hide it
 
@@ -1114,7 +1114,7 @@ B. Configure an Amazon RDS database proxy for he Lambda functions.
 C. Configure a NAT gateway and a security group for the Lambda functions.
 D. Configure the VPC, subnets, and a security group for the Lambda functions.
 
-Correct Answer: D 
+Suggested Answer: D 
 
 Lambda in VPC
 • You must define the VPC ID, the Subnets and the Security Groups
@@ -2000,6 +2000,8 @@ D. Use Amazon Athena to run a job on the S3 buckets that contain the affected da
 
 Suggested Answer: B
 
+Amazon Macie 是一项数据安全服务，该服务使用机器学习和模式匹配来发现敏感数据，提供对数据安全风险的可见性，并实现针对这些风险的自动防护。
+
 ---
 
 Question #: 105
@@ -2606,6 +2608,8 @@ C. Perform a BatchGetitem operation on the songs table that uses the songName/ar
 D. Perform a Scan operation on each table that filters by the list of songName/artistName for the songs table and the list of artistName in the artists table.
 
 Suggested Answer: A 
+
+The correct answer is A. BatchGetItem can return one or multiple items from one or more tables. For reference check the link below
 
 ---
 
